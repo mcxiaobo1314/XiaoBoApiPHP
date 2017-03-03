@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<list>
+
+	<!--公用配置文件 start-->
+	<conf>
+		<name>XiaoBoPHP配置文件</name>
+		<version>0.0.1</version>
+		<path>/conf/conf.php</path>
+	</conf>
+	<!--公用配置文件 end-->
+
+	<!--这是加载模型的配置 start-->
+	<model>
+		<name>XiaoBoPHP模型API组件 beta</name>
+		<version>0.0.1</version>
+		<path>/model/Api.php</path>
+	</model>
+	<!--这是加载模型的配置 end-->
+
+
+	<!--这是加载视图的配置 start-->
+	<view>
+		<name>XiaoBoPHP视图API组件 beta</name>
+		<version>0.0.1</version>
+		<path>/view/Api.php</path>
+	</view>
+	<!--这是加载视图的配置 end-->
+
+	<!--这是加载控制器的配置 start-->
+	<controller>
+		<name>XiaoBoPHP控制器API组件 beta</name>
+		<version>0.0.1</version>
+		<path>/controller/Api.php</path>
+	</controller>
+	<!--这是加载控制器的配置 end-->
+
+	<!--这是加载路由的配置 start-->
+	<route>
+		<name>XiaoBoPHP路由API组件 beta</name>
+		<version>0.0.1</version>
+		<path>/route/Api.php</path>
+	</route>
+	<!--这是加载路由的配置 end-->
+
+	<!--自定义API组件加载 start-->
+	<custom>
+		<!--例子 start-->
+		<thinkphp>
+			<path>/thinkphp/Api.php</path>
+		</thinkphp>
+		<!--例子 end-->
+
+		<!-- <定义组件名字>
+			<path>/route/Api.php</path>
+		</定义组件名字> -->
+		
+	</custom>
+	<!--自定义API组件加载 end-->
+
+</list>
