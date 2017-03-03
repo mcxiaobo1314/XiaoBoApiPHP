@@ -7,7 +7,7 @@
 6.维护方便，可以扩展		
 *配置目录*		
 1. /lib/conf.php  配置默认访问路径和url访问参数			
-2. /lib/core/config.xml 配置加载核心模块和扩展模块	
+2. /lib/core/config.xml 配置加载核心模块和扩展模块			
 3. 建议配置虚拟目录建议配置到/app 这个目录下，会更安全			
 *控制器语法示例:*		
 1.$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
