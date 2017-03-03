@@ -12,6 +12,7 @@ class Controller  {
 	 */
 	public $view = '';
 
+
 	/**
 	 * 数据库类型
 	 * @author wave
@@ -32,13 +33,23 @@ class Controller  {
 	 */
 	public function __construct() {
 		$this->view = $this->View();
+	}
+
+	/**
+	 * 加载模型文件
+	 * @param string $modelFile 模型文件 不带Model.php
+	 * @return object
+	 * @author wave
+	 */
+	public function importModel($modelFile = ''){
 		$this->Config = $this->config();
 		if($this->Config->type){	
 			$this->dbType = $this->Config->type;
 		}
 		$this->ModelType($this->dbType);
+		LoadModel::import($modelFile.MOD_SUFFOIX,ModelApi::getModelPath());
+		return LoadModel::Load($modelFile);	
 	}
-
 
 
 	/**
@@ -71,22 +82,7 @@ class Controller  {
 	 * @author wave
 	 */
 	public function LoadModel($tableName = '',$conntion = array()) {
-		$arr = array($tableName);
-		if(!empty($conntion)) {
-			array_push($arr, $conntion);
-		}elseif($this->Config->host && $this->Config->dbname && $this->Config->username) {
-			array_push($arr,array(
-				'host' => $this->Config->host,
-				'dbname' => $this->Config->dbname,
-				'user' => $this->Config->username,
-				'pwd' => $this->Config->password,
-				'charset' => $this->Config->charset,
-				'type' => $this->Config->type,
-				'port' => $this->Config->port
-			));
-		}
-		
-		return LoadModel::load($this->dbType,$arr,'init');
+		return ModelApi::LoadModel($tableName,$conntion);
 	}
 
 
@@ -96,11 +92,7 @@ class Controller  {
 	 * @author wave
 	 */
 	private function config(){
-		static $config = null;
-		if(!$config && class_exists("Config")){
-			$config = new Config;
-		}
-		return $config;
+		return ModelApi::config();
 	}
 }
 

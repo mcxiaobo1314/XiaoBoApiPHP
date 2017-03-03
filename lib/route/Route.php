@@ -104,6 +104,8 @@ class Route {
 		return $controllerPath;
 	}
 
+
+
 	/**
 	 * 初始化类
 	 * @author wave

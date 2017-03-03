@@ -9,6 +9,12 @@ define('MODEL_TOKEN','xiaobo_php_model');
 class ModelApi {
 
 	/**
+	 * 数据库连接
+	 * @author wave
+	 */
+	static $Config;
+
+	/**
 	 * 初始化函数
 	 *@author wave
 	 */
@@ -16,6 +22,75 @@ class ModelApi {
 		require dirname(__FILE__).'/LoadModel.php';
 		LoadModel::import('/'.$type.'.php',dirname(__FILE__));
 	}
+
+
+
+	/**
+	 * 加载模型
+	 * @param String $tableName 表名
+	 * @param Array  $conntion 连接数据库
+	 * @return OBject
+	 * @author wave
+	 */
+	static function LoadModel($tableName = '',$conntion = array()) {
+		self::$Config = self::config();
+		$arr = array($tableName);
+		if(!empty($conntion)) {
+			array_push($arr, $conntion);
+		}elseif(self::$Config->host && self::$Config->dbname && self::$Config ->username) {
+			array_push($arr,array(
+				'host' => self::$Config->host,
+				'dbname' => self::$Config->dbname,
+				'user' => self::$Config->username,
+				'pwd' => self::$Config->password,
+				'charset' => self::$Config->charset,
+				'type' => self::$Config->type,
+				'port' => self::$Config->port
+			));
+		}
+		return LoadModel::load(self::$Config->type,$arr,'init');
+	}
+
+	/**
+	 * 获取模型路径
+	 * @return boolen or String
+	 * @author wave
+	 */
+	static function getModelPath() {
+		$path = self::getPath().APP_ROOT_PATH.ROUTE_DS.DEFAULT_PATH.ROUTE_DS.MODEL.ROUTE_DS;
+		return $path;
+	}
+
+
+
+	/**
+	 * 获取服务器相对路径目录
+	 * @return String 
+	 * @author wave
+	 */
+	static function getPath() {
+		$appPath = dirname(dirname(__FILE__));
+		$currPath = basename($appPath);
+		$searchArr = array('\\',$currPath);
+		$replaceArr = array(ROUTE_DS,'');
+		$appPath = str_replace($searchArr, $replaceArr, $appPath);
+		return $appPath;
+	}
+
+
+	/**
+	 * 加载数据库配置
+	 * @return OBject
+	 * @author wave
+	 */
+	static function config(){
+		static $config = null;
+		if(!$config && class_exists("Config")){
+			$config = new Config;
+		}
+		return $config;
+	}
+
 }
 
 /*

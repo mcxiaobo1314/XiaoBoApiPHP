@@ -13,8 +13,11 @@
 1.$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
 2.$wp_users ->find(); //查询wp_users表里的所有数据			
 3.数据库查询语法请查看/lib/Model/Api.php 里面的示例		
+4.$model = $this->importModel("模型文件名");//不带Model.php		
+5.$model->test(); //调用模型文件里面方法test		
 *模型*				
-目前还在开发中...		
+1.$table = self::LoadModel("数据库表名"); //加载表名		
+2.$table->find(); //查询语句 其余的写法跟控制器写法一致		
 *视图语法示例(写法跟smarty基本一致):*		
 1.<{$a}> //输出变量		
 2.<{include file="路径加文件"}> //引入文件		

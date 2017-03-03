@@ -49,6 +49,13 @@ if(!defined('CONTROLLER')) {
 if(!defined('CON_SUFFOIX')) {
 	define('CON_SUFFOIX','Controller.php'); //控制器的后缀名字
 }
+if(!defined('MODEL')) {	
+	define('MODEL','model'); //模型的目录
+}
+if(!defined('MOD_SUFFOIX')) {
+	define('MOD_SUFFOIX','Model.php'); //模型的后缀名字
+}
+
 if(!defined('ROUTE_DS')) {
 	define('ROUTE_DS','/'); 
 }
