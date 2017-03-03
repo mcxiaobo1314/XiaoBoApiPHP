@@ -4,8 +4,8 @@ class testController  extends Controller{
 
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
-		// $user = $this->LoadModel("wp_users");
-		// var_dump($user->find());
+		//$user = $this->LoadModel("wp_users");
+		//var_dump($user->find());
 		
 	}
 
