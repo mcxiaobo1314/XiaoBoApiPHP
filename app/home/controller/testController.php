@@ -2,11 +2,11 @@
 class testController  extends Controller{
 	public function aaa() {
 
-		//$this->view->assign('a','test');
-		//$this->view->display();
-	var_dump("1111");
-		// $b = LoadModel::load('Mysql',array(),'init');
-		// var_dump($b);
+		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
+		$this->view->display();
+		// $user = $this->LoadModel("wp_users");
+		// var_dump($user->find());
+		
 	}
 
 	public function sss($a,$b) {

@@ -74,6 +74,7 @@ class DbConnect {
 		$this->user = $user;
 		$this->pwd = $pwd;
 		$this->charset = $charset;
+
 		if(class_exists('PDO') && ($type == 'mysql' ||  $type == 'oci') ) {
 			$this->db = $this->cachePdo();
 		}

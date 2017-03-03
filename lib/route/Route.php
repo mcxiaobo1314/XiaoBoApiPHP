@@ -55,7 +55,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function expUrlParamArr($dataStr = '' , $exp = ROUTE_DS) {
-		$dataStr = str_replace('//', $exp , $dataStr);
+		$dataStr = str_replace(array('//',"index.php"), array($exp,"") , $dataStr);
 		$getUrlParamArr = explode($exp, $dataStr);
 		$getUrlParamArr = $this->filterArr($getUrlParamArr);
 		return !empty($getUrlParamArr) ? $getUrlParamArr : false;
@@ -95,7 +95,7 @@ class Route {
 				CONTROLLER . ROUTE_DS . 
 				$defaultFile . 
 				CON_SUFFOIX;
-
+		$controllerPath = str_replace('index.php', '', $controllerPath);
 		//判断是否是控制器文件
 		if( !file_exists($controllerPath)) {
 			return false;
