@@ -11,6 +11,7 @@ if(!defined('MODEL_TOKEN')) {
 
 LoadModel::import('/Dao.php',dirname(__FILE__));
 LoadModel::import('/DbConnect.php',dirname(__FILE__));
+//var_dump(class_exists("XiaoBoException"));
 
 class Mysql extends Dao {
 	
@@ -348,7 +349,8 @@ class Mysql extends Dao {
 			return $this;
 		}
 		if( !in_array($args[0], array('left','right','inner') ) ){
-			die();
+			throw new XiaoBoException("语法不正确");
+			
 		}
 		$this->showTableFileds($args[1]);
 		$this->joinFields .=  $this->getFields($args[1]).',';
@@ -403,12 +405,18 @@ class Mysql extends Dao {
 		if(empty($args)) {
 			return false;
 		}
-		if(strpos($args, 'select') !== false || strpos($args, 'show') !== false) {
-			$result = $this->db->query($args);
-			$result->setFetchMode(PDO::FETCH_ASSOC);
-			return $result->fetchAll();
+		try{
+			if(strpos($args, 'select') !== false || strpos($args, 'show') !== false) {
+				$result = $this->db->query($args);
+				$result->setFetchMode(PDO::FETCH_ASSOC);
+				return $result->fetchAll();
+			}else {
+				return $this->db->exec($args);
+			}
+		}catch(PDOException $e){
+			throw new XiaoBoException("语法错误:".$e->getMessage());
 		}
-		return $this->db->exec($args);
+		
 	}
 
 	/**
@@ -423,6 +431,17 @@ class Mysql extends Dao {
 			}
 		}
 	}
+
+	/**
+	 * 预处理语句
+	 * @param string $sql 语句
+	 * @return object
+	 * @author wave
+	 */
+	public function prepare($sql){
+		return $this->db->prepare($sql);
+	}
+
 
 	/**
 	 * 获取表的字段
@@ -444,6 +463,7 @@ class Mysql extends Dao {
 		}
 		return rtrim($fields,',');
 	}
+
 
 	/**
 	 * 毁掉变量值
@@ -476,7 +496,6 @@ class Mysql extends Dao {
 		if(!empty($name)  &&  empty(self::$TableFieldStruct[$name])){
 			self::$TableFieldStruct[$name] = $this->query('show columns from '. $name);
 		}
-		//var_dump(self::$TableFieldStruct[$name]);
 	}
 
 	/**

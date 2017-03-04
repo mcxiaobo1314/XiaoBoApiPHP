@@ -1,0 +1,70 @@
+server time:[1488642836]-url Pamas:[test/aaa]-message:E_ERROR:Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php:101
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(101): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(79): DbConnect->cachePdo()
+#2 [internal function]: DbConnect->init('127.0.0.1', 'wordpress', 'root', '', 'utf8', 'mysql', '3306')
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(538): LoadModel::load('DbConnect', Array, 'init')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(147): Mysql->connect()
+#6 [internal function]: Mysql->init('wp_users', Array)
+#7 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#8 /Library/WebServer/Documents/XiaoBoPHP/lib/model/Api.php(
+server time:[1488642903]-url Pamas:[test/aaa]-message:E_ERROR:Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php:101
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(101): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(79): DbConnect->cachePdo()
+#2 [internal function]: DbConnect->init('127.0.0.1', 'wordpress', 'root', '', 'utf8', 'mysql', '3306')
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(538): LoadModel::load('DbConnect', Array, 'init')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(147): Mysql->connect()
+#6 [internal function]: Mysql->init('wp_users', Array)
+#7 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#8 /Library/WebServer/Documents/XiaoBoPHP/lib/model/Api.php(
+server time:[1488643011]-url Pamas:[test/aaa]-message:E_ERROR:Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php:101
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(101): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(79): DbConnect->cachePdo()
+#2 [internal function]: DbConnect->init('127.0.0.1', 'wordpress', 'root', '', 'utf8', 'mysql', '3306')
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(538): LoadModel::load('DbConnect', Array, 'init')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(147): Mysql->connect()
+#6 [internal function]: Mysql->init('wp_users', Array)
+#7 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#8 /Library/WebServer/Documents/XiaoBoPHP/lib/model/Api.php(
+server time:[1488643200]-url Pamas:[test/aaa]-message:E_ERROR:Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php:99
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(99): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(79): DbConnect->cachePdo()
+#2 [internal function]: DbConnect->init('127.0.0.1', 'wordpress', 'root', '', 'utf8', 'mysql', '3306')
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(539): LoadModel::load('DbConnect', Array, 'init')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(147): Mysql->connect()
+#6 [internal function]: Mysql->init('wp_users', Array)
+#7 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#8 /Library/WebServer/Documents/XiaoBoPHP/lib/model/Api.php(51
+server time:[1488643212]-url Pamas:[test/aaa]-message:E_ERROR:Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php:99
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(99): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(79): DbConnect->cachePdo()
+#2 [internal function]: DbConnect->init('127.0.0.1', 'wordpress', 'root', '', 'utf8', 'mysql', '3306')
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(539): LoadModel::load('DbConnect', Array, 'init')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(147): Mysql->connect()
+#6 [internal function]: Mysql->init('wp_users', Array)
+#7 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#8 /Library/WebServer/Documents/XiaoBoPHP/lib/model/Api.php(51
+server time:[1488643214]-url Pamas:[test/aaa]-message:E_ERROR:Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php:99
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(99): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/model/DbConnect.php(79): DbConnect->cachePdo()
+#2 [internal function]: DbConnect->init('127.0.0.1', 'wordpress', 'root', '', 'utf8', 'mysql', '3306')
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(539): LoadModel::load('DbConnect', Array, 'init')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/model/mysql.php(147): Mysql->connect()
+#6 [internal function]: Mysql->init('wp_users', Array)
+#7 /Library/WebServer/Documents/XiaoBoPHP/lib/model/LoadModel.php(32): call_user_func_array(Array, Array)
+#8 /Library/WebServer/Documents/XiaoBoPHP/lib/model/Api.php(51
+server time:[1488643349]-url Pamas:[test/aaa]-message:Cannot use try without catch or finally
+server time:[1488643351]-url Pamas:[test/aaa]-message:Cannot use try without catch or finally
+server time:[1488643414]-url Pamas:[test/aaa]-message:E_ERROR:Call to undefined method PDOException::message()
+server time:[1488643425]-url Pamas:[test/aaa]-message:E_ERROR:Call to undefined method PDOException::message()

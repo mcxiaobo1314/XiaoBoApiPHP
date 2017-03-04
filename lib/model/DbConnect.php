@@ -86,8 +86,7 @@ class DbConnect {
 	 * @author wave
 	 */
 	protected function cachePdo() {
-		static $pdo = '';
-		if(empty($pdo)) {
+		try{
 			$pdo = new PDO(
 				$this->type . 
 				':host=' . $this->host . 
@@ -99,15 +98,13 @@ class DbConnect {
 			    	PDO::ATTR_PERSISTENT => true
 				)
 			);
+		}catch(PDOException $e){
+			throw new XiaoBoException('数据库连接失败:'.$e->getMessage());
+		}
+	
 
-			if(!is_object($pdo)) {
-				throw new XiaoBoException('数据库连接失败');
-			}
-
-			$pdo->query('set names '.$this->charset.';'); 
-			$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
-		}	
-
+		$pdo->query('set names '.$this->charset.';'); 
+		$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
 		return $pdo;
 	}
 
