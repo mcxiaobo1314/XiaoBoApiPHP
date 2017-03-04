@@ -113,7 +113,7 @@ class XmlParse {
 	 */
 	protected function getPath() {
 		$currPath = basename(dirname(__FILE__)); //获取当前文件名
-		$searchArr = array('\\',$currPath,);
+		$searchArr = array('\\',$currPath);
 		$replaceArr = array('/','');
 		$path = str_replace($searchArr, $replaceArr, dirname(__FILE__));
 		return $path;
