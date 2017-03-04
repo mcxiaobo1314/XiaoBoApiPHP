@@ -53,14 +53,16 @@ class XiaoBoException extends Exception {
 		header("Content-Type:text/html;charset=utf-8");
 		$html = "<div style='padding:0px;margin:0px; width:80% height:80%; margin:0 auto;margin-top:10%; background:#DDDDDD;'>";
 		$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您错误信息:【{$messages}】</h2></dd>";
-		$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>文件路径:{$trace['file']}</dt>";
-		$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>第:{$trace['line']}行</dt>";
-		$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>类名:{$trace['class']}</dt>";
-		$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>方法名:{$trace['function']}</dt>";
-		$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>错误代码区:</dt>";
-		$html .= "<dt style='text-indent:60px; width:10% height:30px; line-height:30px; background:#888888;'>
-			".$this->showErrorPhp($trace['file'],$trace['line'])."
-			</dt>";
+		if(DEBUG){
+			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>文件路径:{$trace['file']}</dt>";
+			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>第:{$trace['line']}行</dt>";
+			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>类名:{$trace['class']}</dt>";
+			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>方法名:{$trace['function']}</dt>";
+			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>错误代码区:</dt>";
+			$html .= "<dt style='text-indent:60px; width:10% height:30px; line-height:30px; background:#888888;'>
+				".$this->showErrorPhp($trace['file'],$trace['line'])."
+				</dt>";
+		}
 		$html .= "<dt style='text-align:right; width:100% height:30px; line-height:30px;'>QQ群：114252528</dt>";
 		$html .= "<dt style='text-align:right; width:100% height:30px; line-height:30px;'><a href='https://www.github.com/mcxiaobo1314' style='color:black;'>github</a> | <a style='color:black;' href='http://xbphp.nmfox.com'>官网</a></dt>";
 		$html.= "</div>";
