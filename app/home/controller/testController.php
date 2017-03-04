@@ -6,8 +6,8 @@ class testController  extends Controller{
 		$this->view->display();
 		//$a = $this->LoadModel('wp_users');
 		// var_dump($a->find());
-		// $a = $this->importModel("WpUsers");
-		// var_dump($a->test());
+		//$a = $this->importModel("WpUsers",array("aa"=>11),"inits");
+		//var_dump($a->test());
 	}
 
 	public function sss($a,$b) {
