@@ -37,7 +37,7 @@ class ModelApi {
 		$arr = array($tableName);
 		if(!empty($conntion)) {
 			array_push($arr, $conntion);
-		}elseif(self::$Config->host && self::$Config->dbname && self::$Config ->username) {
+		}elseif(self::$Config->host && self::$Config->dbname && self::$Config->username) {
 			array_push($arr,array(
 				'host' => self::$Config->host,
 				'dbname' => self::$Config->dbname,
@@ -57,7 +57,8 @@ class ModelApi {
 	 * @author wave
 	 */
 	static function getModelPath() {
-		$path = self::getPath().APP_ROOT_PATH.ROUTE_DS.DEFAULT_PATH.ROUTE_DS.MODEL.ROUTE_DS;
+		$defaultPath = isset($_GET[G]) ? $_GET[G] : DEFAULT_PATH;
+		$path = self::getPath().APP_ROOT_PATH.ROUTE_DS.$defaultPath.ROUTE_DS.MODEL.ROUTE_DS;
 		return $path;
 	}
 

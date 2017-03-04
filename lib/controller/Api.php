@@ -33,22 +33,24 @@ class Controller  {
 	 */
 	public function __construct() {
 		$this->view = $this->View();
-	}
-
-	/**
-	 * 加载模型文件
-	 * @param string $modelFile 模型文件 不带Model.php
-	 * @return object
-	 * @author wave
-	 */
-	public function importModel($modelFile = ''){
 		$this->Config = $this->config();
 		if($this->Config->type){	
 			$this->dbType = $this->Config->type;
 		}
 		$this->ModelType($this->dbType);
+	}
+
+	/**
+	 * 加载模型文件
+	 * @param string $modelFile 模型文件 不带Model.php
+	 * @param array $params 参数
+	 * @param string $func 方法名
+	 * @return object
+	 * @author wave
+	 */
+	public function importModel($modelFile = '',$params=array(),$func=''){
 		LoadModel::import($modelFile.MOD_SUFFOIX,ModelApi::getModelPath());
-		return LoadModel::Load($modelFile);	
+		return LoadModel::Load($modelFile,$params,$func);	
 	}
 
 
