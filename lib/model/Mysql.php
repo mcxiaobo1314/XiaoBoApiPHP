@@ -502,7 +502,7 @@ class Mysql extends Dao {
 		}
 
 		if($type === 'value') {
-			$arr = array_keys($dataArr);
+			$arr = array_values($dataArr);
 		}
 
 		$resultArr = array_intersect($diffArr,$arr);
