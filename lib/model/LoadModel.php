@@ -29,7 +29,7 @@ class LoadModel {
 			$objArr[$dao] = new $dao;
 		}
 		if(method_exists($objArr[$dao], $func)){
-			call_user_func_array(array($objArr[$dao],$func),$params);
+			 call_user_func_array(array($objArr[$dao],$func),$params);
 		}
 		return $objArr[$dao];
 	}

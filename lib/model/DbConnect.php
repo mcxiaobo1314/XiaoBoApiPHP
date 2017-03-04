@@ -99,6 +99,7 @@ class DbConnect {
 			    	PDO::ATTR_PERSISTENT => true
 				)
 			);
+
 			if(!is_object($pdo)) {
 				throw new XiaoBoException('数据库连接失败');
 			}
