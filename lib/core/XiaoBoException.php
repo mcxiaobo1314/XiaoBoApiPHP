@@ -18,18 +18,24 @@ class XiaoBoException extends Exception {
 	 */
 	public $getTrace = array();
 
+	protected static  $errNum = 0;
+
 	/**
 	 * 构造函数
 	 * @param String $message 异常消息
-	 * @param int  $code 异常代码行数
+	 * @param arry  $trace 异常信息数组
 	 * @author wave
 	 */
-	public function __construct($message) {
-		ini_set('display_errors','Off');
-		error_reporting(0);
-		$this->message = $message;
+	public function __construct($message = '',$trace = array()) {
+		//ini_set('display_errors','Off');
+		if(!empty($message)){
+			$this->message = $message;
+		}
+		++self::$errNum;
 		parent::__construct($this->message);
-		$this->getTrace = $this->getTrace();
+			
+		
+		$this->getTrace = !empty($trace) ? array($trace) : $this->getTrace();
 	}
  
  	/**
@@ -37,7 +43,7 @@ class XiaoBoException extends Exception {
  	 * @author wave
  	 */
 	public function __toString() {
- 		if(isset($this->getTrace[0])){
+ 		if(isset($this->getTrace[0]) && self::$errNum === 1){
  			$this->errorHtml($this->getTrace[0],$this->message);
  		}
 	}
@@ -56,8 +62,8 @@ class XiaoBoException extends Exception {
 		if(DEBUG){
 			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>文件路径:{$trace['file']}</dt>";
 			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>第:{$trace['line']}行</dt>";
-			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>类名:{$trace['class']}</dt>";
-			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>方法名:{$trace['function']}</dt>";
+			isset($trace['class']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>类名:{$trace['class']}</dt>";
+			isset($trace['function']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>方法名:{$trace['function']}</dt>";
 			$html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>错误代码区:</dt>";
 			$html .= "<dt style='text-indent:60px; width:10% height:30px; line-height:30px; background:#888888;'>
 				".$this->showErrorPhp($trace['file'],$trace['line'])."
@@ -81,11 +87,11 @@ class XiaoBoException extends Exception {
 		$connArr = explode("\r\n", $conntents);
 		$sum = count($connArr);
 		$data = "";
-		if($line - 5 < 0){
+		if($line - 8 < 0){
 			$start = 0;
 		}
-		if($line - 5 >= 0){
-			$start = $line - 5;
+		if($line - 8 >= 0){
+			$start = $line - 8;
 		}
 		if( $line + 5 <= $sum ){
 			$end = $line +5;
@@ -98,7 +104,6 @@ class XiaoBoException extends Exception {
 		}
 		return $data;
 	}
-
 
 
 
