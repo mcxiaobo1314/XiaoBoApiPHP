@@ -8,6 +8,12 @@
 class Error {
 
 	/**
+	 * 获取url参数
+	 * @author wave
+	 */
+	public static $urlPamas = array();
+
+	/**
 	 *  错误级别
 	 * @author wave
 	 */
@@ -27,9 +33,11 @@ class Error {
 
 	/**
 	 * 初始化错误类
+	 * @param  array $urlPamas url参数
 	 * @author wave
 	 */
-	public static function init(){
+	public static function init($urlPamas = array()){
+		self::$urlPamas = !empty($urlPamas) ? implode("/", $urlPamas) : array();
 		ini_set('display_errors','Off');
 		register_shutdown_function("Error::echoErr");
 	}
@@ -44,7 +52,24 @@ class Error {
 		if(!empty($errArr)){
 			if(isset(self::$level[$errArr['type']]))
 				$errArr['message'] =  self::$level[$errArr['type']].":".$errArr['message'];
+			self::log($errArr['message']);
 			throw new XiaoBoException($errArr['message'],$errArr);
 		}
 	}
+
+	/**
+	 * 写入错误日志
+	 * @param string $message 错误消息
+	 * @param string $file 文件名称
+	 * @return bool
+	 * @author wave
+	 */
+	public static function log($message = "",$file = "error.log"){
+		$serverTime = $_SERVER["REQUEST_TIME"];
+		$path = getcwd().ROUTE_DS.$file;
+		$error = "server time:[".$serverTime ."]-url Pamas:[".self::$urlPamas."]-message:".$message;
+		return file_put_contents($path,$error."\r\n",FILE_APPEND);
+	}
+
+
 }

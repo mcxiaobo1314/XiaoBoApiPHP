@@ -33,7 +33,7 @@ class XiaoBoException extends Exception {
 		}
 		++self::$errNum;
 		parent::__construct($this->message);
-			
+
 		
 		$this->getTrace = !empty($trace) ? array($trace) : $this->getTrace();
 	}
@@ -56,7 +56,6 @@ class XiaoBoException extends Exception {
 	 * @author wave
 	 */
 	private function errorHtml($trace , $messages = ""){
-		header("Content-Type:text/html;charset=utf-8");
 		$html = "<div style='padding:0px;margin:0px; width:80% height:80%; margin:0 auto;margin-top:10%; background:#DDDDDD;'>";
 		$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您错误信息:【{$messages}】</h2></dd>";
 		if(DEBUG){

@@ -48,6 +48,7 @@ class Route {
 		if(count($this->getUrlParamArr) == 1) {
 			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().DEFAULT_ROUTE);
 		}
+		Error::init($this->getUrlParamArr);
 		$this->init();
 	}
 

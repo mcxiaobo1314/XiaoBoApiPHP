@@ -6,7 +6,6 @@
  */
 
 header("X-Powered-By:XiaoBoPHP");
-header("Server:Nginx/1.0 (win 2003) PHP/4.01");
 
 define('LIB_PATH','lib'); //核心目录文件名
 
@@ -21,8 +20,6 @@ AutoLoads::init();
 
 //初始化自由组装组件
 $XmlParse = new XmlParse();
-
-Error::init();
 
 //加载自定义模块 如:array('thinkphp','yii')
 $XmlParse ->loadCustom(array('thinkphp'));

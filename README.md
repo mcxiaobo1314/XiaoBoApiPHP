@@ -10,6 +10,7 @@
 1. /lib/conf.php  配置默认访问路径和url访问参数			
 2. /lib/core/config.xml 配置加载核心模块和扩展模块			
 3. 建议配置虚拟目录建议配置到/app 这个目录下，会更安全			
+4. 自行在app目录下载创建error.log文件并给予0777权限,否则错误日志无法写入		
 *控制器语法示例:*		
 1.$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
 2.$wp_users ->find(); //查询wp_users表里的所有数据			
