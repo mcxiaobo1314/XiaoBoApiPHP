@@ -12,7 +12,7 @@ if(!defined('MODEL_TOKEN')) {
 class LoadModel {
 
 	/**
-	 * 选择数据库类型加载
+	 * 选择模型加载
 	 * @param String $dao  数据库类型
 	 * @param Array $params 参数
 	 * @param String $func 回调方法
@@ -23,7 +23,7 @@ class LoadModel {
 		static $objArr = array();
 		$dao = ucfirst($dao);
 		if(!class_exists($dao)) {
-			return false;
+			throw new XiaoBoException("加载模型类名:".$dao."不存在");
 		}
 		if(empty($objArr[$dao])) {
 			$objArr[$dao] = new $dao;
