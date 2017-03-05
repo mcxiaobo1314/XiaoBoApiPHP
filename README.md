@@ -32,19 +32,20 @@ $wp_users->where('`id`=51')
  	->group('id')		
  	->order('id','desc')		
  	->having('id=51')		
- 	->first();//查询单行数据		
+ 	->first();//查询单行数据			
 ```		
-->数据库查询语法请查看/lib/Model/Api.php 里面的示例	
+->mysql数据库语法请查看/lib/Model/Api.php 里面的示例		
+*加载模型语法:*			
 ```PHP	
-$model = $this->importModel("WpUsers");//不带Model.php		
+$model = $this->importModel("WpUsers");//不带Model.php 第二参数初始化参数是数组，第三个参数默认初始化方法名				
 $model->test(); //调用模型文件里面方法test		
 ```		
-*模型语法*				
+*模型语法:*				
 ```PHP
 $table = self::LoadModel("wp_users"); //加载表名		
 $table->find(); //查询语句 其余的写法跟控制器写法一致	
 ```			
-*视图语法示例(写法跟smarty基本一致):*		
+*带视图系统自带模版引擎语法示例:*		
 1.普通变量:<{$a}>  数组变量:<{$a.test}> //输出变量		
 2.<{include file="路径加文件"}> //引入文件		
 3.<{foreach item=$arr key=$k val=$v}><{$k}>---<{$v}><{/foreach}> //便利数据		
