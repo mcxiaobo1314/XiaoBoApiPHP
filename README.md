@@ -13,18 +13,18 @@
 4. 自行在app目录下创建error.log文件并给予0777权限,否则错误日志无法写入		
 *控制器语法示例:*		
 ```PHP
-1.$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
-2.$wp_users ->find(); //查询wp_users表里的所有数据			
+$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
+$wp_users ->find(); //查询wp_users表里的所有数据			
 ```		
-3.数据库查询语法请查看/lib/Model/Api.php 里面的示例	
+>>数据库查询语法请查看/lib/Model/Api.php 里面的示例	
 ```PHP	
-4.$model = $this->importModel("WpUsers");//不带Model.php		
-5.$model->test(); //调用模型文件里面方法test		
+$model = $this->importModel("WpUsers");//不带Model.php		
+$model->test(); //调用模型文件里面方法test		
 ```		
 *模型*				
 ```PHP
-1.$table = self::LoadModel("wp_users"); //加载表名		
-2.$table->find(); //查询语句 其余的写法跟控制器写法一致	
+$table = self::LoadModel("wp_users"); //加载表名		
+$table->find(); //查询语句 其余的写法跟控制器写法一致	
 ```			
 *视图语法示例(写法跟smarty基本一致):*		
 1.普通变量:<{$a}>  数组变量:<{$a.test}> //输出变量		
