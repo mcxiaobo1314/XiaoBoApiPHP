@@ -18,8 +18,10 @@
 4.$model = $this->importModel("WpUsers");//不带Model.php		
 5.$model->test(); //调用模型文件里面方法test		
 *模型*				
+```PHP
 1.$table = self::LoadModel("wp_users"); //加载表名		
-2.$table->find(); //查询语句 其余的写法跟控制器写法一致		
+2.$table->find(); //查询语句 其余的写法跟控制器写法一致	
+```			
 *视图语法示例(写法跟smarty基本一致):*		
 1.普通变量:<{$a}>  数组变量:<{$a.test}> //输出变量		
 2.<{include file="路径加文件"}> //引入文件		
