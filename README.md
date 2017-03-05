@@ -14,14 +14,32 @@
 *控制器语法示例:*		
 ```PHP
 $wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
-$wp_users ->find(); //查询wp_users表里的所有数据			
+$wp_users ->find(); //查询wp_users表里的所有数据		
+$wp_users->db->query('select * from wp_users'); //执行原生sql语句写法		
+$wp_users->where('`id`=51')			
+ 	->join('left','xb_user','a=1 or b=2')		
+ 	->join('right','config','a=3 or b=2')		
+ 	->limit(1)		
+ 	->group('id')		
+ 	->order('id','desc')		
+ 	->having('id=51')		
+ 	->count();//查询行数		
+ var_dump($a->firstSql); //打印当前sql语句		
+ $wp_users->where('`id`=51')		
+ 	->fields('id')		
+ 	->join('left','xb_user','a=1 or b=2')		
+ 	->join('right','config','a=3 or b=2')		
+ 	->group('id')		
+ 	->order('id','desc')		
+ 	->having('id=51')		
+ 	->first();//查询单行数据		
 ```		
 ->数据库查询语法请查看/lib/Model/Api.php 里面的示例	
 ```PHP	
 $model = $this->importModel("WpUsers");//不带Model.php		
 $model->test(); //调用模型文件里面方法test		
 ```		
-*模型*				
+*模型语法*				
 ```PHP
 $table = self::LoadModel("wp_users"); //加载表名		
 $table->find(); //查询语句 其余的写法跟控制器写法一致	
