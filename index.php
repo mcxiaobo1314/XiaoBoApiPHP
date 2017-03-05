@@ -12,9 +12,6 @@ define('LIB_PATH','lib'); //核心目录文件名
 //自动加载类,只有调用类的时候才会加载
 require  str_replace('\\', '/', dirname(__FILE__)).'/'.LIB_PATH.'/core/AutoLoad.php';
 
-//XML解析类,方便使用自定义组件
-require str_replace('\\', '/', dirname(__FILE__)) .'/'.LIB_PATH.'/core/Xml.php';
-
 //初始化自动加载类
 AutoLoads::init();
 
@@ -26,7 +23,6 @@ $XmlParse ->loadCustom(array('thinkphp'));
 
 //重新选择加载组件 
 //$XmlParse->compName = array();
-
 
 
 //初始化XML解析器

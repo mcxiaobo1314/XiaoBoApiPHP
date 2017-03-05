@@ -33,6 +33,7 @@ class AutoLoads {
 	 * @author wave
 	 */
 	public static function strposAutoload($class_name,$path,$extension = '.php') {
+		$class_name = ($class_name == "XmlParse") ? "Xml" : $class_name;
 		if(file_exists($path.$class_name.'.php')) {
 			require $path.$class_name.$extension;
 		}
