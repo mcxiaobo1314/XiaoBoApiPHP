@@ -12,11 +12,15 @@
 3. 建议配置虚拟目录建议配置到/app 这个目录下，会更安全			
 4. 自行在app目录下创建error.log文件并给予0777权限,否则错误日志无法写入		
 *控制器语法示例:*		
+```PHP
 1.$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
 2.$wp_users ->find(); //查询wp_users表里的所有数据			
-3.数据库查询语法请查看/lib/Model/Api.php 里面的示例		
+```		
+3.数据库查询语法请查看/lib/Model/Api.php 里面的示例	
+```PHP	
 4.$model = $this->importModel("WpUsers");//不带Model.php		
 5.$model->test(); //调用模型文件里面方法test		
+```		
 *模型*				
 ```PHP
 1.$table = self::LoadModel("wp_users"); //加载表名		
