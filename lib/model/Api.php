@@ -34,10 +34,14 @@ class ModelApi {
 	 */
 	static function LoadModel($tableName = '',$conntion = array()) {
 		self::$Config = self::config();
-		$arr = array($tableName);
+		$arr = array();
+		if(!empty($tableName)){
+			$arr = array($tableName);
+		}
 		if(!empty($conntion)) {
 			array_push($arr, $conntion);
-		}elseif(self::$Config->host && self::$Config->dbname && self::$Config->username) {
+		}
+		if(self::$Config->host && self::$Config->dbname && self::$Config->username) {
 			array_push($arr,array(
 				'host' => self::$Config->host,
 				'dbname' => self::$Config->dbname,

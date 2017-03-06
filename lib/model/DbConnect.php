@@ -74,7 +74,6 @@ class DbConnect {
 		$this->user = $user;
 		$this->pwd = $pwd;
 		$this->charset = $charset;
-
 		if(class_exists('PDO') && ($type == 'mysql' ||  $type == 'oci') ) {
 			$this->db = $this->cachePdo();
 		}
@@ -98,13 +97,13 @@ class DbConnect {
 			    	PDO::ATTR_PERSISTENT => true
 				)
 			);
+			$pdo->query('set names '.$this->charset.';'); 
+			$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
 		}catch(PDOException $e){
 			throw new XiaoBoException('数据库连接失败:'.$e->getMessage());
 		}
-	
 
-		$pdo->query('set names '.$this->charset.';'); 
-		$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
+		
 		return $pdo;
 	}
 
