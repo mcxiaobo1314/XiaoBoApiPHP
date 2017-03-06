@@ -12,7 +12,7 @@
  */
 
 class Config{
-	//连接数据库类型
+	//连接数据库类型  目前支持mysql,sqlite3数据库加载 其他需要自己封装
 	public $type = "mysql"; 
 
 	//数据库地址
@@ -33,11 +33,13 @@ class Config{
 	//数据库端口
 	public $port = "3306";
 
-
 }
 
 
 define("DEBUG", true); //true开启debug false关闭debug
+
+
+define("SQLITE3","test.db"); //sqlite3数据库
 
 if(!defined('APP_ROOT_PATH')) {
 	define('APP_ROOT_PATH', 'app'); //代码防止的目录
