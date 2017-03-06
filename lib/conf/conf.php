@@ -13,7 +13,7 @@
 
 class Config{
 	//连接数据库类型
-	public $type = "mysql"; 
+	public $type = "Sqlite"; 
 
 	//数据库地址
 	public $host = "127.0.0.1";
@@ -32,6 +32,9 @@ class Config{
 
 	//数据库端口
 	public $port = "3306";
+
+	//Sqlite数据库名字
+	public $sqlitedb = "app/test.db";
 }
 
 
