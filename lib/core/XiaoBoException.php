@@ -82,20 +82,20 @@ class XiaoBoException extends Exception {
 	 * @author wave
 	 */
 	private function showErrorPhp($file,$line){
-		$conntents = file_get_contents($file);
-		$connArr = explode("\r\n", $conntents);
+		$connArr = $this->read($file);
 		$sum = count($connArr);
 		$data = "";
 		if($line - 8 < 0){
 			$start = 0;
 		}
+		;
 		if($line - 8 >= 0){
 			$start = $line - 8;
 		}
-		if( $line + 5 <= $sum ){
+		if( $sum - ($line +5) >= 0 ){
 			$end = $line +5;
 		}
-		if($line+5 > $sum){
+		if($sum - ($line +5) < 0){
 			$end = $line + ($sum - $line);
 		}
 		for($i = $start; $i<=$end; $i++){
@@ -104,6 +104,26 @@ class XiaoBoException extends Exception {
 		return $data;
 	}
 
+
+	/**
+	 * 读取数据数据
+	 * @param String $path 文件路径
+	 * @param Sring $m 打开模式
+	 * @param int $size 读取的数据字节
+	 * @return Array
+	 * @author wave
+	 */
+	private function read($path,$m ='r',$size=1024) {
+		$valArr = array();
+		if(file_exists($path)) {
+			$fp = fopen($path,$m);
+			while(!feof($fp)) {
+				$valArr[] = fgets($fp);
+			}
+			fclose($fp);
+			return $valArr;
+		}
+	}
 
 
 }
