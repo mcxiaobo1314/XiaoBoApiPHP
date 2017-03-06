@@ -13,7 +13,7 @@ if(!defined('MODEL_TOKEN')) {
 
 class Sqlite extends Sqlite3{
 
-	public $sqldb = 'test.db';
+	public $sqldb = SQLITE3;
 
 	public function __construct(){
 		$this->open($this->getPath().$this->sqldb);
