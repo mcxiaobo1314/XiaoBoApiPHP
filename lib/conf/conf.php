@@ -62,7 +62,7 @@ if(!defined('ROUTE_DS')) {
 	define('ROUTE_DS','/'); 
 }
 if(!defined('DEFAULT_ROUTE')) {
-	define('DEFAULT_ROUTE','&g=home&c=test&a=aaa'); //默认访问,写法:控制器/方法名/参数,建议成:&m=test&a=aaa
+	define('DEFAULT_ROUTE','/test/ccc'); //默认访问,写法:控制器/方法名
 }
 if(!defined('C')) {
 	define('C','c'); //控制器

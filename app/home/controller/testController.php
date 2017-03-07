@@ -16,6 +16,7 @@ class testController  extends Controller{
 		echo 'ssss'.$a;
 		var_dump($b);
 	}
+
 }
 
 ?>

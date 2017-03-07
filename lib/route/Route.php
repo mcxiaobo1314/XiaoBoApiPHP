@@ -46,7 +46,7 @@ class Route {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
 		if(count($this->getUrlParamArr) == 1) {
-			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().DEFAULT_ROUTE);
+			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().$this->getDefualtUrl());
 		}
 		Error::init($this->getUrlParamArr);
 		$this->init();
@@ -167,12 +167,12 @@ class Route {
 	 */
 	protected function getDefualtUrl(){
 		$url = DEFAULT_ROUTE;
-		if(strpos($url,'&') !== false){
-			parse_str($url,$urlArr);
+		if(empty($_GET)){
+			$urlArr = array_values(array_filter(explode('/', $url)));
+			$_GET[C] = $urlArr[0];
+			$_GET[A] = $urlArr[1];
 		}
-		if( (empty($_GET[C]) || empty($_GET[A])) && !empty($urlArr) ){
-			$_GET = array_merge($_GET,$urlArr);
-		}
+		
 		return $url;
 	}
 
@@ -184,7 +184,7 @@ class Route {
 	 * @author wave
 	 */
 	protected  function getUrlParam() {
-		$url = $this->getDefualtUrl();
+		//$url = $this->getDefualtUrl();
 		$getParam = $this->ReturnGetParam();
 
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
@@ -201,7 +201,6 @@ class Route {
 		if($url ==  strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS) ) {
 			$url = $this->getDefualtUrl();
 		}
-		
 		return $url;
 	}
 
