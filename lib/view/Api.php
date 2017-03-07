@@ -14,8 +14,7 @@ class ViewApi {
  	 */
  	static public function init() {
  		require dirname(__FILE__).'/'.'View.php';
- 		require dirname(__FILE__).'/'.'ViewRoute.php';
- 		self::$view =  new View(new ViewRoute());
+ 		self::$view =  new View();
  	}
 
 }
