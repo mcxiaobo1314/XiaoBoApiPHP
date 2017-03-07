@@ -39,8 +39,6 @@ class Config{
 define("DEBUG", true); //true开启debug false关闭debug
 
 
-define("SQLITE3","test.db"); //sqlite3数据库
-
 if(!defined('APP_ROOT_PATH')) {
 	define('APP_ROOT_PATH', 'app'); //代码防止的目录
 }
