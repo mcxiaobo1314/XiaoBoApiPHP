@@ -17,6 +17,7 @@ abstract class Dao {
 	 */
 	protected $judge = array('>','<','!=','like','<>','>=','<=');
 
+
 	/**
 	 * 反单引号
 	 * @author wave
@@ -28,6 +29,25 @@ abstract class Dao {
 	 * @author wave
 	 */
 	const DEFAULTJUDGE = ' = ';
+
+
+
+	/**
+	 * 初始化函数
+	 * @param Array $defaultCon 数据库连接配置
+	 * @return Object
+	 * @author wave
+	 */
+	public function init($defaultCon = array()) {
+		if(empty($db) && !empty($defaultCon)) {
+			$db = $this->connect($defaultCon)->db;
+		}
+		if(empty($db)) {
+			throw new XiaoBoException('连接数据库失败');
+		}
+		return $db;
+	}
+
 
 	/**
 	 * 分割键
@@ -48,6 +68,67 @@ abstract class Dao {
 			return false;
 		}
 		return self::BACK.$key.self::BACK.self::DEFAULTJUDGE;
+	}
+
+
+
+	/**
+	 * 数组键值顺序对比是否全等
+	 * @param Array $dataArr 要对比的数组
+	 * @param Array $diffArr 要比对的数据组，可以默认为空,会使用系统自带的数组
+	 * @param String $type  类型  key是键 value 是值
+	 * @return BOOLEN
+	 * @author wave
+	 */
+	protected function diffArr($dataArr , $diffArr = '' , $type = 'key') {
+
+		if(!in_array($type, array('key','value'))) {
+			return false;
+		}
+
+		if(empty($diffArr)) {
+			$diffArr = array('host', 'dbname', 'user', 'pwd', 'charset', 'type', 'port');
+		}
+
+		if($type === 'key') {
+			$arr = array_keys($dataArr);
+		}
+
+		if($type === 'value') {
+			$arr = array_values($dataArr);
+		}
+
+		$resultArr = array_intersect($diffArr,$arr);
+
+		if(count($resultArr) === count($diffArr)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 连接数据库
+	 * @param Array $defaultCon 连接数据库配置
+	 * @return Object or NULL
+	 * @author wave
+	 */
+	protected function connect($defaultCon = array()){
+		if(empty($defaultCon)) {
+			return '';
+		}
+		return LoadModel::load(
+			'DbConnect',
+			array(
+				$defaultCon['host'], 
+				$defaultCon['dbname'], 
+				$defaultCon['user'], 
+				$defaultCon['pwd'], 
+				$defaultCon['charset'], 
+				$defaultCon['type'], 
+				$defaultCon['port']
+			),
+			'init'
+		);
 	}
 
 

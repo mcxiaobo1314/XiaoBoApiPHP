@@ -19,7 +19,7 @@ class LoadModel {
 	 * @return  OBJECT
 	 * @author wave
 	 */
-	static function load($dao = 'mysql',$params = array(),$func = '') {
+	static function load($dao = 'Mysql',$params = array(),$func = '') {
 		static $objArr = array();
 		$dao = ucfirst($dao);
 		if(!class_exists($dao)) {

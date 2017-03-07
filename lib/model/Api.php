@@ -20,6 +20,7 @@ class ModelApi {
 	 */
 	static function init($type = 'Mysql') {
 		require dirname(__FILE__).'/LoadModel.php';
+		$type = ucfirst($type);
 		LoadModel::import('/'.$type.'.php',dirname(__FILE__));
 	}
 
@@ -41,7 +42,7 @@ class ModelApi {
 		if(!empty($conntion)) {
 			array_push($arr, $conntion);
 		}
-		if(self::$Config->host && self::$Config->dbname && self::$Config->username) {
+		if(self::$Config->dbname) {
 			array_push($arr,array(
 				'host' => self::$Config->host,
 				'dbname' => self::$Config->dbname,

@@ -66,7 +66,7 @@ class DbConnect {
 	 * @param Srting $pwd 数据库密码
 	 * @author wave
 	 */
-	public function init($host = 'localhost', $dbname = '', $user = 'root', $pwd = '', $charset = 'utf8', $type = 'mysql', $port = '3306') {
+	public function init($host = 'localhost', $dbname = '', $user = 'root', $pwd = '', $charset = 'utf8', $type = 'Mysql', $port = '3306') {
 		$this->host = $host;
 		$this->dbname = $dbname;
 		$this->type = $type;
@@ -74,17 +74,56 @@ class DbConnect {
 		$this->user = $user;
 		$this->pwd = $pwd;
 		$this->charset = $charset;
-		if(class_exists('PDO') && ($type == 'mysql' ||  $type == 'oci') ) {
-			$this->db = $this->cachePdo();
+		if(class_exists('PDO')) {
+			switch ($type) {
+				case 'mysql':
+				case 'Mysql':
+					$this->db = $this->mysqlPdo();
+				break;
+				case 'sqlite':
+				case 'Sqlite':
+					$this->db = $this->sqlitePdo();
+				break;
+				default:
+					throw new XiaoBoException("该".$type."类不存在");
+					break;
+			}
+
+			
 		}
 	}
+
+	/**
+	 * 初始化sqlitePdo
+	 * @return object
+	 * @author wave
+	 */
+	protected function sqlitePdo() {
+		try{
+			$pdo = new PDO(
+				$this->type . 
+				':' . $this->dbname,
+				$this->user,
+				$this->pwd
+			);
+
+			$pdo->exec('set names '.$this->charset.';'); 
+			$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
+		}catch(PDOException $e){
+			throw new XiaoBoException('数据库连接失败:'.$e->getMessage());
+		}
+
+		
+		return $pdo;
+	}
+
 
 	/**
 	 * 初始化mysqlPDO
 	 * @return object
 	 * @author wave
 	 */
-	protected function cachePdo() {
+	protected function mysqlPdo() {
 		try{
 			$pdo = new PDO(
 				$this->type . 

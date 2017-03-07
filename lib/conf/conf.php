@@ -12,7 +12,7 @@
  */
 
 class Config{
-	//连接数据库类型  目前支持mysql,sqlite3数据库加载 其他需要自己封装
+	//连接数据库类型  目前支持mysql,sqlite数据库加载 其他需要自己封装
 	public $type = "mysql"; 
 
 	//数据库地址
@@ -64,7 +64,7 @@ if(!defined('ROUTE_DS')) {
 	define('ROUTE_DS','/'); 
 }
 if(!defined('DEFAULT_ROUTE')) {
-	define('DEFAULT_ROUTE','/test/aaa'); //默认访问的控制器, 写法: 控制器 / 方法名 / 参数
+	define('DEFAULT_ROUTE','&g=home&c=test&a=aaa'); //默认访问,写法:控制器/方法名/参数,建议成:&m=test&a=aaa
 }
 if(!defined('C')) {
 	define('C','c'); //控制器

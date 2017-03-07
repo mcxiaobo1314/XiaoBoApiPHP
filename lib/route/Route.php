@@ -160,6 +160,23 @@ class Route {
 		return $controllerClass;
 	}
 
+	/**
+	 * 获取设置默认url
+	 * @return string
+	 * @author wave
+	 */
+	protected function getDefualtUrl(){
+		$url = DEFAULT_ROUTE;
+		if(strpos($url,'&') !== false){
+			parse_str($url,$urlArr);
+		}
+		if( (empty($_GET[C]) || empty($_GET[A])) && !empty($urlArr) ){
+			$_GET = array_merge($_GET,$urlArr);
+		}
+		return $url;
+	}
+
+
 
 	/**
 	 * 获取url参数
@@ -167,7 +184,7 @@ class Route {
 	 * @author wave
 	 */
 	protected  function getUrlParam() {
-		$url = DEFAULT_ROUTE;
+		$url = $this->getDefualtUrl();
 		$getParam = $this->ReturnGetParam();
 
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
@@ -182,7 +199,7 @@ class Route {
 			$url = $getParam;
 		}
 		if($url ==  strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS) ) {
-			$url = DEFAULT_ROUTE;
+			$url = $this->getDefualtUrl();
 		}
 		
 		return $url;

@@ -11,7 +11,6 @@ if(!defined('MODEL_TOKEN')) {
 
 LoadModel::import('/Dao.php',dirname(__FILE__));
 LoadModel::import('/DbConnect.php',dirname(__FILE__));
-//var_dump(class_exists("XiaoBoException"));
 
 class Mysql extends Dao {
 	
@@ -127,30 +126,23 @@ class Mysql extends Dao {
 	 * @author wave
 	 */
 	public function init() {
-		$args = func_get_args();
-		$defaultCon = array();
+		 $args = func_get_args();
+		 $defaultCon = array();
 
 		if(!empty($args[0])  && is_string($args[0]) ) {
 			$this->dbTableName =  $args[0]; //表名
 		}
 
 		if(!empty($args[0])  && is_array($args[0]) && $this->diffArr($args[0])) {
-			$defaultCon = $args[0]; //连接数据库配置
+			$this->defaultCon = $args[0]; //连接数据库配置
 		}
 
 		if(!empty($args[1])  && is_array($args[1]) && $this->diffArr($args[1])) {
-			$defaultCon = $args[1]; //连接数据库配置
-		}
-
-		$this->defaultCon = (is_array($defaultCon) && !empty($defaultCon)) ? $defaultCon : '';
-		if(empty($this->db) && !empty($this->defaultCon)) {
-			$this->db = $this->connect()->db;
+			$this->defaultCon = $args[1]; //连接数据库配置
 		}
 		
-		if(empty($this->db)) {
-			throw new XiaoBoException('连接数据库失败');
-		}
-
+		$this->defaultCon = (is_array($this->defaultCon) && !empty($this->defaultCon)) ? $this->defaultCon : '';
+		$this->db = parent::init($this->defaultCon);
 		$this->showTableFileds();
 	}
 
@@ -498,62 +490,5 @@ class Mysql extends Dao {
 		}
 	}
 
-	/**
-	 * 数组键值顺序对比是否全等
-	 * @param Array $dataArr 要对比的数组
-	 * @param Array $diffArr 要比对的数据组，可以默认为空,会使用系统自带的数组
-	 * @param String $type  类型  key是键 value 是值
-	 * @return BOOLEN
-	 * @author wave
-	 */
-	protected function diffArr($dataArr , $diffArr = '' , $type = 'key') {
-
-		if(!in_array($type, array('key','value'))) {
-			return false;
-		}
-
-		if(empty($diffArr)) {
-			$diffArr = array('host', 'dbname', 'user', 'pwd', 'charset', 'type', 'port');
-		}
-
-		if($type === 'key') {
-			$arr = array_keys($dataArr);
-		}
-
-		if($type === 'value') {
-			$arr = array_values($dataArr);
-		}
-
-		$resultArr = array_intersect($diffArr,$arr);
-
-		if(count($resultArr) === count($diffArr)) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * 连接数据库
-	 * @return Object or NULL
-	 * @author wave
-	 */
-	protected function connect(){
-		if(empty($this->defaultCon)) {
-			return '';
-		}
-		return LoadModel::load(
-			'DbConnect',
-			array(
-				$this->defaultCon['host'], 
-				$this->defaultCon['dbname'], 
-				$this->defaultCon['user'], 
-				$this->defaultCon['pwd'], 
-				$this->defaultCon['charset'], 
-				$this->defaultCon['type'], 
-				$this->defaultCon['port']
-			),
-			'init'
-		);
-	}
 }
 
