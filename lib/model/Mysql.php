@@ -436,6 +436,7 @@ class Mysql extends Dao {
 
 	/**
 	 * 开启事务处理
+	 * @return 
 	 * @author wave
 	 */
 	public function dbbeginTransaction(){
@@ -444,6 +445,7 @@ class Mysql extends Dao {
 
 	/**
 	 * 事务提交
+	 * @return 
 	 * @author wave
 	 */
 	public function commit(){
@@ -453,11 +455,22 @@ class Mysql extends Dao {
 
 	/**
 	 * 事务回滚
+	 * @return 
 	 * @author wave
 	 */
 	public function rollback(){
 		return $this->db->rollback();
 	}
+
+	/**
+	 * 原生pdo操作
+	 * @return object
+	 * @author wave
+	 */
+	public function db(){
+		return $this->db;
+	}
+
 
 	/**
 	 * 获取表的字段
