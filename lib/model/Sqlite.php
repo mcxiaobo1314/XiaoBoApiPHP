@@ -126,4 +126,41 @@ class Sqlite extends Dao{
 			throw new XiaoBoException("语法错误:".$e->getMessage());
 		}
 	}
+
+	/**
+	 * 开启事务处理
+	 * @return 
+	 * @author wave
+	 */
+	public function dbbeginTransaction(){
+		return $this->db->dbbeginTransaction();//开启事务处理
+	}
+
+	/**
+	 * 事务提交
+	 * @return 
+	 * @author wave
+	 */
+	public function commit(){
+		return $this->db->commit();
+	}
+
+
+	/**
+	 * 事务回滚
+	 * @return 
+	 * @author wave
+	 */
+	public function rollback(){
+		return $this->db->rollback();
+	}
+
+	/**
+	 * 原生pdo操作
+	 * @return object
+	 * @author wave
+	 */
+	public function db(){
+		return $this->db;
+	}
 }
