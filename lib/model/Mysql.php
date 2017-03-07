@@ -140,7 +140,7 @@ class Mysql extends Dao {
 		if(!empty($args[1])  && is_array($args[1]) && $this->diffArr($args[1])) {
 			$this->defaultCon = $args[1]; //连接数据库配置
 		}
-		
+
 		$this->defaultCon = (is_array($this->defaultCon) && !empty($this->defaultCon)) ? $this->defaultCon : '';
 		$this->db = parent::init($this->defaultCon);
 		$this->showTableFileds();
@@ -434,6 +434,30 @@ class Mysql extends Dao {
 		return $this->db->prepare($sql);
 	}
 
+	/**
+	 * 开启事务处理
+	 * @author wave
+	 */
+	public function dbbeginTransaction(){
+		return $this->db->dbbeginTransaction();//开启事务处理
+	}
+
+	/**
+	 * 事务提交
+	 * @author wave
+	 */
+	public function commit(){
+		return $this->db->commit();
+	}
+
+
+	/**
+	 * 事务回滚
+	 * @author wave
+	 */
+	public function rollback(){
+		return $this->db->rollback();
+	}
 
 	/**
 	 * 获取表的字段
