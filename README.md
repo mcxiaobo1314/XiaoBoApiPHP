@@ -11,7 +11,8 @@
 1. /lib/conf.php  配置默认访问路径和url访问参数			
 2. /lib/core/config.xml 配置加载核心模块和自定义模块(还需在index.php配置一下)			
 3. 建议配置虚拟目录建议配置到/app 这个目录下，会更安全			
-4. 自行在app目录下创建error.log文件并给予0777权限,否则错误日志无法写入		
+4. 自行在app目录下创建error.log文件并给予0777权限,否则错误日志无法写入	
+5. 目前只能对数据库的curd简单的封装，如果需要更详解，请自己行封装进行放到/lib/model/目录下			
 *控制器语法示例:*		
 ```PHP
 $wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
