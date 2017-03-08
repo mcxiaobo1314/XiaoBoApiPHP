@@ -38,7 +38,7 @@ abstract class Dao {
 	 * @return Object
 	 * @author wave
 	 */
-	public function init($defaultCon = array()) {
+	public function constructs($defaultCon = array()) {
 		if(empty($db) && !empty($defaultCon)) {
 			$db = $this->connect($defaultCon)->db;
 		}
