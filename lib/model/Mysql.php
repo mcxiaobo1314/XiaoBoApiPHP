@@ -142,7 +142,7 @@ class Mysql extends Dao {
 		}
 
 		$this->defaultCon = (is_array($this->defaultCon) && !empty($this->defaultCon)) ? $this->defaultCon : '';
-		$this->db = parent::init($this->defaultCon);
+		$this->db = parent::constructs($this->defaultCon);
 		$this->showTableFileds();
 	}
 
