@@ -14,12 +14,116 @@ LoadModel::import('/Dao.php',dirname(__FILE__));
 LoadModel::import('/DbConnect.php',dirname(__FILE__));
 
 class Sqlite extends Dao{
+/**
+	 * 字段
+	 * @author wave
+	 */
+	public $fields = '';
 
+	/**
+	 * 联表字段
+	 * @author wave
+	 */
+	public $joinFields = '';
+
+	/**
+	 * 条件
+	 * @author wave
+	 */
+	public $where = '';
+
+	/**
+	 * 联表
+	 * @author wave
+	 */
+	public $join = '';
+
+	/**
+	 * 限制
+	 * @author wave
+	 */
+	public $limit = '';
+	
+	/**
+	 * 分组
+	 * @author wave
+	 */
+	public $group = '';
+
+	/**
+	 * 排序
+	 * @author wave
+	 */
+	public $order = '';
+
+	/**
+	 * 分组条件
+	 * @author wave
+	 */
+	public $having = '';
+
+	/**
+	 * 记录单条SQL语句
+	 * @author wave
+	 */
+	public $firstSql = '';
+
+	/**
+	 * 数据
+	 * @author wave
+	 */
+	public $data = array();
+
+
+	/**
+	 * 数据表名
+	 * @author wave
+	 */
 	public $dbTableName = '';
 
+
+	/**
+	 * 数据库链接
+	 * @author wave
+	 */
 	protected $db = '';
 
+
+	/**
+	 * 数据库配置参数
+	 * @author wave
+	 */
 	protected $defaultCon = array();
+
+	/**
+	 * 表字段结构
+	 * @author wave
+	 */
+	static protected $TableFieldStruct = array();
+
+
+	/**
+	 * 拼接sql语句字段数组
+	 * @author wave
+	 */
+	protected $sqlFiledArr = array(
+		0 => 'select',
+		1 => 'insert into',
+		2 => 'update',
+		3 => 'delete',
+		4 => 'from',
+		5 => 'where',
+		6 => 'group by',
+		7 => 'order by',
+		8 => 'join',
+		9 => 'limit',
+		10 => 'having',
+		11 => 'set',
+		12 => 'values',
+		13 => 'on',
+		14 => '(',
+		15 => ')'
+	);
 
 	/**
 	 * 初始化函数
@@ -43,65 +147,251 @@ class Sqlite extends Dao{
 		
 		$this->defaultCon = (is_array($this->defaultCon) && !empty($this->defaultCon)) ? $this->defaultCon : '';
 		$this->db = parent::constructs($this->defaultCon);
+		$this->showTableFileds();
 	}
 
 
 	/**
-	 * 查询方法
-	 * @author wave	
+	 * 查询
+	 * @return Array
+	 * @author wave
 	 */
-	public  function find(){
-
-
+	public function find() {
+		if( empty( $this->fields ) ) {
+			$this->fields = $this->getFields();
+			$this->fields .= ',' . $this->joinFields;
+		}
+		$this->fields = rtrim($this->fields , ',');
+		$this->firstSql = $this->sqlFiledArr[0] .' ' .
+			$this->fields . ' ' .
+			$this->sqlFiledArr[4] . ' ' .
+			self::BACK . $this->dbTableName . self::BACK . ' ' .
+			$this->join . ' ' .
+			$this->where . ' ' .
+			$this->group . ' ' .
+			$this->having . ' ' .
+			$this->order . ' ' .
+			$this->limit . ' ' ;
+		$this->_unset();
+		return $this->query($this->firstSql);
 	}
 
 	/**
-	 * 查询总行数
-	 * @author wave	
+	 * 计算行数
+	 * @return object
+	 * @author wave
 	 */
-	public function count(){
-
+	public function count() {
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		$this->fields = 'count(*)';
+		if(!empty($args)){
+			$this->fields = 'count('.$args.')';
+		}
+		return $this->find();
 	}
 
 	/**
-	 * 查询一条数据
-	 * @author wave	
+	 * 查询一行数据
+	 * @return object
+	 * @author wave
 	 */
-	public function first(){
-
+	public function first() {
+		$this->limit .= $this->sqlFiledArr[9] . ' 1';
+		return $this->find();
 	}
 
 	/**
-	 * 新增方法
-	 * @author wave	
+	 * 分组
+	 * @return object
+	 * @author wave
 	 */
-	public function insert(){
-
+	public function group() {
+		$args = func_get_args();
+		if(!empty($args[0])) {
+			$this->group .= $this->sqlFiledArr[6] . ' ' . $args[0];
+		}
+		return $this;
 	}
 
 	/**
-	 * 更新方法
-	 * @author wave	
+	 * 排序
+	 * @return object
+	 * @author wave
 	 */
-	public function save(){
-
+	public function order() {
+		$args = func_get_args();
+		if(!empty($args[0]) && !empty($args[1]) && in_array($args[1],array('desc','asc')) ) {
+			$this->order .= $this->sqlFiledArr[7] . 
+				' ' . $args[0] . 
+				' ' . $args[1];
+		}
+		return $this;
 	}
 
 	/**
-	 * 更新所有方法
-	 * @author wave	
+	 * 分组条件
+	 * @return object
+	 * @author wave
 	 */
-	public function saveAll(){
-
+	public function having() {
+		$args = func_get_args();
+		if(!empty($args[0]) ) {
+			$this->having .= $this->sqlFiledArr[10] . 
+				' ' . $args[0];
+		}
+		return $this;
 	}
 
 	/**
-	 * 删除方法
-	 * @author wave	
+	 * 限制
+	 * @return object
+	 * @author wave
 	 */
-	public function del(){
+	public function limit() {
+		$args = func_get_args();
+		$this->limit = $this->sqlFiledArr[9] . ' ';
+		if(!empty($args[0])) {
+			$this->limit .= $args[0];
+		}
+		if(!empty($args[1])) {
+			$this->limit .= ',' . $args[1];
+		}
+		return $this;
+	}
+
+	/**
+	 * 联表
+	 * @return object
+	 * @author wave
+	 */
+	public function join() {
+		$args = func_get_args();
+		if(empty($args[0]) || empty($args[1]) || empty($args[2]) ) {
+			return $this;
+		}
+		if( !in_array($args[0], array('CROSS','OUTER','inner') ) ){
+			throw new XiaoBoException("语法不正确");
+			
+		}
+		$this->showTableFileds($args[1]);
+		$this->joinFields .=  $this->getFields($args[1]).',';
+		if(is_string($args[0]) && is_string($args[1]) && is_string($args[2])) {
+			$this->join .= ' '.$args[0]. ' ' . 
+				$this->sqlFiledArr[8] .' '. 
+				self::BACK .$args[1] . 
+				self::BACK. ' ' . 
+				$this->sqlFiledArr[13] . ' ' . 
+				$args[2];
+		}
+		return $this;
+	}
+
+	/**
+	 * 条件
+	 * @return object
+	 * @author wave
+	 */
+	public function where() {
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		if( !empty($args) && is_string($args) ) {
+			$this->where .= $this->sqlFiledArr[5] . 
+				' ' . $args;
+		}
+		return $this;
+	}
+
+	/**
+	 * 设置字段
+	 * @return object
+	 * @author wave
+	 */
+	public function fields() {
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		if(!empty($args)) {
+			$this->fields = is_array($args) ? implode(',', $args) : $args;
+		}
+		return $this;
+	}
+
+/**
+	 * 插入
+	 * @return number
+	 * @author wave
+	 */
+	public function insert() {
+		if(empty($this->data)) {
+			return false;
+		}
+		if( empty( $this->fields ) ) {
+			$this->fields = $this->getFields('','insert');
+		}
+		$this->firstSql = $this->sqlFiledArr[1] . ' ' .
+			self::BACK . $this->dbTableName . self::BACK . ' ' .
+			$this->sqlFiledArr[14] . ' ' .
+			$this->fields . ' ' .
+			$this->sqlFiledArr[15] . ' ' .
+			$this->sqlFiledArr[12] . ' ' .
+			$this->sqlFiledArr[14] . ' ' .
+			'"'. implode('","', $this->data) .'" ' .
+			$this->sqlFiledArr[15];
+		$this->_unset();
+		return $this->query($this->firstSql);
+	}
+
+	/**
+	 * 更新
+	 * @return number
+	 * @author wave
+	 */
+	public function save() {
+		if(empty($this->data)) {
+			return false;
+		}
+		$data = $this->data;
+		$this->data = '';
+		foreach( $data as $key => $value ) {
+			$this->data .= $key . 
+				self::DEFAULTJUDGE . '"' . 
+				$value . '",'; 
+		}
+		unset($data);
+		$this->data = rtrim($this->data,',');
+		$this->firstSql = $this->sqlFiledArr[2] . ' ' .
+			self::BACK . $this->dbTableName . self::BACK . ' ' .
+			$this->sqlFiledArr[11] . ' ' .
+			$this->data . ' ' .
+			$this->where;
+		$this->_unset();
+		return $this->query($this->firstSql);
+	}
+
+	/**
+	 * 批量更新
+	 * @return number
+	 * @author wave
+	 */
+	public function saveAll() {
 
 	}
+
+
+	/**
+	 * 删除
+	 * @return number
+	 * @author wave
+	 */
+	public function del() {
+		$this->firstSql = $this->sqlFiledArr[3] . ' ' .
+			$this->sqlFiledArr[4] . ' ' .
+			self::BACK . $this->dbTableName . self::BACK . ' ' .
+			$this->where;
+		$this->_unset();
+		return $this->query($this->firstSql);
+	}
+
 
 	/**
 	 * 执行sql
@@ -114,7 +404,7 @@ class Sqlite extends Dao{
 			return false;
 		}
 		try{
-			if(strpos($args, 'select') !== false) {
+			if(strpos($args, 'select') !== false || strpos($args, "PRAGMA") !== false) {
 				$result = $this->db->prepare($args);
 				$result->execute();
 				$result->setFetchMode(PDO::FETCH_ASSOC);
@@ -162,5 +452,66 @@ class Sqlite extends Dao{
 	 */
 	public function db(){
 		return $this->db;
+	}
+
+
+
+	/**
+	 * 获取表的字段
+	 * @author wave
+	 */
+	protected function getFields() {
+		$args = func_get_args();
+		$args_name = isset($args[0]) ? $args[0] : '';
+		$type = isset($args[1]) ? $args[1] : '';
+		$name = $this->dbTableName;
+		$fields = '';
+		if(!empty($args_name)) {
+			$name = $args_name;
+		}
+		foreach (self::$TableFieldStruct[$name] as $key => $value) {
+			if($type == 'insert'){
+				$fields .= $value['name'].',';
+			}else {
+				$fields .= self::BACK . $name . 
+				self::BACK . '.' . 
+				self::BACK . $value['name'] . 
+				self::BACK . ',';
+			}
+		}
+		return rtrim($fields,',');
+	}
+
+	/**
+	 * 毁掉变量值
+	 * @author wave
+	 */
+	protected function _unset() {
+		$this->fields = '';
+		$this->where = '';
+		$this->join = '';
+		$this->limit = '';
+		$this->group = '';
+		$this->order = '';
+		$this->having = '';
+		$this->joinFields = '';
+		$this->data = array();
+	}
+
+	/**
+	 * 获取表字段结构
+	 * @author wave
+	 */
+	protected function showTableFileds(){
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		$name = $this->dbTableName;
+		if(!empty($args)) {
+			$name = $args;
+		}
+
+		if(!empty($name)  &&  empty(self::$TableFieldStruct[$name])){
+			self::$TableFieldStruct[$name] = $this->query('PRAGMA table_info('. $name.')');
+		}
 	}
 }
