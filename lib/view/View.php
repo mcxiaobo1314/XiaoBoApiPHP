@@ -111,11 +111,11 @@ class View {
 		$defaultFile = ($this->isPath() !== false) ? $this->getUrlParamArr[1] : $this->getUrlParamArr[0];
 		
 		//编译路径
-		$this->pathArr['cache'] = $this->controllerPath . '/' .$df.'/cache/';
+		$this->pathArr['cache'] = $this->controllerPath.ROUTE_DS.$df.ROUTE_DS.CACHE.ROUTE_DS;
 
 		//文件路径
-		$this->pathArr['view'] = $this->controllerPath . '/' .
-		 	$df . '/view/' . $defaultFile . '/';
+		$this->pathArr['view'] = $this->controllerPath.ROUTE_DS.$df.
+								ROUTE_DS.VIEW.ROUTE_DS. $defaultFile .ROUTE_DS;
 	}
 
 	/**

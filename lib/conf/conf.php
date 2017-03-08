@@ -54,6 +54,12 @@ if(!defined('CON_SUFFOIX')) {
 if(!defined('MODEL')) {	
 	define('MODEL','model'); //模型的目录
 }
+if(!defined('VIEW')) {	
+	define('VIEW','view'); //视图的目录
+}
+if(!defined('CACHE')) {	
+	define('CACHE','cache'); //缓存的目录
+}
 if(!defined('MOD_SUFFOIX')) {
 	define('MOD_SUFFOIX','Model.php'); //模型的后缀名字
 }
