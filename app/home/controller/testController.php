@@ -17,7 +17,8 @@ class testController  extends Controller{
 		// );
 		// $user->insert();
 		// var_dump($user->find());
-		//var_dump($user->query("insert into user(id,name)values(4,'aaaa')"));
+		//PDO原生操作		
+		//var_dump($user->db()->query("insert into user(id,name)values(4,'aaaa')")); 
 		// $a = $this->LoadModel('wp_users');
 		// var_dump($a->find());
 		// $a = $this->importModel("WpUsers",array("aa"=>11),"inits");
