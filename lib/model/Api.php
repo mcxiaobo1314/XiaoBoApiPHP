@@ -146,6 +146,8 @@ class ModelApi {
 // 	'port' => '3306'
 // )),'init');
 // $res=$a->db()->query('select * from xb_wengzhang');
+// $res->execute();
+// $res->setFetchMode(PDO::FETCH_ASSOC);
 // var_dump($res->fetchALL());
 
 
