@@ -85,6 +85,12 @@ class Mysql extends Dao {
 	 * @author wave
 	 */
 	protected $dbTableName = '';
+	
+	/**
+	 * 执行方法
+	 * @author wave
+	 */
+	protected $motehd = '';
 
 	/**
 	 *  默认连接
@@ -242,6 +248,7 @@ class Mysql extends Dao {
 			$this->having . ' ' .
 			$this->order . ' ' .
 			$this->limit . ' ' ;
+		$this->motehd = 'select';
 		$this->_unset();
 		return $this->query($this->firstSql);
 	}
@@ -386,30 +393,7 @@ class Mysql extends Dao {
 		return $this;
 	}
 	
-	/**
-	 * 执行sql语句
-	 * @return Array or Number
-	 * @author wave
-	 */
-	public function query() {
-		$args = func_get_args();
-		$args = isset($args[0]) ? $args[0] : '';
-		if(empty($args)) {
-			return false;
-		}
-		try{
-			if(strpos($args, 'select') !== false || strpos($args, 'show') !== false) {
-				$result = $this->db->query($args);
-				$result->setFetchMode(PDO::FETCH_ASSOC);
-				return $result->fetchAll();
-			}else {
-				return $this->db->exec($args);
-			}
-		}catch(PDOException $e){
-			throw new XiaoBoException("语法错误:".$e->getMessage());
-		}
-		
-	}
+
 
 	/**
 	 * 获取主键
@@ -471,6 +455,30 @@ class Mysql extends Dao {
 		return $this->db;
 	}
 
+	/**
+	 * 执行sql语句
+	 * @return Array or Number
+	 * @author wave
+	 */
+	protected function query() {
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		if(empty($args)) {
+			return false;
+		}
+		try{
+			if($this->motehd == 'show' || $this->motehd == 'select') {
+				$result = $this->db->query($args);
+				$result->setFetchMode(PDO::FETCH_ASSOC);
+				return $result->fetchAll();
+			}else {
+				return $this->db->exec($args);
+			}
+		}catch(PDOException $e){
+			throw new XiaoBoException("语法错误:".$e->getMessage());
+		}
+		
+	}
 
 	/**
 	 * 获取表的字段
@@ -523,6 +531,7 @@ class Mysql extends Dao {
 		}
 
 		if(!empty($name)  &&  empty(self::$TableFieldStruct[$name])){
+			$this->motehd = 'show';
 			self::$TableFieldStruct[$name] = $this->query('show columns from '. $name);
 		}
 	}
