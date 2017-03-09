@@ -14,7 +14,7 @@ LoadModel::import('/Dao.php',dirname(__FILE__));
 LoadModel::import('/DbConnect.php',dirname(__FILE__));
 
 class Sqlite extends Dao{
-/**
+	/**
 	 * 字段
 	 * @author wave
 	 */
@@ -88,6 +88,11 @@ class Sqlite extends Dao{
 	 */
 	protected $db = '';
 
+	/**
+	 * 执行方法
+	 * @author wave
+	 */
+	protected $motehd = '';
 
 	/**
 	 * 数据库配置参数
@@ -172,6 +177,7 @@ class Sqlite extends Dao{
 			$this->having . ' ' .
 			$this->order . ' ' .
 			$this->limit . ' ' ;
+		$this->motehd = 'select';
 		$this->_unset();
 		return $this->query($this->firstSql);
 	}
@@ -394,30 +400,6 @@ class Sqlite extends Dao{
 
 
 	/**
-	 * 执行sql
-	 * @author wave
-	 */
-	public function query(){
-		$args = func_get_args();
-		$args = isset($args[0]) ? $args[0] : '';
-		if(empty($args)) {
-			return false;
-		}
-		try{
-			if(strpos($args, 'select') !== false || strpos($args, "PRAGMA") !== false) {
-				$result = $this->db->prepare($args);
-				$result->execute();
-				$result->setFetchMode(PDO::FETCH_ASSOC);
-				return $result->fetchAll();
-			}else {
-				return $this->db->exec($args);
-			}
-		}catch(PDOException $e){
-			throw new XiaoBoException("语法错误:".$e->getMessage());
-		}
-	}
-
-	/**
 	 * 开启事务处理
 	 * @return 
 	 * @author wave
@@ -454,7 +436,29 @@ class Sqlite extends Dao{
 		return $this->db;
 	}
 
-
+	/**
+	 * 执行sql
+	 * @author wave
+	 */
+	protected function query(){
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		if(empty($args)) {
+			return false;
+		}
+		try{
+			if($this->motehd == 'select' || $this->motehd == 'PRAGMA') {
+				$result = $this->db->prepare($args);
+				$result->execute();
+				$result->setFetchMode(PDO::FETCH_ASSOC);
+				return $result->fetchAll();
+			}else {
+				return $this->db->exec($args);
+			}
+		}catch(PDOException $e){
+			throw new XiaoBoException("语法错误:".$e->getMessage());
+		}
+	}
 
 	/**
 	 * 获取表的字段
@@ -511,6 +515,7 @@ class Sqlite extends Dao{
 		}
 
 		if(!empty($name)  &&  empty(self::$TableFieldStruct[$name])){
+			$this->motehd = 'PRAGMA';
 			self::$TableFieldStruct[$name] = $this->query('PRAGMA table_info('. $name.')');
 		}
 	}
