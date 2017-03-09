@@ -50,7 +50,8 @@ class ModelApi {
 				'pwd' => self::$Config->password,
 				'charset' => self::$Config->charset,
 				'type' => self::$Config->type,
-				'port' => self::$Config->port
+				'port' => self::$Config->port,
+				'tablePrefix' => self::$Config->tablePrefix
 			));
 		}
 		return LoadModel::load(self::$Config->type,$arr,'init');

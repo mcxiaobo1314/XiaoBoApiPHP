@@ -76,6 +76,13 @@ class Sqlite extends Dao{
 
 
 	/**
+	 * 表前缀
+	 * @author wave
+	 */
+	public $tablePrefix = '';
+
+
+	/**
 	 * 数据表名
 	 * @author wave
 	 */
@@ -151,6 +158,8 @@ class Sqlite extends Dao{
 		}
 		
 		$this->defaultCon = (is_array($this->defaultCon) && !empty($this->defaultCon)) ? $this->defaultCon : '';
+		$this->tablePrefix = isset($this->defaultCon['tablePrefix']) ? $this->defaultCon['tablePrefix'] : $this->tablePrefix;
+		$this->dbTableName = $this->tablePrefix.$this->dbTableName;
 		$this->db = parent::constructs($this->defaultCon);
 		$this->showTableFileds();
 	}

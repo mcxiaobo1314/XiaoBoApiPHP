@@ -33,6 +33,9 @@ class Config{
 	//数据库端口
 	public $port = "3306";
 
+	//表前缀
+	public $tablePrefix = "wp_";
+
 }
 
 if(!defined('LEFT_DELIMITER')){

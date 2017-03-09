@@ -75,6 +75,12 @@ class Mysql extends Dao {
 	public $data = array();
 
 	/**
+	 * 表前缀
+	 * @author wave
+	 */
+	public $tablePrefix = '';
+
+	/**
 	 * 数据库连接
 	 * @author wave
 	 */
@@ -147,7 +153,10 @@ class Mysql extends Dao {
 			$this->defaultCon = $args[1]; //连接数据库配置
 		}
 
+
 		$this->defaultCon = (is_array($this->defaultCon) && !empty($this->defaultCon)) ? $this->defaultCon : '';
+		$this->tablePrefix = isset($this->defaultCon['tablePrefix']) ? $this->defaultCon['tablePrefix'] : $this->tablePrefix;
+		$this->dbTableName = $this->tablePrefix.$this->dbTableName;
 		$this->db = parent::constructs($this->defaultCon);
 		$this->showTableFileds();
 	}
