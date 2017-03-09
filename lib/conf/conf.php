@@ -35,6 +35,21 @@ class Config{
 
 }
 
+if(!defined('LEFT_DELIMITER')){
+	define('LEFT_DELIMITER','<{'); //模版引擎左边界符
+}
+
+if(!defined('RIGHT_DELIMITER')){
+	define('RIGHT_DELIMITER','}>'); //模版引擎右边界符
+}
+
+if(!defined('VIEW_SUFFIX')){
+	define('VIEW_SUFFIX','.xbphp'); //模版后缀
+}
+if(!defined('VARIABLE')){
+	define('VARIABLE','$'); //模版变量标识
+}
+
 
 define("DEBUG", true); //true开启debug false关闭debug
 

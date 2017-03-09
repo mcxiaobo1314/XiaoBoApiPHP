@@ -7,10 +7,10 @@
 class View {
 
 	//左边界符号
-	public $left_delimiter = '<{';
+	public $left_delimiter = LEFT_DELIMITER;
 
 	//右边界符号
-	public $right_delimiter = '}>';
+	public $right_delimiter = RIGHT_DELIMITER;
 
 	/**
 	 * 用来保存变量
@@ -28,13 +28,13 @@ class View {
 	 * 模版引擎的首先字母
 	 * @author wave
 	 */
-	protected $_first = '$';
+	protected $_first = VARIABLE;
 
 	/**
 	 * 编译模版的后缀
 	 * @author wave
 	 */
-	protected $suffix = '.xbphp';
+	protected $suffix = VIEW_SUFFIX;
 	
 	/**
 	 * 保存缓存数组
