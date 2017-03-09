@@ -18,8 +18,8 @@
 $wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
 $wp_users ->find(); //查询wp_users表里的所有数据		
 $model = $this->LoadModel(); //PDO原生态操作	
-$wp_users = $model->db()->query('select * from wp_users'); //执行原生sql语句写法		
-$wp_users->execute();		
+$wpusers = $model->db()->query('select * from wp_users'); //执行原生sql语句写法		
+$wpusers->execute();		
 $wp_users->where('`id`=51')			
  	->join('left','xb_user','a=1 or b=2')		
  	->join('right','config','a=3 or b=2')		
