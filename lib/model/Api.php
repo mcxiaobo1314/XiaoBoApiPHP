@@ -145,7 +145,7 @@ class ModelApi {
 // 	'type' => 'mysql',
 // 	'port' => '3306'
 // )),'init');
-// $res=$a->db->query('select * from xb_wengzhang');
+// $res=$a->db()->query('select * from xb_wengzhang');
 // var_dump($res->fetchALL());
 
 
