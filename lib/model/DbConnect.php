@@ -88,8 +88,8 @@ class DbConnect {
 					throw new XiaoBoException("该".$type."类不存在");
 					break;
 			}
-
-			
+		}else {
+			throw new XiaoBoException("请开启php_pdo.dll扩展");
 		}
 	}
 
