@@ -78,7 +78,7 @@ class Mysql extends Dao {
 	 * 数据库连接
 	 * @author wave
 	 */
-	public $db = '';
+	protected $db = '';
 
 	/**
 	 * 表名
