@@ -23,8 +23,6 @@ class RouteApi {
  	 * @author wave
  	 */
  	static public function getRoute() {
- 		//视图初始化
-		ViewApi::$view->init();
  		return self::$route->init();
  	}
 

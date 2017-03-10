@@ -106,6 +106,7 @@ class View {
 		if(count($this->getUrlParamArr) == 1) {
 			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam($flag).$this->getDefualtUrl());
 		}
+
 		$key = array_search(basename($this->getPath()), $this->getUrlParamArr);
 		
 		if(isset($this->getUrlParamArr[$key]) && $key !== false){
@@ -187,6 +188,7 @@ class View {
 
 	/**
 	 * 获取url参数
+	 * @param bool $flag true 是获取默认url参数，false是获取别名url参数
 	 * @return String
 	 * @author wave
 	 */
@@ -298,6 +300,7 @@ class View {
 	private function _compresFile($templateFile = null) {
 		$actionName = ($this->isPath() !== false) ? $this->getUrlParamArr[2] : $this->getUrlParamArr[1];
 		$tmpfile = !empty($templateFile) ? $templateFile : $actionName;
+
 		//编译文件路径
 		$tmp_path  = $this->pathArr['cache'];
 		$file_path = $this->pathArr['view'] . $tmpfile . $this->suffix;
@@ -309,7 +312,7 @@ class View {
 		if(file_exists($templateFile)) {
 			$file_path = $templateFile;
 		}
-
+		
 		$tmp_name  = 'xb_'.md5($tmpfile).'.php';
 		if(!file_exists($file_path)) {
 			throw new XiaoBoException("视图文件不存在");
@@ -317,6 +320,7 @@ class View {
 		if(!file_exists($tmp_path)) {
 			mkdir($this->pathArr['cache'],0777,true);
 		}
+
 		$file_path_time = filemtime($file_path);
 		$tmp_path_time = 0;
 		//判断缓存文件是否存在

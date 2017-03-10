@@ -159,6 +159,10 @@ class Route {
 			if ( isset($obj) && is_object($obj) ) {
 				if($this->isAction($obj,$actionName)){
 					$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
+					//视图初始化
+					if(class_exists('ViewApi')){
+						ViewApi::$view->init();
+					}
 					return call_user_func_array(array($obj,$actionName), $this->getUrlParamArr);
 				}
 			}
@@ -217,6 +221,7 @@ class Route {
 
 	/**
 	 * 获取url参数
+	 * @param bool $flag true 是获取默认url参数，false是获取别名url参数
 	 * @return String
 	 * @author wave
 	 */
