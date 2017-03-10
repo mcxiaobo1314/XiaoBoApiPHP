@@ -329,6 +329,7 @@ class View {
 			$html = $this->cacheHtml($tmp_name,array(),$file_path);
 			$html = $this->_include($html);
 			$html = $this->_if($html);
+			$html = $this->_if($html,'elseif');
 			$html = $this->_foreach($html);
 			$html = $this->_echo($html);
 			$html = $this->compress_html($html);
@@ -501,8 +502,8 @@ class View {
 	 * @return HTML
 	 * @return wave
 	 */
-	private function _if($html) {
-		if(preg_match_all('/'.$this->left_delimiter.'if\s+(.*?)'.$this->right_delimiter.'/is', $html, $arr)) {
+	private function _if($html,$if = 'if') {
+		if(preg_match_all('/'.$this->left_delimiter.$if.'\s+(.*?)'.$this->right_delimiter.'/is', $html, $arr)) {
 			if(empty($arr[0]) || empty($arr[1]) ){
 				return $html;
 			}
@@ -525,11 +526,16 @@ class View {
 						}
 					}
 				}
-				$strArr[] = '<?php if('.$val.'){ ?>';
+				if($if == 'if'){
+					$strArr[] = '<?php if('.$val.'){ ?>';
+				}elseif($if == 'elseif'){
+					$strArr[] = '<?php }else if('.$val.'){ ?>';
+				}
+				
 			}
 			$replaceArr = array(
 				're' => array(
-					$this->left_delimiter.'/if'.$this->right_delimiter,-
+					$this->left_delimiter.'/if'.$this->right_delimiter,
 					$this->left_delimiter.'else'.$this->right_delimiter
 				),
 				'data' => array(

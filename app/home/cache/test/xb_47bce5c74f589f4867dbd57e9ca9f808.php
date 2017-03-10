@@ -1,1 +1,1 @@
-<?php echo $this->_value["a"] ; ?>
+<div style="width:100%;height:20%; margin:0 auto; margin-top:15%; background:#00FFAA; color:red; padding-top:10%;font-size:24px; text-align:center;"><?php echo $this->_value["a"] ; ?></div>
