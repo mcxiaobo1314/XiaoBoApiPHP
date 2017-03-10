@@ -43,6 +43,7 @@ class XiaoBoException extends Exception {
  	 * @author wave
  	 */
 	public function __toString() {
+		Error::log($this->message);
  		if(isset($this->getTrace[0]) && self::$errNum === 1){
  			$this->errorHtml($this->getTrace[0],$this->message);
  		}

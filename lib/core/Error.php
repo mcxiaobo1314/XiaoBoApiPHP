@@ -52,7 +52,6 @@ class Error {
 		if(!empty($errArr)){
 			if(isset(self::$level[$errArr['type']]))
 				$errArr['message'] =  self::$level[$errArr['type']].":".$errArr['message'];
-			self::log($errArr['message']);
 			throw new XiaoBoException($errArr['message'],$errArr);
 		}
 	}
