@@ -18,11 +18,6 @@ class View {
 	 */
 	public $_value = array();
 
-	/**
-	 * 保存路由对象
-	 * @author wave
-	 */
-	protected $routeObj = '';
 
 	/**
 	 * 模版引擎的首先字母
