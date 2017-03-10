@@ -31,5 +31,7 @@ $XmlParse ->loadCustom(array('thinkphp'));
 //$XmlParse->compName = array();
 
 
+
+
 //初始化XML解析器
 call_user_func_array(array($XmlParse, "init"),array()); 

@@ -1,1 +1,0 @@
-<?php echo $this->_value["a"] ; ?>

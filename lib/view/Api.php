@@ -18,7 +18,6 @@ class ViewApi {
  	}
 
 }
-
 ViewApi::init();
 
 ?>

@@ -83,22 +83,28 @@ class View {
      */
     protected $getUrlParamArr = array();
 
+    /**
+     * 视图路由标记
+     * @author wave
+     */
+    protected $flag = false;
 
 	/**
 	 * 初始化要加载路由器,并要能获取到控制器的目录，URL访问类名字,类的方法,分组
 	 * @param Object $routeObj 路由对象
 	 * @author wave
 	 */
-	public function __construct() {
+	public function init() {
 		$this->controllerPath = $this->getPath() . APP_ROOT_PATH;
 		$df = isset($_GET[G]) ? $_GET[G] : '';
 		if(empty($_GET[G])){
 			$df = DEFAULT_PATH;
 		}
 
-		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
+		$flag = $this->flag == false ? true : false;
+		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam($flag));
 		if(count($this->getUrlParamArr) == 1) {
-			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().$this->getDefualtUrl());
+			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam($flag).$this->getDefualtUrl());
 		}
 		$key = array_search(basename($this->getPath()), $this->getUrlParamArr);
 		
@@ -116,6 +122,23 @@ class View {
 		//文件路径
 		$this->pathArr['view'] = $this->controllerPath.ROUTE_DS.$df.
 								ROUTE_DS.VIEW.ROUTE_DS. $defaultFile .ROUTE_DS;
+	}
+
+
+	/**
+	 * 设置路由
+	 * @param string $groupName  分组
+	 * @param string $className  类名
+	 * @param string $actionName 方法名
+	 * @author wave
+	 */
+	public function setRoute($groupName, $className,$actionName){
+		if($groupName && $className && $actionName){
+			$this->getUrlParamArr[0] = $groupName;
+			$this->getUrlParamArr[1] = $className;
+			$this->getUrlParamArr[2] = $actionName;
+			$this->flag = true;
+		}
 	}
 
 	/**
@@ -167,7 +190,7 @@ class View {
 	 * @return String
 	 * @author wave
 	 */
-	protected  function getUrlParam() {
+	protected  function getUrlParam($flag = true) {
 		//$url = $this->getDefualtUrl();
 		$getParam = $this->ReturnGetParam();
 		
@@ -179,13 +202,15 @@ class View {
 			$url = $_SERVER['REQUEST_URI'];
 		}
 
-		if($getParam) {
+		if($getParam && $flag) {
 			$url = $getParam;
 		}
 		if($url ==  strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS) ) {
 			$url = $this->getDefualtUrl();
 		}
-		
+		if($this->flag && !$flag){
+			$url = implode('/', $this->getUrlParamArr);
+		}
 		return $url;
 	}
 

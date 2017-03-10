@@ -35,22 +35,55 @@ class Route {
 	 */
 	public $getUrlParamArr = array();
 
+	/**
+	 * 标示定义路由
+	 * @author wave
+	 */
+	public $flag = false;
 
+
+	/**
+	 * 标示初始化
+	 * @author wave
+	 */
+	public $link = 0;
 
 
 	/**
 	 * 初始化URL参数
 	 * @author wave
 	 */
-	public function __construct() {
+	public function coustructs() {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
 		if(count($this->getUrlParamArr) == 1) {
 			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().$this->getDefualtUrl());
 		}
 		Error::init($this->getUrlParamArr);
-		$this->init();
+		//$this->init();
 	}
+
+
+	/**
+	 * 设置路由
+	 * @param string $groupName  分组
+	 * @param string $className  类名
+	 * @param string $actionName 方法名
+	 * @param Array  $params  参数
+	 * @author wave
+	 */
+	public function setRoute($groupName, $className,$actionName,$params = array()){
+			if($groupName && $className && $actionName){
+				$this->getUrlParamArr[0] = $groupName;
+				$this->getUrlParamArr[1] = $className;
+				$this->getUrlParamArr[2] = $actionName;
+				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
+				$this->flag = true;
+				$this->init();
+			}
+
+	}
+
 
 	/**
 	 * 拆分URL为数组
@@ -112,22 +145,26 @@ class Route {
 	 * 初始化类
 	 * @author wave
 	 */
-	protected function init() {
-		$actionName = ($this->isPath() !== false) ? $this->getUrlParamArr[2] : $this->getUrlParamArr[1];
-		$className = $this->isClass();
-		($this->isPath() !== false)  ? array_splice($this->getUrlParamArr,0,3) : array_splice($this->getUrlParamArr,0,2); 
-		if ( !empty($className) ) {
-			$obj = new $className();
-		}
-
-		if ( isset($obj) && is_object($obj) ) {
-			if($this->isAction($obj,$actionName)){
-				$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
-				return call_user_func_array(array($obj,$actionName), $this->getUrlParamArr);
+	public function init() {
+		if($this->link === 0){
+			++$this->link;
+			$this->coustructs();
+			$actionName = ($this->isPath() !== false) ? $this->getUrlParamArr[2] : $this->getUrlParamArr[1];
+			$className = $this->isClass();
+			($this->isPath() !== false)  ? array_splice($this->getUrlParamArr,0,3) : array_splice($this->getUrlParamArr,0,2); 
+			if ( !empty($className) ) {
+				$obj = new $className();
 			}
-		}
 
-		throw new XiaoBoException('初始化失败');
+			if ( isset($obj) && is_object($obj) ) {
+				if($this->isAction($obj,$actionName)){
+					$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
+					return call_user_func_array(array($obj,$actionName), $this->getUrlParamArr);
+				}
+			}
+			throw new XiaoBoException('初始化失败');
+		}
+		
 	}
 
 
@@ -183,10 +220,9 @@ class Route {
 	 * @return String
 	 * @author wave
 	 */
-	protected  function getUrlParam() {
+	public  function getUrlParam($flag = true) {
 		//$url = $this->getDefualtUrl();
 		$getParam = $this->ReturnGetParam();
-
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
 			$url = $_SERVER['ORIG_PATH_INFO'];
 		} else if ( !empty($_SERVER['PATH_INFO']) ) {
@@ -194,13 +230,16 @@ class Route {
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
 			$url = $_SERVER['REQUEST_URI'];
 		}
-
-		if($getParam) {
+		if($getParam && $flag) {
 			$url = $getParam;
 		}
 		if($url ==  strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS) ) {
 			$url = $this->getDefualtUrl();
 		}
+		if($this->flag && $flag){
+			$url = implode('/', $this->getUrlParamArr);
+		}
+
 		return $url;
 	}
 
