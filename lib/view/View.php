@@ -52,7 +52,7 @@ class View {
 		//普通变量加函数
 		'variableFun' => '\$[a-zA-Z_][a-zA-Z0-9_\|]*',
 		//数组变量加函数
-		'variableArrFun' => '\$[a-zA-Z_][a-zA-Z0-9_]*\.[a-zA-Z_][a-zA-Z0-9_\|]*',
+		'variableArrFun' => '\$[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_\|]*)+',
 		//文件路径
 		'path' => '[a-zA-Z0-9_\.\/]*',
 		//文件路径的变量
