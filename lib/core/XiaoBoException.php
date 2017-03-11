@@ -33,8 +33,7 @@ class XiaoBoException extends Exception {
 		}
 		++self::$errNum;
 		parent::__construct($this->message);
-
-		
+		!empty($trace) &&  Error::log($this->message);
 		$this->getTrace = !empty($trace) ? array($trace) : $this->getTrace();
 	}
  
@@ -43,7 +42,7 @@ class XiaoBoException extends Exception {
  	 * @author wave
  	 */
 	public function __toString() {
-		Error::log($this->message);
+
  		if(isset($this->getTrace[0]) && self::$errNum === 1){
  			$this->errorHtml($this->getTrace[0],$this->message);
  		}

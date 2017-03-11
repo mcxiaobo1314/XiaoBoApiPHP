@@ -149,9 +149,12 @@ class Route {
 		if($this->link === 0){
 			++$this->link;
 			$this->coustructs();
+			$this->getUrlParamArr[2] = isset($this->getUrlParamArr[2]) ? $this->getUrlParamArr[2] : NULL;
+			$this->getUrlParamArr[1] = isset($this->getUrlParamArr[1]) ? $this->getUrlParamArr[1] : NULL;
 			$actionName = ($this->isPath() !== false) ? $this->getUrlParamArr[2] : $this->getUrlParamArr[1];
 			$className = $this->isClass();
 			($this->isPath() !== false)  ? array_splice($this->getUrlParamArr,0,3) : array_splice($this->getUrlParamArr,0,2); 
+
 			if ( !empty($className) ) {
 				$obj = new $className();
 			}
@@ -235,6 +238,7 @@ class Route {
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
 			$url = $_SERVER['REQUEST_URI'];
 		}
+
 		if($getParam && $flag) {
 			$url = $getParam;
 		}

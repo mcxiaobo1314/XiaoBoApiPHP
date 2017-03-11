@@ -293,6 +293,8 @@ class View {
      * @author wave
 	 */
 	private function _compresFile($templateFile = null) {
+		$this->getUrlParamArr[2] = isset($this->getUrlParamArr[2]) ? $this->getUrlParamArr[2] : NULL;
+		$this->getUrlParamArr[1] = isset($this->getUrlParamArr[1]) ? $this->getUrlParamArr[1] : NULL;
 		$actionName = ($this->isPath() !== false) ? $this->getUrlParamArr[2] : $this->getUrlParamArr[1];
 		$tmpfile = !empty($templateFile) ? $templateFile : $actionName;
 

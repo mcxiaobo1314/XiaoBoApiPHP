@@ -2,7 +2,6 @@
 
 class testController  extends Controller{
 
-
 	public function aaa() {
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
@@ -35,7 +34,7 @@ class testController  extends Controller{
 		//$user->insert();
 		//var_dump($user->find());
 		//PDO原生操作		
-		//var_dump($user->db()->query("select * from user")); 
+		//var_dump($user->db()->query("select * from wp_users")); 
 		 // $a = $this->LoadModel('users');
 		 // var_dump($a->where(array("id like"=>'%1'))->find());
 		// $a = $this->importModel("WpUsers",array("aa"=>11),"inits");
