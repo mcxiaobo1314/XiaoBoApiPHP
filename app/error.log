@@ -1,2 +1,0 @@
-server time:[1489239399]-url Pamas:[test/aaa]-message:E_PARSE:parse error
-server time:[1489239945]-url Pamas:[test/aaa]-message:语法错误:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wordpress.wp_user' doesn't exist

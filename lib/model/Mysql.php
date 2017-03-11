@@ -350,6 +350,7 @@ class Mysql extends Dao {
 		return $this->db;
 	}
 
+
 	/**
 	 * 执行sql语句
 	 * @return Array or Number

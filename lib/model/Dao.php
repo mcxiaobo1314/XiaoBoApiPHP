@@ -23,6 +23,10 @@ abstract class Dao {
 	 */
 	public $firstSql = '';
 
+	/**
+	 * 保存检验参数数组
+	 * @author wave
+	 */
 	public $validate = array();
 	
 	/**

@@ -30,7 +30,7 @@ class testController  extends Controller{
 		// 	'name' =>'dddd21111'
 
 		// );
-		// if(!$user->validate()){
+		//if(!$user->validate()){
 		// 	var_dump($user->validateErr);
 		// }
 		//$user->insert();
