@@ -1,4 +1,0 @@
-server time:[1489254025]-url Pamas:[test/aaa]-message:E_ERROR:Class name must be a valid object or a string
-server time:[1489254228]-url Pamas:[home/test/aaa]-message:E_ERROR:Call to a member function assign() on string
-server time:[1489254337]-url Pamas:[home/test/aaa]-message:E_ERROR:Call to a member function assign() on string
-server time:[1489254354]-url Pamas:[home/test/aaa]-message:E_ERROR:Call to a member function assign() on string

@@ -54,7 +54,7 @@ $user->validate = array(
 ```			
 *控制器语法示例:*		
 ```PHP
-$this->getUrl();  //获取当前反问url参数		
+$this->getUrl();  //获取当前访问url参数		
 $this->getGroup()；//获取当前访问分组		
 $this->getClass(); //获取当前访问类名		
 $this->getAction(): //获取当前访问的方法名		
