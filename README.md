@@ -20,6 +20,34 @@ RouteApi::aliasRoute('/index.html','home','test','aaa',array(3,5));
 3. 建议配置虚拟目录建议配置到/app 这个目录下，会更安全			
 4. 自行在app目录下创建error.log文件并给予0777权限,否则错误日志无法写入			
 5. 目前只能对数据库的curd简单的封装，如果需要更详解，请自己行封装进行放到/lib/model/目录下			
+*数据校验:*		
+```PHP
+$user = $this->LoadModel('users');
+$user->validate = array(
+		 	array(
+		 		'name'=>'id',  //字段名称
+		 		'reg' => '/^\d+$/',  //正则表达式
+		 		'error' => '请输入数字' //错误提示
+		 	),
+		 	array(
+		 		'name'=>'name', 
+		 		'reg' => '/^\d+$/',
+		 		'error' => '请输入数字'
+		 	)
+
+		 );
+		 //获取的数据
+		 $user->data = array(
+		 	'id' =>'aaaa',   
+		 	'name' =>'dddd21111'
+
+		 );
+		 //对数据进行校验
+		if(!$user->validate()){
+			//输出错误提示
+		 	var_dump($user->validateErr);
+		}
+```			
 *控制器语法示例:*		
 ```PHP
 $wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
