@@ -41,8 +41,7 @@ class ModelApi {
 		}
 		if(!empty($conntion)) {
 			array_push($arr, $conntion);
-		}
-		if(self::$Config->dbname) {
+		}elseif(self::$Config->dbname) {
 			array_push($arr,array(
 				'host' => self::$Config->host,
 				'dbname' => self::$Config->dbname,
