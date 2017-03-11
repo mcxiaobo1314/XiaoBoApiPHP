@@ -88,7 +88,6 @@ class XiaoBoException extends Exception {
 		if($line - 8 < 0){
 			$start = 0;
 		}
-		;
 		if($line - 8 >= 0){
 			$start = $line - 8;
 		}
