@@ -3,7 +3,6 @@
 class testController  extends Controller{
 
 
-
 	public function aaa() {
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
@@ -11,7 +10,7 @@ class testController  extends Controller{
 		// $thinkphp = new thinkphp();
 		// $thinkphp->test();		
 
-		// $user = $this->LoadModel('users');
+		//$user = $this->LoadModel('users');
 		// $user->validate = array(
 		// 	array(
 		// 		'name'=>'id',

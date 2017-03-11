@@ -38,11 +38,12 @@ class LoadModel {
 	 * 导入文件
 	 * @param String $file  文件名
 	 * @param String $path 文件路径
+	 * @param bool $first 是否首字母转换大些
 	 * @author wave
 	 */
-	static function import($file = '', $path = '') {
+	static function import($file = '', $path = '',$first = true) {
 		static $pathArr = array();
-		$file = ucfirst($file);
+		$file = $first === true  ?  ucfirst($file) : $file;
 		$path = $path.$file;
 		if(empty($pathArr[$path])) {
 			$pathArr[$path] = $path;

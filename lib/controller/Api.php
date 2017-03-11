@@ -87,6 +87,18 @@ class Controller  {
 		return ModelApi::LoadModel($tableName,$conntion);
 	}
 
+	/**
+	 * 导入文件
+	 * @param String $file  文件名
+	 * @param String $path 文件路径
+	 * @param bool $first 是否首字母转换大些
+	 * @author wave
+	 */
+	public function import($file = '',$path = '',$first = false){
+		$rootPath = getcwd().ROUTE_DS;
+		$rootPath .= $path;
+		return LoadModel::import($file,$rootPath,$first);
+	}
 
 	/**
 	 * 加载数据库配置
