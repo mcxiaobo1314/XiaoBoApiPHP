@@ -8,7 +8,7 @@
 7.控制层只负责传递数据和渲染视图，模型负责校验数据，操作数据库等。控制器和模型传递数据只需要importModel()此函数来完成				
 8.只支持pdo操作数据库		
 9.url参数太长了，怎么办？赶紧定义路由别名，又可以传入参数也可以缩短url		
-路由别名定于路径:/lib/conf/Route.php
+路由别名路径:/lib/conf/Route.php
 ```PHP
 RouteApi::aliasRoute('/index.html','home','test','aaa',array(3,5));
 ```		

@@ -12,6 +12,145 @@ if(!defined('MODEL_TOKEN')) {
 abstract class Dao {
 
 	/**
+	 * 数据
+	 * @author wave
+	 */
+	public $data = array();
+
+	/**
+	 * 记录单条SQL语句
+	 * @author wave
+	 */
+	public $firstSql = '';
+
+	public $validate = array();
+	
+	/**
+	 * 字段
+	 * @author wave
+	 */
+	public $fields = '';
+
+	/**
+	 * 联表字段
+	 * @author wave
+	 */
+	public $joinFields = '';
+
+	/**
+	 * 条件
+	 * @author wave
+	 */
+	public $where = '';
+
+	/**
+	 * 联表
+	 * @author wave
+	 */
+	public $join = '';
+
+	/**
+	 * 限制
+	 * @author wave
+	 */
+	public $limit = '';
+	
+	/**
+	 * 分组
+	 * @author wave
+	 */
+	public $group = '';
+
+	/**
+	 * 排序
+	 * @author wave
+	 */
+	public $order = '';
+
+	/**
+	 * 分组条件
+	 * @author wave
+	 */
+	public $having = '';
+
+
+	/**
+	 * 表前缀
+	 * @author wave
+	 */
+	public $tablePrefix = '';
+
+	/**
+	 * 参数校验错误
+	 * @author wave
+	 */
+	public $validateErr = '';
+
+	/**
+	 * 数据库连接
+	 * @author wave
+	 */
+	protected $db = '';
+
+	/**
+	 * 表名
+	 * @author wave
+	 */
+	protected $dbTableName = '';
+	
+	/**
+	 * 执行方法
+	 * @author wave
+	 */
+	protected $motehd = '';
+
+	/**
+	 *  默认连接
+	 * @author wave
+	 */
+	protected $defaultCon = array();
+
+	/**
+	 * 拼接sql语句字段数组
+	 * @author wave
+	 */
+	protected $sqlFiledArr = array(
+		0 => 'select',
+		1 => 'insert into',
+		2 => 'update',
+		3 => 'delete',
+		4 => 'from',
+		5 => 'where',
+		6 => 'group by',
+		7 => 'order by',
+		8 => 'join',
+		9 => 'limit',
+		10 => 'having',
+		11 => 'set',
+		12 => 'values',
+		13 => 'on',
+		14 => '(',
+		15 => ')'
+	);
+
+	/**
+	 * 参数校验的key
+	 * @author wave
+	 */
+	protected $_validateKeyArr = array(
+		'name',
+		'reg',
+		'error'
+	);
+
+	/**
+	 * 表字段结构
+	 * @author wave
+	 */
+	static protected $TableFieldStruct = array();
+
+
+	/**
 	 * 条件判断符号
 	 * @author wave
 	 */
@@ -46,6 +185,26 @@ abstract class Dao {
 			throw new XiaoBoException('连接数据库失败');
 		}
 		return $db;
+	}
+
+
+	/**
+	 * 对参数的校验
+	 * @return bool
+	 * @author wave
+	 */
+	public function validate(){
+		if(is_array($this->validate)){
+			foreach ($this->validate as $key => $value) {
+				if($this->diffArr($value,$this->_validateKeyArr)){
+					$this->validateErr = preg_match($value['reg'], $this->data[$value['name']]) 
+								? true : $value['error'];
+				}
+				if($this->validateErr)  return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 
