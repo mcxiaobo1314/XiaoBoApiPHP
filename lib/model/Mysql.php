@@ -384,6 +384,11 @@ class Mysql extends Dao {
 		if( !empty($args) && is_string($args) ) {
 			$this->where .= $this->sqlFiledArr[5] . 
 				' ' . $args;
+		}elseif(!empty($args) && is_array($args)){
+			foreach($args as $key => $val){
+				$this->where .= $this->sqlFiledArr[5].' '.
+						$this->splitKey($key).'"'.$val.'"';
+			}
 		}
 		return $this;
 	}
