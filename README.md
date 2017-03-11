@@ -14,6 +14,10 @@ RouteApi::aliasRoute('/index.html','home','test','aaa',array(3,5));
 ```		
 路由原伪静态访问http://localhost/XiaoBoApiPHP/index.php/home/test/aaa		
 设置路由别名访问http://localhost/XiaoBoApiPHP/index.php/index.html		
+*隐藏index.php伪静态访问设置:*		
+1.首先到httpd.conf 找到mod_rewrite.so 把前面的#去掉 		
+2.找到AllowOverride 把None改成All			
+3.重启Apache 就可以访问:http://localhost/XiaoBoApiPHP/home/test/aaa 访问		
 *配置目录*		
 1. /lib/conf.php  配置默认访问路径和url访问参数			
 2. /lib/core/config.xml 配置加载核心模块和自定义模块(还需在index.php配置一下)			
