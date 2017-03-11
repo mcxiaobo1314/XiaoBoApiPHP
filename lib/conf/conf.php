@@ -38,6 +38,7 @@ class Config{
 
 }
 
+
 if(!defined('LEFT_DELIMITER')){
 	define('LEFT_DELIMITER','<{'); //模版引擎左边界符
 }

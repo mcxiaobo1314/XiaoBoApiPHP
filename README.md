@@ -54,11 +54,16 @@ $user->validate = array(
 ```			
 *控制器语法示例:*		
 ```PHP
-$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
-$wp_users ->find(); //查询wp_users表里的所有数据		
+$this->getUrl();  //获取当前反问url参数		
+$this->getGroup()；//获取当前访问分组		
+$this->getClass(); //获取当前访问类名		
+$this->getAction(): //获取当前访问的方法名		
+$this->getPath(); //获取网站的跟目录		
 $model = $this->LoadModel(); //PDO原生态操作	
 $wpusers = $model->db()->query('select * from wp_users'); //执行原生sql语句写法		
 $wpusers->execute();		
+$wp_users = $this->LoadModel("wp_users"); //加载wp_users模型		
+$wp_users ->find(); //查询wp_users表里的所有数据		
 $wp_users->where('`id`=51')			
  	->join('left','xb_user','a=1 or b=2')		
  	->join('right','config','a=3 or b=2')		

@@ -2,6 +2,15 @@
 
 class testController  extends Controller{
 
+	public function __construct(){
+		parent::__construct();
+		//$this->getUrl();  //获取当前反问url参数
+		//$this->getGroup()；//获取当前访问分组
+		//$this->getClass(); //获取当前访问类名
+		//$this->getAction(): //获取当前访问的方法名
+		//$this->getPath(); //获取网站的跟目录
+	}
+
 	public function aaa() {
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();

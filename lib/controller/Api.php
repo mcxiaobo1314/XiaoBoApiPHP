@@ -95,10 +95,53 @@ class Controller  {
 	 * @author wave
 	 */
 	public function import($file = '',$path = '',$first = false){
-		$rootPath = getcwd().ROUTE_DS;
-		$rootPath .= $path;
-		return LoadModel::import($file,$rootPath,$first);
+		return LoadModel::import($file,$this->getPath().$path,$first);
 	}
+
+ 	/**
+ 	 * 获取当前url参数
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+	public function getUrl(){
+		return RouteApi::getUrl();
+	}
+
+	/**
+ 	 * 获取当前url分组
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	 public function getGroup(){
+ 		return RouteApi::getGroup();
+ 	}
+
+ 	/**
+ 	 * 获取当前url类名
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	public function getClass(){
+ 		return RouteApi::getClass();
+ 	}
+
+ 	/**
+ 	 * 获取当前url方法名
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+  	public function getAction(){
+ 		return RouteApi::getAction();
+ 	}
+
+ 	/**
+ 	 * 获取网站跟目录
+ 	 * @author wave
+ 	 */
+ 	public function getPath(){
+ 		return getcwd().ROUTE_DS;
+ 	}
+
 
 	/**
 	 * 加载数据库配置

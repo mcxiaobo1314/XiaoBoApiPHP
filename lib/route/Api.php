@@ -6,7 +6,17 @@
 
 class RouteApi {
 
+	/**
+	 * 初始化路由
+	 * @author wave
+	 */
  	static protected $route;
+
+ 	/**
+ 	 * 标示是否定义路由别名
+ 	 * @author wave
+ 	 */
+ 	static protected $flag = true;
 
  	/**
  	 * 路由初始化
@@ -36,11 +46,48 @@ class RouteApi {
 	 * @author wave
 	 */
  	static public function aliasRoute($url='',$g= '',$c= '' ,$a = '',$params = array()){
- 		if(rtrim(self::$route->getUrlParam(false),'/') == rtrim($url,'/')){
+ 		self::$flag = false;
+ 		if(rtrim(self::$route->getUrlParam(self::$flag),'/') == rtrim($url,'/')){
  			ViewApi::$view->setRoute($g,$c,$a);
  			self::$route->setRoute($g,$c,$a,$params);
  			
  		}
+ 	}
+
+ 	/**
+ 	 * 获取当前url参数
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	static public function getUrl(){
+ 		return self::$route->getUrlParam(self::$flag);
+ 	}
+
+ 	/**
+ 	 * 获取当前url分组
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	static public function getGroup(){
+ 		return self::$route->groupName;
+ 	}
+
+ 	/**
+ 	 * 获取当前url类名
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	static public function getClass(){
+ 		return self::$route->className;
+ 	}
+
+ 	/**
+ 	 * 获取当前url方法名
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	static public function getAction(){
+ 		return self::$route->actionName;
  	}
 
  }

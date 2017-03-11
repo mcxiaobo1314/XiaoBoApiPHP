@@ -153,14 +153,17 @@ class Route {
 			$this->getUrlParamArr[1] = isset($this->getUrlParamArr[1]) ? $this->getUrlParamArr[1] : NULL;
 			$actionName = ($this->isPath() !== false) ? $this->getUrlParamArr[2] : $this->getUrlParamArr[1];
 			$className = $this->isClass();
-			($this->isPath() !== false)  ? array_splice($this->getUrlParamArr,0,3) : array_splice($this->getUrlParamArr,0,2); 
-
+			($this->isPath() !== false)  ? 
+			array_splice($this->getUrlParamArr,0,3) : 
+			array_splice($this->getUrlParamArr,0,2); 
+			$this->actionName = $actionName;
 			if ( !empty($className) ) {
 				$obj = new $className();
 			}
 
 			if ( isset($obj) && is_object($obj) ) {
 				if($this->isAction($obj,$actionName)){
+
 					$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
 					//视图初始化
 					if(class_exists('ViewApi')){
@@ -184,7 +187,6 @@ class Route {
 		if( !method_exists($obj,$actionName) ) {
 			throw new XiaoBoException('方法不存在');
 		}
-		$this->actionName = $actionName;
 		return true;
 	}
 
