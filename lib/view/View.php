@@ -169,10 +169,10 @@ class View {
 	 */
 	public  function isPath() {
 		$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
-		$controllerPath = str_replace('index.php', '', $controllerPath);
-		//判断不是目录文件
-		if( !file_exists($controllerPath) ) {
-			return false;
+		//判断不是分组目录不存在则加载默认分组
+		if( !file_exists($controllerPath) ) { 
+			$this->getUrlParamArr[0] = DEFAULT_PATH; 
+			$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
 		} 
 
 		if( !is_dir($controllerPath) ) {
