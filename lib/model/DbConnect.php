@@ -106,14 +106,10 @@ class DbConnect {
 				$this->user,
 				$this->pwd
 			);
-
-			$pdo->exec('set names '.$this->charset.';'); 
-			$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
+			$this->setPdo($pdo);
 		}catch(PDOException $e){
 			throw new XiaoBoException('数据库连接失败:'.$e->getMessage());
 		}
-
-		
 		return $pdo;
 	}
 
@@ -136,14 +132,22 @@ class DbConnect {
 			    	PDO::ATTR_PERSISTENT => true
 				)
 			);
-			$pdo->query('set names '.$this->charset.';'); 
-			$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); 
+			$this->setPdo($pdo);
 		}catch(PDOException $e){
 			throw new XiaoBoException('数据库连接失败:'.$e->getMessage());
-		}
-
-		
+		}	
 		return $pdo;
+	}
+
+	/**
+	 * 设置pdo
+	 * @param object $pdo 
+	 * @author wave
+	 */
+	protected function setPdo($pdo) {
+			$pdo->query('set names '.$this->charset.';'); 
+			$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+			$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); 
 	}
 
 }
