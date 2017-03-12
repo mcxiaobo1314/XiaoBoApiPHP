@@ -266,7 +266,8 @@ class Route {
 	 * @author wave
 	 */
 	protected function ReturnGetParam($getStr) {
-		$getStr = str_replace(array('?','/','index.php'),'', $getStr);
+		$getStr = $this->substr($getStr,'','?');
+		$getStr = $this->substr($getStr,'','/');		
 		parse_str($getStr,$get);
 		if( isset($get[C]) && isset($get[A]) ) {
 			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
@@ -340,6 +341,18 @@ class Route {
 			return	array_values(array_filter($arr));
 		}
 		return array();
+	}
+
+	/**
+	 * 替换第一次出现的字符串
+	 * @param string $string 要替换的字符串
+	 * @param string $repalce 被替换的字符串
+	 * @param string $t_repalce 要替换的字符串
+	 * @return string
+	 * @author wave
+	 */
+	protected function substr($string,$repalce,$t_repalce){
+		return substr_replace($string,$repalce,strpos($string,$t_repalce),strlen($t_repalce));
 	}
 
 

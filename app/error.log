@@ -1,0 +1,3 @@
+server time:[1489330285]-url Pamas:[test/aaa]-message:E_WARNING:parse_str() expects parameter 1 to be string, array given
+server time:[1489330440]-url Pamas:[test/aaa]-message:E_WARNING:substr_replace() expects at most 4 parameters, 5 given
+server time:[1489330454]-url Pamas:[test/aaa]-message:E_WARNING:substr_replace() expects at most 4 parameters, 5 given
