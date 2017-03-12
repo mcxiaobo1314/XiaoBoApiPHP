@@ -56,6 +56,7 @@ class Route {
 	public function coustructs() {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
+
 		if(count($this->getUrlParamArr) == 1) {
 			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().$this->getDefualtUrl());
 		}
@@ -103,16 +104,17 @@ class Route {
 	 * @author wave
 	 */
 	protected function isPath() {
+		//var_dump($this->getUrlParamArr);EXIT;
 		$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
-		//判断不是目录文件
-		if( !file_exists($controllerPath) ) {
-			$this->getUrlParamArr[0] = DEFAULT_PATH;
-			$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
-		} 
-
 		if( !is_dir($controllerPath) ) {
 			return false;
 		}
+		//判断不是目录文件
+		if( !file_exists($controllerPath) ) {
+			return false;	
+		} 
+
+
 		$this->groupName = $this->getUrlParamArr[0];
 		return $this->getUrlParamArr[0];
 	}
@@ -231,7 +233,6 @@ class Route {
 	 * @author wave
 	 */
 	public  function getUrlParam($flag = true) {
-		//$url = $this->getDefualtUrl();
 		$getParam = $this->ReturnGetParam();
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
 			$url = $_SERVER['ORIG_PATH_INFO'];
@@ -240,11 +241,12 @@ class Route {
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
 			$url = $_SERVER['REQUEST_URI'];
 		}
-
-		if($getParam && $flag) {
+		
+		if($getParam  && $flag) {
 			$url = $getParam;
 		}
-		if($url ==  strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS) ) {
+		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS);
+		if($url == $rootPath  || ($getParam === false && !empty($_GET)) ) {
 			$url = $this->getDefualtUrl();
 		}
 		if($this->flag && $flag){
@@ -259,8 +261,6 @@ class Route {
 	 * @author wave
 	 */
 	protected function ReturnGetParam() {
-		$getUrl = '';
-
 		if( isset($_GET[C]) && isset($_GET[A]) ) {
 			$getUrl = ROUTE_DS . $_GET[C] . ROUTE_DS . $_GET[A] . ROUTE_DS;
 		}
@@ -269,7 +269,7 @@ class Route {
 			$getUrl =  ROUTE_DS . $_GET[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 		}
 
-		return $getUrl;
+		return empty($getUrl) ? false : $getUrl;
 	}
 
 	/**

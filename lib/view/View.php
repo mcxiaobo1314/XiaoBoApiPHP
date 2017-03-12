@@ -171,8 +171,7 @@ class View {
 		$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
 		//判断不是分组目录不存在则加载默认分组
 		if( !file_exists($controllerPath) ) { 
-			$this->getUrlParamArr[0] = DEFAULT_PATH; 
-			$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
+			return false;
 		} 
 
 		if( !is_dir($controllerPath) ) {
@@ -202,9 +201,12 @@ class View {
 		if($getParam && $flag) {
 			$url = $getParam;
 		}
-		if($url ==  strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS) ) {
+
+		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS);
+		if($url == $rootPath  || ($getParam === false && !empty($_GET)) ) {
 			$url = $this->getDefualtUrl();
 		}
+
 		if($this->flag && !$flag){
 			$url = implode('/', $this->getUrlParamArr);
 		}
@@ -217,8 +219,6 @@ class View {
 	 * @author wave
 	 */
 	protected function ReturnGetParam() {
-		$getUrl = '';
-
 		if( isset($_GET[C]) && isset($_GET[A]) ) {
 			$getUrl = ROUTE_DS . $_GET[C] . ROUTE_DS . $_GET[A] . ROUTE_DS;
 		}
@@ -227,7 +227,7 @@ class View {
 			$getUrl =  ROUTE_DS . $_GET[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 		}
 
-		return $getUrl;
+		return empty($getUrl) ? false : $getUrl;
 	}
 
 
