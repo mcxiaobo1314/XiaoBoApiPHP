@@ -97,11 +97,7 @@ class Controller  {
 	public function import($file = '',$path = '',$first = false){
 		return LoadModel::import($file,$this->getPath().$path,$first);
 	}
-
-	public function getController($g,$c,$a,$params){
-		return RouteApi::$route->setRoute($g,$c,$a,$params);
-	}
-
+	
  	/**
  	 * 获取当前url参数
  	 * @return string

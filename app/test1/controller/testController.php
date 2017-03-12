@@ -10,9 +10,5 @@ class testController extends Controller {
 		echo '欢迎使用XiaoBoPHPApi组建化框架';
 	}
 
-
-	public function test22(){
-		return 1;
-	}
 }
 ?>

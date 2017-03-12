@@ -233,20 +233,23 @@ class Route {
 	 * @author wave
 	 */
 	public  function getUrlParam($flag = true) {
-		$getParam = $this->ReturnGetParam();
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
 			$url = $_SERVER['ORIG_PATH_INFO'];
+			$urlNum =2;  //伪静态
 		} else if ( !empty($_SERVER['PATH_INFO']) ) {
 			$url = $_SERVER['PATH_INFO'];
+			$urlNum =2; //伪静态
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
 			$url = $_SERVER['REQUEST_URI'];
+			$getParam = $this->ReturnGetParam($url);
+			$urlNum = 3; //动态
 		}
-		
-		if($getParam  && $flag) {
+
+		if(isset($getParam)  && $flag && $urlNum === 3) {
 			$url = $getParam;
 		}
 		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS);
-		if($url == $rootPath  || ($getParam === false && !empty($_GET)) ) {
+		if($url == $rootPath || (isset($getParam) && $getParam === false && $urlNum ===3)) {
 			$url = $this->getDefualtUrl();
 		}
 		if($this->flag && $flag){
@@ -258,15 +261,19 @@ class Route {
 
 	/**
 	 * 返回GET参入参数
+	 * @param string $getStr 获取get参数
+	 * @
 	 * @author wave
 	 */
-	protected function ReturnGetParam() {
-		if( isset($_GET[C]) && isset($_GET[A]) ) {
-			$getUrl = ROUTE_DS . $_GET[C] . ROUTE_DS . $_GET[A] . ROUTE_DS;
+	protected function ReturnGetParam($getStr) {
+		$getStr = str_replace(array('?','/','index.php'),'', $getStr);
+		parse_str($getStr,$get);
+		if( isset($get[C]) && isset($get[A]) ) {
+			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
 		}
 
-		if(isset($_GET[G]) ) {
-			$getUrl =  ROUTE_DS . $_GET[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
+		if(isset($get[G]) ) {
+			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 		}
 
 		return empty($getUrl) ? false : $getUrl;

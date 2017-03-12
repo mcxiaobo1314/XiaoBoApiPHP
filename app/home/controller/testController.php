@@ -12,7 +12,6 @@ class testController  extends Controller{
 	}
 
 	public function aaa() {
-		//echo $this->getCotroller('test1','test','test22');
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
 		//引入第三api扩展
