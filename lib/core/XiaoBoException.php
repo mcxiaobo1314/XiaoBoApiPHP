@@ -33,7 +33,7 @@ class XiaoBoException extends Exception {
 		}
 		++self::$errNum;
 		parent::__construct($this->message);
-		!empty($trace) &&  Error::log($this->message);
+		!empty($trace) &&  XiaoBoError::log($this->message);
 		$this->getTrace = !empty($trace) ? array($trace) : $this->getTrace();
 	}
  
