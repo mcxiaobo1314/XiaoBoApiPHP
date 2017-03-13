@@ -198,6 +198,7 @@ class View {
 			$url = $_SERVER['REQUEST_URI'];
 			$url = $this->substr($url,'', 'index.php');
 			$url = $this->substr($url,'', $rootPath );
+			$url = $this->substr($url,'', '//');
 			$getParam = $this->ReturnGetParam($url);
 			$urlNum = 3; 
 		}
@@ -241,7 +242,7 @@ class View {
 	 * @author wave
 	 */
 	protected function expUrlParamArr($dataStr = '' , $exp = ROUTE_DS) {
-		$dataStr = str_replace(array('//',"index.php"), array($exp,"") , $dataStr);
+		$dataStr = str_replace(array('//'), array($exp) , $dataStr);
 		$getUrlParamArr = explode($exp, $dataStr);
 		$getUrlParamArr = $this->filterArr($getUrlParamArr);
 		return !empty($getUrlParamArr) ? $getUrlParamArr : false;
