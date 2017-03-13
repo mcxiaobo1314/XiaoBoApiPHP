@@ -57,6 +57,17 @@ class testController  extends Controller{
 		var_dump($b);
 	}
 
+
+	public function ccc(){
+		//该引入模版，无需编译，支持原生php
+		/**
+		 * 设置模版变量并引入模版
+		 * @param array $array key => 模版变量 value => 变量值
+		 * @param string $templeFile 模版文件名
+		 */
+		$this->view->set(array('a'=>'11111'));
+	}
+
 }
 
 ?>

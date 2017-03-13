@@ -297,6 +297,22 @@ class View {
 	// 	return $url;
 	// }
 
+	/**
+	 * 设置模版变量
+	 * @param array $array 模版变量数组
+	 * @param string $templateFile 模版名字
+	 * @author wave
+	 */
+	public function set($array= array(),$templateFile = null){
+		$tmpfile = !empty($templateFile) ? $templateFile : $this->getUrlParamArr['action'];
+		$file_path = $this->pathArr['view'] . $tmpfile . $this->suffix;
+		if(!file_exists($file_path)) {
+			throw new XiaoBoException("视图文件不存在");
+		}
+		exit($this->cacheHtml($templateFile,$array,$file_path));
+	}
+
+
 
 	/**
      * 编译文件
