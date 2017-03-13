@@ -195,6 +195,7 @@ class View {
 			$url = $_SERVER['PATH_INFO'];
 			$urlNum = 2;
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
+			$getParam = false;
 			$url = $_SERVER['REQUEST_URI'];
 			$urlArr = parse_url($url);
 			// $url = $this->substr($url,'', 'index.php');
@@ -209,7 +210,7 @@ class View {
 		if(isset($getParam)  && $flag && $urlNum === 3) {
 			$url = $getParam;
 		}
-		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS);
+		
 		if($url == $rootPath || (isset($getParam) && $getParam === false && $urlNum ===3)) {
 			$url = $this->getDefualtUrl();
 		}
