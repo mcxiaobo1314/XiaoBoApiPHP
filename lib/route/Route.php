@@ -242,7 +242,7 @@ class Route {
 			$urlNum =2; //伪静态
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
 			$url = $_SERVER['REQUEST_URI'];
-			$url = $this->substr($url,'', '/index.php');
+			$url = $this->substr($url,'', 'index.php');
 			$url = $this->substr($url,'', $rootPath );
 			$getParam = $this->ReturnGetParam($url);
 			$urlNum = 3; //动态
