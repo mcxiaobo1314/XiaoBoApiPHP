@@ -91,7 +91,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function expUrlParamArr($dataStr = '' , $exp = ROUTE_DS) {
-		$dataStr = str_replace(array('//',"index.php"), array($exp,"") , $dataStr);
+		$dataStr = str_replace(array('//'), array($exp) , $dataStr);
 		$getUrlParamArr = explode($exp, $dataStr);
 		$getUrlParamArr = $this->filterArr($getUrlParamArr);
 		return !empty($getUrlParamArr) ? $getUrlParamArr : false;
