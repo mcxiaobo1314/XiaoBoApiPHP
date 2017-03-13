@@ -181,7 +181,12 @@ class Route {
 					$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
 					//视图初始化
 					if(class_exists('ViewApi')){
-						ViewApi::$view->init();
+						ViewApi::$view->init(array(
+							'group' => $this->groupName,
+							'class' => $this->className,
+							'action' => $this->actionName,
+							'controllerPath' => $this->controllerPath
+						));
 					}
 					return call_user_func_array(array($obj,$actionName), $this->getUrlParamArr);
 				}

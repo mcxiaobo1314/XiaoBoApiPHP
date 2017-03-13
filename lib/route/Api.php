@@ -48,7 +48,7 @@ class RouteApi {
  	static public function aliasRoute($url='',$g= '',$c= '' ,$a = '',$params = array()){
  		self::$flag = false;
  		if(rtrim(self::$route->getUrlParam(self::$flag),'/') == rtrim($url,'/')){
- 			ViewApi::$view->setRoute($g,$c,$a);
+ 			//ViewApi::$view->setRoute($g,$c,$a);
  			self::$route->setRoute($g,$c,$a,$params);
  			
  		}
