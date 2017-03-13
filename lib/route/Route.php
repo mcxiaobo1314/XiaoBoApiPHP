@@ -242,10 +242,11 @@ class Route {
 			$urlNum =2; //伪静态
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
 			$url = $_SERVER['REQUEST_URI'];
-			$url = $this->substr($url,'', 'index.php');
-			$url = $this->substr($url,'', $rootPath );
-			$url = $this->substr($url,'', '//');
-			$getParam = $this->ReturnGetParam($url);
+			$urlArr = parse_url($url);
+			// $url = $this->substr($url,'', 'index.php');
+			// $url = $this->substr($url,'', $rootPath );
+			// $url = $this->substr($url,'', '//');
+			$getParam = $this->ReturnGetParam($urlArr['query']);
 			$urlNum = 3; //动态
 		}
 		if(isset($getParam)  && $flag && $urlNum === 3) {
@@ -269,8 +270,8 @@ class Route {
 	 * @author wave
 	 */
 	protected function ReturnGetParam($getStr) {
-		$getStr = $this->substr($getStr,'','?');
-		$getStr = $this->substr($getStr,'','/');		
+		//$getStr = $this->substr($getStr,'','?');
+		//$getStr = $this->substr($getStr,'','/');		
 		parse_str($getStr,$get);
 		if( isset($get[C]) && isset($get[A]) ) {
 			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
