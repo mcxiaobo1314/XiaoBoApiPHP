@@ -5,7 +5,7 @@
  */
 
 
-class Error {
+class XiaoBoError {
 
 	/**
 	 * 获取url参数
