@@ -200,7 +200,9 @@ class View {
 			// $url = $this->substr($url,'', 'index.php');
 			// $url = $this->substr($url,'', $rootPath );
 			// $url = $this->substr($url,'', '//');
-			$getParam = $this->ReturnGetParam($urlArr['query']);
+			if(isset($urlArr['query'])){
+				$getParam = $this->ReturnGetParam($urlArr['query']);
+			}
 			$urlNum = 3; 
 		}
 
