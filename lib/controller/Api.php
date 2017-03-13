@@ -135,6 +135,25 @@ class Controller  {
  	}
 
  	/**
+ 	 * 获取当前url域名
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+  	public function getHost(){
+ 		return RouteApi::getHost();
+ 	}
+
+ 	 /**
+ 	 * 获取当前scheme
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+  	public function getScheme(){
+ 		return RouteApi::getScheme();
+ 	}
+
+
+ 	/**
  	 * 获取网站跟目录
  	 * @author wave
  	 */

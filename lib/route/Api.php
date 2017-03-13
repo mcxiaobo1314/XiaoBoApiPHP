@@ -90,6 +90,24 @@ class RouteApi {
  		return self::$route->actionName;
  	}
 
+ 	/**
+ 	 * 获取当前域名
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	static public function getHost(){
+ 		return self::$route->host;
+ 	}
+
+	/**
+ 	 * 获取当前scheme
+ 	 * @return string
+ 	 * @author wave
+ 	 */
+ 	static public function getScheme(){
+ 		return self::$route->scheme;
+ 	}
+ 	
  }
 //初始化路由类对象
 RouteApi::init();

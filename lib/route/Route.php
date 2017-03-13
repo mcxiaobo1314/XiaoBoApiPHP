@@ -36,6 +36,18 @@ class Route {
 	public $getUrlParamArr = array();
 
 	/**
+	 * 获取请求协议是http/https
+	 * @author wave
+	 */
+	public $scheme = 'http';
+
+	/**
+	 * 获取当前网站域名
+	 * @author wave
+	 */
+	public $host = '';
+
+	/**
 	 * 标示定义路由
 	 * @author wave
 	 */
@@ -244,18 +256,19 @@ class Route {
 			$getParam = false;
 			$url = $_SERVER['REQUEST_URI'];
 			$urlArr = parse_url($url);
-			// $url = $this->substr($url,'', 'index.php');
-			// $url = $this->substr($url,'', $rootPath );
-			// $url = $this->substr($url,'', '//');
 			if(isset($urlArr['query'])){
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
 			$urlNum = 3; //动态
 		}
+
+		$this->setHost();
+		$this->setScheme();
+
 		if(isset($getParam)  && $flag && $urlNum === 3) {
 			$url = $getParam;
 		}
-		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()).ROUTE_DS);
+
 		if($url == $rootPath || (isset($getParam) && $getParam === false && $urlNum ===3)) {
 			$url = $this->getDefualtUrl();
 		}
@@ -264,6 +277,23 @@ class Route {
 		}
 
 		return $url;
+	}
+
+	/**
+	 * 设置scheme
+	 * @author wave
+	 */
+	protected function setScheme(){
+		$this->scheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : $this->host; 
+	}
+
+
+	/**
+	 * 设置host
+	 * @author wave
+	 */
+	protected function setHost(){
+		$this->host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : $this->host; 
 	}
 
 	/**
