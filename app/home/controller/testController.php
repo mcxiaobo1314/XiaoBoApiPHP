@@ -9,6 +9,8 @@ class testController  extends Controller{
 		//$this->getClass(); //获取当前访问类名
 		//$this->getAction();  //获取当前访问的方法名
 		//$this->getPath(); //获取网站的跟目录
+		//$this->getHost(); //获取当前域名
+		//$this->getScheme();  //获取是http还是https
 	}
 
 	public function aaa() {
