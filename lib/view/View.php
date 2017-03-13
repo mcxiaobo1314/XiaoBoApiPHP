@@ -187,6 +187,7 @@ class View {
 	 * @author wave
 	 */
 	protected  function getUrlParam($flag = true) {		
+		$rootPath = ROUTE_DS.basename($this->getPath()).ROUTE_DS;
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
 			$url = $_SERVER['ORIG_PATH_INFO'];
 			$urlNum = 2;
@@ -195,8 +196,10 @@ class View {
 			$urlNum = 2;
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
 			$url = $_SERVER['REQUEST_URI'];
+			$url = $this->substr($url,'', '/index.php');
+			$url = $this->substr($url,'', $rootPath );
 			$getParam = $this->ReturnGetParam($url);
-			$urlNum = 3;
+			$urlNum = 3; 
 		}
 
 		if(isset($getParam)  && $flag && $urlNum === 3) {
@@ -617,7 +620,10 @@ class View {
 	 * @author wave
 	 */
 	protected function substr($string,$repalce,$t_repalce){
-		return substr_replace($string,$repalce,strpos($string,$t_repalce),strlen($t_repalce));
+		if(strpos($string,$t_repalce)  !== false){
+			return substr_replace($string,$repalce,strpos($string,$t_repalce),strlen($t_repalce));
+		}
+		return $string;
 	}
 
 }
