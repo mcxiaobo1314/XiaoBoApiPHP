@@ -39,7 +39,7 @@ class XiaoBoError {
 	public static function init($urlPamas = array()){
 		self::$urlPamas = !empty($urlPamas) ? implode("/", $urlPamas) : array();
 		ini_set('display_errors','Off');
-		register_shutdown_function("Error::echoErr");
+		register_shutdown_function("XiaoBoError::echoErr");
 	}
 
 
