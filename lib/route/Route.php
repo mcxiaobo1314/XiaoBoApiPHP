@@ -244,6 +244,7 @@ class Route {
 			$url = $_SERVER['REQUEST_URI'];
 			$url = $this->substr($url,'', 'index.php');
 			$url = $this->substr($url,'', $rootPath );
+			$url = $this->substr($url,'', '//');
 			$getParam = $this->ReturnGetParam($url);
 			$urlNum = 3; //动态
 		}
