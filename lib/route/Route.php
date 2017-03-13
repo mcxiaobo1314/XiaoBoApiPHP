@@ -60,7 +60,7 @@ class Route {
 		if(count($this->getUrlParamArr) == 1) {
 			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().$this->getDefualtUrl());
 		}
-		Error::init($this->getUrlParamArr);
+		XiaoBoError::init($this->getUrlParamArr);
 		//$this->init();
 	}
 
