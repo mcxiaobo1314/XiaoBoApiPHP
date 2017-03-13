@@ -241,6 +241,7 @@ class Route {
 			$url = $_SERVER['PATH_INFO'];
 			$urlNum =2; //伪静态
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
+			$getParam = false;
 			$url = $_SERVER['REQUEST_URI'];
 			$urlArr = parse_url($url);
 			// $url = $this->substr($url,'', 'index.php');
