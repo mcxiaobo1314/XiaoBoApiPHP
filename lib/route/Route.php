@@ -232,7 +232,7 @@ class Route {
 	protected function getDefualtUrl(){
 		$url = DEFAULT_ROUTE;
 		if(empty($_GET)){
-			$urlArr = array_values(array_filter(explode('/', $url)));
+			$urlArr = $this->filterArr(explode('/', $url));
 			$_GET[C] = $urlArr[0];
 			$_GET[A] = $urlArr[1];
 		}
