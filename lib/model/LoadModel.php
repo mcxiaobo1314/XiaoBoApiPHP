@@ -16,6 +16,7 @@ class LoadModel {
 	 * @param String $dao  数据库类型
 	 * @param Array $params 参数
 	 * @param String $func 回调方法
+	 * @param string $tableName 表名
 	 * @return  OBJECT
 	 * @author wave
 	 */
