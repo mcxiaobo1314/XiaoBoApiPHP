@@ -103,7 +103,10 @@ $table = self::LoadModel("wp_users"); //加载表名
 $table->find(); //查询语句 其余的写法跟控制器写法一致	
 ```			
 *带视图系统自带模版引擎语法示例:*  
-1.普通变量:<{$a}>  数组变量:<{$a.test}> //输出变量  
-2.<{include file="路径加文件"}> //引入文件  
-3.<{foreach item=$arr key=$k val=$v}><{$k}>---<{$v}><{/foreach}> //遍历数据  
-4.<{if $a == $b }>123<{else}>2323<{/if}>//判断语句 		
+```PHP
+<{$a}>//普通变量    
+<{$a.test}> //数组变量  
+<{include file="路径加文件"}> //引入文件  
+<{foreach item=$arr key=$k val=$v}><{$k}>---<{$v}><{/foreach}> //遍历数据  
+<{if $a == $b }>123<{else}>2323<{/if}>//判断语句  
+```  
