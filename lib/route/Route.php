@@ -54,12 +54,6 @@ class Route {
 	public $flag = false;
 
 
-	/**
-	 * 标示初始化
-	 * @author wave
-	 */
-	public $link = 0;
-
 
 	/**
 	 * 初始化URL参数
@@ -160,8 +154,6 @@ class Route {
 	 * @author wave
 	 */
 	public function init() {
-		if($this->link === 0){
-			++$this->link;
 			$this->coustructs();
 			$this->getUrlParamArr[2] = isset($this->getUrlParamArr[2]) ? $this->getUrlParamArr[2] : NULL;
 			$this->getUrlParamArr[1] = isset($this->getUrlParamArr[1]) ? $this->getUrlParamArr[1] : NULL;
@@ -191,8 +183,6 @@ class Route {
 				}
 			}
 			throw new XiaoBoException('初始化失败');
-		}
-		
 	}
 
 
