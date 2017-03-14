@@ -60,17 +60,6 @@ class View {
     protected $tabArr = array('<?php echo ','; ?>');
 
 
-    /**
-     * 保存路径的数组
-     * @author wave
-     */
-  //  protected $pathArr = array();
-
-    /**
-     * 获取控制器路径
-     * @author wave
-     */
-  //  protected $controllerPath ="";
 
     /**
      * 获取url参数数组
@@ -92,52 +81,14 @@ class View {
 	 */
 	public function init($param = array()) {
 		$this->getUrlParamArr = $param;
-		// $this->controllerPath = $this->getPath() . APP_ROOT_PATH;
-		// $df = isset($_GET[G]) ? $_GET[G] : '';
-		// if(empty($_GET[G])){
-		// 	$df = DEFAULT_PATH;
-		// }
-
-		// $flag = $this->flag == false ? true : false;
-		// $this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam($flag));
-		// if(count($this->getUrlParamArr) == 1) {
-		// 	$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam($flag).$this->getDefualtUrl());
-		// }
-
-		// $key = array_search(basename($this->getPath()), $this->getUrlParamArr);
-		
-		// if(isset($this->getUrlParamArr[$key]) && $key !== false){
-		// 	unset($this->getUrlParamArr[$key]);
-
-		// 	$this->getUrlParamArr = array_values($this->getUrlParamArr);
-		// }
-		
-		//$defaultFile = ($this->isPath() !== false) ? $this->getUrlParamArr[1] : $this->getUrlParamArr[0];
 		//编译路径
 		$this->pathArr['cache'] = $this->getUrlParamArr['controllerPath'].ROUTE_DS.$this->getUrlParamArr['group'].
 							ROUTE_DS.CACHE.ROUTE_DS.$this->getUrlParamArr['class'].ROUTE_DS;
-		
 		//文件路径
 		$this->pathArr['view'] = $this->getUrlParamArr['controllerPath'].ROUTE_DS.$this->getUrlParamArr['group'].
 								ROUTE_DS.VIEW.ROUTE_DS. $this->getUrlParamArr['class'] .ROUTE_DS;
 	}
 
-
-	/**
-	 * 设置路由
-	 * @param string $groupName  分组
-	 * @param string $className  类名
-	 * @param string $actionName 方法名
-	 * @author wave
-	 */
-	// public function setRoute($groupName, $className,$actionName){
-	// 	if($groupName && $className && $actionName){
-	// 		$this->getUrlParamArr[0] = $groupName;
-	// 		$this->getUrlParamArr[1] = $className;
-	// 		$this->getUrlParamArr[2] = $actionName;
-	// 		$this->flag = true;
-	// 	}
-	// }
 
 	/**
 	 * 引入模版
@@ -164,138 +115,7 @@ class View {
 		}
 	}
 
-	/**
-	 * 判断文件路径是否存在
-	 * @return boolen or String
-	 * @author wave
-	 */
-	// public  function isPath() {
-	// 	$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
-	// 	//判断不是分组目录不存在则加载默认分组
-	// 	if( !file_exists($controllerPath) ) { 
-	// 		return false;
-	// 	} 
-
-	// 	if( !is_dir($controllerPath) ) {
-	// 		return false;
-	// 	}
-	// 	return $this->getUrlParamArr[0];
-	// }
-
-	/**
-	 * 获取url参数
-	 * @param bool $flag true 是获取默认url参数，false是获取别名url参数
-	 * @return String
-	 * @author wave
-	 */
-	// protected  function getUrlParam($flag = true) {		
-	// 	$rootPath = ROUTE_DS.basename($this->getPath()).ROUTE_DS;
-	// 	if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
-	// 		$url = $_SERVER['ORIG_PATH_INFO'];
-	// 		$urlNum = 2;
-	// 	} else if ( !empty($_SERVER['PATH_INFO']) ) {
-	// 		$url = $_SERVER['PATH_INFO'];
-	// 		$urlNum = 2;
-	// 	} else if ( !empty($_SERVER['REQUEST_URI']) ) {
-	// 		$getParam = false;
-	// 		$url = $_SERVER['REQUEST_URI'];
-	// 		$urlArr = parse_url($url);
-	// 		// $url = $this->substr($url,'', 'index.php');
-	// 		// $url = $this->substr($url,'', $rootPath );
-	// 		// $url = $this->substr($url,'', '//');
-	// 		if(isset($urlArr['query'])){
-	// 			$getParam = $this->ReturnGetParam($urlArr['query']);
-	// 		}
-	// 		$urlNum = 3; 
-	// 	}
-
-	// 	if(isset($getParam)  && $flag && $urlNum === 3) {
-	// 		$url = $getParam;
-	// 	}
-		
-	// 	if($url == $rootPath || (isset($getParam) && $getParam === false && $urlNum ===3)) {
-	// 		$url = $this->getDefualtUrl();
-	// 	}
-
-	// 	if($this->flag && !$flag){
-	// 		$url = implode('/', $this->getUrlParamArr);
-	// 	}
-	// 	return $url;
-	// }
-
-	/**
-	 * 返回GET参入参数
-	 * @param string $getStr 获取get参数
-	 * @author wave
-	 */
-	// protected function ReturnGetParam($getStr = '') {
-	// 	//$getStr = $this->substr($getStr,'','?');
-	// 	//$getStr = $this->substr($getStr,'','/');
-	// 	parse_str($getStr,$get);
-	// 	if( isset($get[C]) && isset($get[A]) ) {
-	// 		$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
-	// 	}
-
-	// 	if(isset($get[G]) ) {
-	// 		$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-	// 	}
-
-	// 	return empty($getUrl) ? false : $getUrl;
-	// }
-
-	/**
-	 * 拆分URL为数组
-	 * @author wave
-	 */
-	// protected function expUrlParamArr($dataStr = '' , $exp = ROUTE_DS) {
-	// 	$dataStr = str_replace(array('//'), array($exp) , $dataStr);
-	// 	$getUrlParamArr = explode($exp, $dataStr);
-	// 	$getUrlParamArr = $this->filterArr($getUrlParamArr);
-	// 	return !empty($getUrlParamArr) ? $getUrlParamArr : false;
-	// }
-
-	/**
-	 * 过滤空的数组
-	 * @param Array $arr 要过滤的空数组
-	 * @return Array 
-	 * @author wave
-	 */
-	// protected function filterArr($arr){
-	// 	if ( !empty($arr) ) {
-	// 		return	array_values(array_filter($arr));
-	// 	}
-	// 	return array();
-	// }
-
-	/**
-	 * 获取服务器相对路径目录
-	 * @return String 
-	 * @author wave
-	 */
-	// protected function getPath() {
-	// 	$appPath = dirname(dirname(__FILE__));
-	// 	$currPath = basename($appPath);
-	// 	$searchArr = array('\\',$currPath);
-	// 	$replaceArr = array(ROUTE_DS,'');
-	// 	$appPath = str_replace($searchArr, $replaceArr, $appPath);
-	// 	return $appPath;
-	// }
-
-
-	/**
-	 * 获取设置默认url
-	 * @return string
-	 * @author wave
-	 */
-	// protected function getDefualtUrl(){
-	// 	$url = DEFAULT_ROUTE;
-	// 	if(empty($_GET)){
-	// 		$urlArr = array_values(array_filter(explode('/', $url)));
-	// 		 $_GET[C] = $urlArr[0];
-	// 		 $_GET[A] = $urlArr[1];
-	// 	}
-	// 	return $url;
-	// }
+	
 
 	/**
 	 * 设置模版变量
@@ -314,7 +134,7 @@ class View {
 
 
 
-	/**
+    /**
      * 编译文件
      * @param string $templateFile 文件名
      * @return string
