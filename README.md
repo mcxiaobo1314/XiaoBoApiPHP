@@ -1,6 +1,6 @@
-#小波ApiPHP框架
+#小波ApiPHP框架		
 *公告*		
-1.优化了路由器解析 			
+1.优化了路由器解析 		 			
 2.伪静态访问，方法里面行参不能用动态参数获取，动态参数只能用$_GET等来获取～		
 3.动态和伪静态访问是自动识别，无需修改配置文件			
 4.加强了系统自带模版引擎 可以解析多维数组变量，详情看模版引擎数组变量的写法			
@@ -23,7 +23,7 @@ RouteApi::aliasRoute('/index.html','home','test','aaa',array(3,5));
 设置路由别名访问http://localhost/XiaoBoApiPHP/public/index.php/index.html			
 cli模式访问:		
 1.先进入public目录 		
-2.php.exe index.php /home/test/aaa/			 
+2.php.exe index.php /home/test/aaa/			
 *隐藏index.php伪静态访问设置:*		
 1.首先到httpd.conf 找到mod_rewrite.so 把前面的#去掉 		
 2.找到AllowOverride 把None改成All			
@@ -31,7 +31,7 @@ cli模式访问:
 *配置目录*		
 1. /lib/conf.php  配置默认访问路径和url访问参数			
 2. /lib/core/config.xml 配置加载核心模块和自定义模块(还需在index.php配置一下)			
-3. 建议配置虚拟目录建议配置到/public 这个目录下，会更安全			
+3. 建议配置虚拟目录建议配置到/app 这个目录下，会更安全			
 4. 自行在app目录下创建error.log文件并给予0777权限,否则错误日志无法写入			
 5. 目前只能对数据库的curd简单的封装，如果需要更详解，请自己行封装进行放到/lib/model/目录下			
 *数据校验:*		
