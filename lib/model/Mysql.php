@@ -19,6 +19,7 @@ class Mysql extends Dao {
 	 * @author wave
 	 */
 	public function init() {
+		//$this->_unset();
 		 $args = func_get_args();
 		 $defaultCon = array();
 

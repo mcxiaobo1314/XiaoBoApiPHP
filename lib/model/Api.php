@@ -53,7 +53,7 @@ class ModelApi {
 				'tablePrefix' => self::$Config->tablePrefix
 			));
 		}
-		return LoadModel::load(self::$Config->type,$arr,'init');
+		return LoadModel::load(self::$Config->type,$arr,'init',$tableName);
 	}
 
 	/**

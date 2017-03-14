@@ -20,7 +20,7 @@ class testController  extends Controller{
 		// $thinkphp = new thinkphp();
 		// $thinkphp->test();		
 
-		//$user = $this->LoadModel('users');
+		// $user = $this->LoadModel('users');
 		// $user->validate = array(
 		// 	array(
 		// 		'name'=>'id',

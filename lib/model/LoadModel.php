@@ -19,19 +19,19 @@ class LoadModel {
 	 * @return  OBJECT
 	 * @author wave
 	 */
-	static function load($dao = 'Mysql',$params = array(),$func = '') {
+	static function load($dao = 'Mysql',$params = array(),$func = '',$tableName = '') {
 		static $objArr = array();
 		$dao = ucfirst($dao);
 		if(!class_exists($dao)) {
 			throw new XiaoBoException("加载模型类名:".$dao."不存在");
 		}
-		if(empty($objArr[$dao])) {
-			$objArr[$dao] = new $dao;
+		if(empty($objArr[$tableName.$dao])) {
+			$objArr[$tableName.$dao] = new $dao;
 		}
-		if(method_exists($objArr[$dao], $func)){
-			 call_user_func_array(array($objArr[$dao],$func),$params);
+		if(method_exists($objArr[$tableName.$dao], $func)){
+			 call_user_func_array(array($objArr[$tableName.$dao],$func),$params);
 		}
-		return $objArr[$dao];
+		return $objArr[$tableName.$dao];
 	}
 
 	/**
