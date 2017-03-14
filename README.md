@@ -1,33 +1,33 @@
 		小波ApiPHP框架				
-*公告*				
-1.优化了路由器解析				 			
-2.伪静态访问，方法里面行参不能用动态参数获取，动态参数只能用$_GET等来获取～				
-3.动态和伪静态访问是自动识别，无需修改配置文件						
-4.加强了系统自带模版引擎 可以解析多维数组变量，详情看模版引擎数组变量的写法					
-5.新增了获取访问的目录分组，控制器名，方法名，跟路径等方法					
-6.已经支持在php7运行该代码～					
-*Api组件化的优势:*				
-1.控制器，路由等模块都是通过Api.php来运行的				
-2.可以基于配置文件进行去掉加载其中一个视图或模型					
-3.可以加载任何开源程序的api接口				
-4.可以根据不同的业务需求进行变更框架				
-6.维护方便，可以扩展				
-7.控制层只负责传递数据和渲染视图，模型负责校验数据，操作数据库等。控制器和模型传递数据只需要importModel()此函数来完成						
-8.只支持pdo操作数据库				
-9.url参数太长了，怎么办？赶紧定义路由别名，又可以传入参数也可以缩短url					
-路由别名路径:/lib/conf/Route.php 			
+		*公告*				
+		1.优化了路由器解析				 			
+		2.伪静态访问，方法里面行参不能用动态参数获取，动态参数只能用$_GET等来获取～				
+		3.动态和伪静态访问是自动识别，无需修改配置文件						
+		4.加强了系统自带模版引擎 可以解析多维数组变量，详情看模版引擎数组变量的写法					
+		5.新增了获取访问的目录分组，控制器名，方法名，跟路径等方法					
+		6.已经支持在php7运行该代码～					
+		*Api组件化的优势:*				
+		1.控制器，路由等模块都是通过Api.php来运行的				
+		2.可以基于配置文件进行去掉加载其中一个视图或模型					
+		3.可以加载任何开源程序的api接口				
+		4.可以根据不同的业务需求进行变更框架				
+		6.维护方便，可以扩展				
+		7.控制层只负责传递数据和渲染视图，模型负责校验数据，操作数据库等。控制器和模型传递数据只需要importModel()此函数来完成						
+		8.只支持pdo操作数据库				
+		9.url参数太长了，怎么办？赶紧定义路由别名，又可以传入参数也可以缩短url					
+		路由别名路径:/lib/conf/Route.php 			
 ```PHP
 RouteApi::aliasRoute('/index.html','home','test','aaa',array(3,5));
 ```					
-路由原伪静态访问http://localhost/XiaoBoApiPHP/public/index.php/home/test/aaa					
-设置路由别名访问http://localhost/XiaoBoApiPHP/public/index.php/index.html						
-cli模式访问:		
-1.先进入public目录 		
-2.php.exe index.php /home/test/aaa/			
-*隐藏index.php伪静态访问设置:*		
-1.首先到httpd.conf 找到mod_rewrite.so 把前面的#去掉 		
-2.找到AllowOverride 把None改成All			
-3.重启Apache 就可以访问:http://localhost/XiaoBoApiPHP/home/test/aaa 访问		
+		路由原伪静态访问http://localhost/XiaoBoApiPHP/public/index.php/home/test/aaa					
+		设置路由别名访问http://localhost/XiaoBoApiPHP/public/index.php/index.html						
+		cli模式访问:		
+		1.先进入public目录 		
+		2.php.exe index.php /home/test/aaa/			
+		*隐藏index.php伪静态访问设置:*		
+		1.首先到httpd.conf 找到mod_rewrite.so 把前面的#去掉 		
+		2.找到AllowOverride 把None改成All			
+		3.重启Apache 就可以访问:http://localhost/XiaoBoApiPHP/home/test/aaa 访问		
 *配置目录*		
 1. /lib/conf.php  配置默认访问路径和url访问参数			
 2. /lib/core/config.xml 配置加载核心模块和自定义模块(还需在index.php配置一下)			
