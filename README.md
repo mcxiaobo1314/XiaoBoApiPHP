@@ -13,14 +13,17 @@
 4.可以根据不同的业务需求进行变更框架		
 6.维护方便，可以扩展		
 7.控制层只负责传递数据和渲染视图，模型负责校验数据，操作数据库等。控制器和模型传递数据只需要importModel()此函数来完成				
-8.只支持pdo操作数据库			
+8.只支持pdo操作数据库		
 9.url参数太长了，怎么办？赶紧定义路由别名，又可以传入参数也可以缩短url		
 路由别名路径:/lib/conf/Route.php
 ```PHP
 RouteApi::aliasRoute('/index.html','home','test','aaa',array(3,5));
 ```		
-路由原伪静态访问http://localhost/XiaoBoApiPHP/index.php/home/test/aaa		
-设置路由别名访问http://localhost/XiaoBoApiPHP/index.php/index.html		
+路由原伪静态访问http://localhost/XiaoBoApiPHP/public/index.php/home/test/aaa		
+设置路由别名访问http://localhost/XiaoBoApiPHP/public/index.php/index.html			
+cli模式访问:		
+1.先进入public目录 		
+2.php.exe index.php /home/test/aaa/			 
 *隐藏index.php伪静态访问设置:*		
 1.首先到httpd.conf 找到mod_rewrite.so 把前面的#去掉 		
 2.找到AllowOverride 把None改成All			
@@ -28,7 +31,7 @@ RouteApi::aliasRoute('/index.html','home','test','aaa',array(3,5));
 *配置目录*		
 1. /lib/conf.php  配置默认访问路径和url访问参数			
 2. /lib/core/config.xml 配置加载核心模块和自定义模块(还需在index.php配置一下)			
-3. 建议配置虚拟目录建议配置到/app 这个目录下，会更安全			
+3. 建议配置虚拟目录建议配置到/public 这个目录下，会更安全			
 4. 自行在app目录下创建error.log文件并给予0777权限,否则错误日志无法写入			
 5. 目前只能对数据库的curd简单的封装，如果需要更详解，请自己行封装进行放到/lib/model/目录下			
 *数据校验:*		
