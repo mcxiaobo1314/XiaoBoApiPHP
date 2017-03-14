@@ -294,7 +294,6 @@ class Route {
 	/**
 	 * 返回GET参入参数
 	 * @param string $getStr 获取get参数
-	 * @
 	 * @author wave
 	 */
 	protected function ReturnGetParam($getStr) {	
