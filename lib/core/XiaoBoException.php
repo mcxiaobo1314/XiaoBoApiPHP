@@ -56,7 +56,8 @@ class XiaoBoException extends Exception {
 	 * @author wave
 	 */
 	private function errorHtml($trace , $messages = ""){
-		$html = "<div style='padding:0px;margin:0px; width:80% height:80%; margin:0 auto;margin-top:10%; background:#DDDDDD;'>";
+		$html  = "<html><head><meta charset='utf-8'></meta><title>XiaoBoApiPHP框架提醒您错误信息</title></head><body>";
+		$html .= "<div style='padding:0px;margin:0px; width:80% height:80%; margin:0 auto;margin-top:10%; background:#DDDDDD;'>";
 		$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您错误信息:【{$messages}】</h2></dd>";
 		if(DEBUG){
 			isset($trace['file']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>文件路径:{$trace['file']}</dt>";
@@ -70,7 +71,7 @@ class XiaoBoException extends Exception {
 		}
 		$html .= "<dt style='text-align:right; width:100% height:30px; line-height:30px;'>QQ群：114252528</dt>";
 		$html .= "<dt style='text-align:right; width:100% height:30px; line-height:30px;'><a href='https://www.github.com/mcxiaobo1314' style='color:black;'>github</a> | <a style='color:black;' href='http://xbphp.nmfox.com'>官网</a></dt>";
-		$html.= "</div>";
+		$html.= "</div></body></html>";
 		exit($html);
 	}
 
