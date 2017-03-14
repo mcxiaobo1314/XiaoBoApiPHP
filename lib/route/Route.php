@@ -177,7 +177,6 @@ class Route {
 
 			if ( isset($obj) && is_object($obj) ) {
 				if($this->isAction($obj,$actionName)){
-
 					$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
 					//视图初始化
 					if(class_exists('ViewApi')){
@@ -265,6 +264,8 @@ class Route {
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
 			$urlNum = 3; //动态
+		} else if (!empty($_SERVER['argv'][1])){  //cli 模式
+			$url = $_SERVER['argv'][1];
 		}
 
 		$this->setHost();
