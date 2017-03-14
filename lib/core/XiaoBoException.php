@@ -99,7 +99,7 @@ class XiaoBoException extends Exception {
 			$end = $line + ($sum - $line);
 		}
 		for($i = $start; $i<=$end; $i++){
-			$data .= "<li style='list-style:none;color:#227700;'>第".$i."行:".$connArr[$i]."</li>";
+			$data .= "<li style='list-style:none;color:#227700;'>第".$i."行:".htmlspecialchars($connArr[$i])."</li>";
 		}
 		return $data;
 	}
