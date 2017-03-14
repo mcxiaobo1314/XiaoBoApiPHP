@@ -110,7 +110,6 @@ class Route {
 	 * @author wave
 	 */
 	protected function isPath() {
-		//var_dump($this->getUrlParamArr);EXIT;
 		$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
 		if( !is_dir($controllerPath) ) {
 			return false;
@@ -298,9 +297,7 @@ class Route {
 	 * @
 	 * @author wave
 	 */
-	protected function ReturnGetParam($getStr) {
-		//$getStr = $this->substr($getStr,'','?');
-		//$getStr = $this->substr($getStr,'','/');		
+	protected function ReturnGetParam($getStr) {	
 		parse_str($getStr,$get);
 		if( isset($get[C]) && isset($get[A]) ) {
 			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
