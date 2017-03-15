@@ -65,7 +65,7 @@ class XiaoBoError {
 	 */
 	public static function log($message = "",$file = "error.log"){
 		$serverTime = $_SERVER["REQUEST_TIME"];
-		$path = getcwd().ROUTE_DS.$file;
+		$path = getcwd().ROUTE_DS.'..'.ROUTE_DS.APP_ROOT_PATH.ROUTE_DS.$file;
 		$error = "server time:[".$serverTime ."]-url Pamas:[".self::$urlPamas."]-message:".$message;
 		return file_put_contents($path,$error."\r\n",FILE_APPEND);
 	}
