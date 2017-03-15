@@ -42,9 +42,8 @@ class XiaoBoException extends Exception {
  	 * @author wave
  	 */
 	public function __toString() {
-
  		if(isset($this->getTrace[0]) && self::$errNum === 1){
- 			$this->errorHtml($this->getTrace[0],$this->message);
+ 			$this->errorHtml($this->getTrace[0],htmlspecialchars($this->message));
  		}
 	}
 

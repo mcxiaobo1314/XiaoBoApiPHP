@@ -20,7 +20,7 @@ class testController  extends Controller{
 		// $thinkphp = new thinkphp();
 		// $thinkphp->test();		
 
-		// $user = $this->LoadModel('users');
+		//$user = $this->LoadModel('users');
 		// $user->validate = array(
 		// 	array(
 		// 		'name'=>'id',
@@ -39,11 +39,12 @@ class testController  extends Controller{
 		// 	'name' =>'dddd21111'
 
 		// );
-		//if(!$user->validate()){
+		// //if(!$user->validate()){
 		// 	var_dump($user->validateErr);
 		// }
+		var_dump($user,$links);
 		//$user->insert();
-		//var_dump($user->find());
+		//var_dump($user->where(array('user_login like'=>'%xxx%'))->orWhere(array('id'=>'1'))->find());
 		//PDO原生操作		
 		//var_dump($user->db()->query("select * from wp_users")); 
 		 // $a = $this->LoadModel('users');

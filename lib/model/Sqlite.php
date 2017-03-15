@@ -191,9 +191,55 @@ class Sqlite extends Dao{
 		if( !empty($args) && is_string($args) ) {
 			$this->where .= $this->sqlFiledArr[5] . 
 				' ' . $args;
-		}elseif(!empty($args) && is_array($args)){
-			foreach($args as $key => $val){
+		}else if(!empty($args) && is_array($args) && count($args) === 1){
+			$key = implode("", array_keys($args));
+			$val = implode("", array_values($args));
+			if(empty($this->where)){
 				$this->where .= $this->sqlFiledArr[5].' '.
+					$this->splitKey($key).'"'.$val.'"';
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * and条件
+	 * @return object
+	 * @author wave
+	 */
+	public function andWhere() {
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		if(!empty($args) && is_array($args) && count($args) === 1){
+			$key = implode("", array_keys($args));
+			$val = implode("", array_values($args));
+			if(empty($this->where)){
+				$this->where .= $this->sqlFiledArr[5].' '.
+					$this->splitKey($key).'"'.$val.'"';
+			}else {
+				$this->where .= ' '.$this->sqlFiledArr[16].' '.
+						$this->splitKey($key).'"'.$val.'"';
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * or条件
+	 * @return object
+	 * @author wave
+	 */
+	public function orWhere() {
+		$args = func_get_args();
+		$args = isset($args[0]) ? $args[0] : '';
+		if(!empty($args) && is_array($args) && count($args) === 1){
+			$key = implode("", array_keys($args));
+			$val = implode("", array_values($args));
+			if(empty($this->where)){
+				$this->where .= $this->sqlFiledArr[5].' '.
+					$this->splitKey($key).'"'.$val.'"';
+			}else {
+				$this->where .= ' '.$this->sqlFiledArr[17].' '.
 						$this->splitKey($key).'"'.$val.'"';
 			}
 		}

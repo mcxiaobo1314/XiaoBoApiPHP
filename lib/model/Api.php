@@ -187,8 +187,10 @@ class ModelApi {
 // 	->having('id=51')
 // 	->count();
 // var_dump($a->firstSql);
-// $a->where('`id`=51')
-// 	//->fields('xb_wengzhang.id')
+// $a->where(array('id'=>1))
+// 	->andWhere(array('xxx like'=> '%xxx%'))
+//  ->orWhere(array('name >='=>"xxx"));
+// 	->fields('xb_wengzhang.id')
 // 	->join('left','xb_user','a=1 or b=2')
 // 	->join('right','config','a=3 or b=2')
 // 	->group('id')

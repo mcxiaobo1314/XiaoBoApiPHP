@@ -82,7 +82,9 @@ $wp_users->where('`id`=51')
  	->having('id=51')		
  	->count();//查询行数		
  var_dump($a->firstSql); //打印当前sql语句		
- $wp_users->where('`id`=51')		
+ $wp_users->where(array('id'=>'1'))
+ ->andWhere(array('xxx like'=>'%xxx%'))
+ ->orWhere(array('xxx >='=>'xxx'))		
  	->fields('id')		
  	->join('left','xb_user','a=1 or b=2')		
  	->join('right','config','a=3 or b=2')		

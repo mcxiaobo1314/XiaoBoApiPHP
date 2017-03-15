@@ -164,6 +164,7 @@ class View {
 		}
 		if(!file_exists($tmp_path)) {
 			mkdir($this->pathArr['cache'],0777,true);
+
 		}
 
 		$file_path_time = filemtime($file_path);

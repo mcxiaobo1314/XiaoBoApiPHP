@@ -137,7 +137,6 @@ class Route {
 				CONTROLLER . ROUTE_DS . 
 				$defaultFile . 
 				CON_SUFFOIX;
-		$controllerPath = str_replace('index.php', '', $controllerPath);
 		//判断是否是控制器文件
 		if( !file_exists($controllerPath)) {
 			return false;
@@ -163,25 +162,26 @@ class Route {
 			array_splice($this->getUrlParamArr,0,2); 
 			$this->actionName = $actionName;
 			if ( !empty($className) ) {
-				$obj = new $className();
+				Ref::$class = $className;
+				//反射类初始化
+				Ref::classInstace();
 			}
 
-			if ( isset($obj) && is_object($obj) ) {
-				if($this->isAction($obj,$actionName)){
-					$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
-					//视图初始化
-					if(class_exists('ViewApi')){
-						ViewApi::$view->init(array(
-							'group' => $this->groupName,
-							'class' => $this->className,
-							'action' => $this->actionName,
-							'controllerPath' => $this->controllerPath
-						));
-					}
-					return call_user_func_array(array($obj,$actionName), $this->getUrlParamArr);
+			if($this->isAction($actionName)){
+				$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
+				//视图初始化
+				if(class_exists('ViewApi')){
+					ViewApi::$view->init(array(
+						'group' => $this->groupName,
+						'class' => $this->className,
+						'action' => $this->actionName,
+						'controllerPath' => $this->controllerPath
+					));
 				}
+				//初始化反射类方法
+				Ref::methodInstace();
+				return Ref::invokeArgs($this->getUrlParamArr);
 			}
-			throw new XiaoBoException('初始化失败');
 	}
 
 
@@ -190,9 +190,10 @@ class Route {
 	 * @return boolen
 	 * @author wave
 	 */
-	protected function isAction($obj,$actionName) {
-		if( !method_exists($obj,$actionName) ) {
-			throw new XiaoBoException('方法不存在');
+	protected function isAction($actionName) {
+		Ref::$method = $actionName;
+		if(!Ref::hasMethod()){
+			throw new XiaoBoException($actionName.'方法不存在');
 		}
 		return true;
 	}
@@ -208,7 +209,7 @@ class Route {
 		$controllerFile = basename($controllerPath);
 		$controllerClass = rtrim($controllerFile,'.php');
 		if(!class_exists($controllerClass) ) {
-			throw new XiaoBoException('控制器不存在');
+			throw new XiaoBoException($controllerClass.'控制器不存在');
 		} 
 		return $controllerClass;
 	}
