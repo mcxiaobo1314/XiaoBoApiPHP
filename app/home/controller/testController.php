@@ -42,7 +42,7 @@ class testController  extends Controller{
 		// //if(!$user->validate()){
 		// 	var_dump($user->validateErr);
 		// }
-		var_dump($user,$links);
+
 		//$user->insert();
 		//var_dump($user->where(array('user_login like'=>'%xxx%'))->orWhere(array('id'=>'1'))->find());
 		//PDO原生操作		
