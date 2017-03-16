@@ -129,7 +129,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function isController() {
-		$defaultPath = ($this->isPath() !== false) ? $this->isPath() : "";
+		$defaultPath = ($this->isPath() !== false) ? $this->isPath() : DEFAULT_PATH;
 		$defaultFile = ($this->isPath() !== false) ? $this->getUrlParamArr[1] : $this->getUrlParamArr[0];
 		$controllerPath =  $this->controllerPath . ROUTE_DS . 
 				$defaultPath . ROUTE_DS . 
