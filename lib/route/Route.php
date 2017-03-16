@@ -15,7 +15,7 @@ class Route {
 	/**
 	 * 分组名字
 	 */
-	public $groupName = "";
+	public $groupName = DEFAULT_PATH;
 
 	/**
 	 * 类名字
@@ -110,14 +110,14 @@ class Route {
 	protected function isPath() {
 		$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
 
-		$this->groupName = $this->getUrlParamArr[0];
-		//判断不是目录文件
-		if( !file_exists($controllerPath) ) {
-			throw new XiaoBoException($this->groupName."分组文件夹不存在啊");
-		} 
 		if( !is_dir($controllerPath) ) {
 			return false;
 		}
+		//判断不是目录文件
+		if( !file_exists($controllerPath) ) {
+			return false;
+		} 
+		$this->groupName = $this->getUrlParamArr[0];
 		return $this->getUrlParamArr[0];
 	}
 
@@ -204,6 +204,9 @@ class Route {
 	 */
 	protected function isClass() {
 		$controllerPath = $this->isController();
+		if($controllerPath === false ) {
+			throw new XiaoBoException($this->className.'分组不存在');
+		} 
 		$this->load($controllerPath);
 		$controllerClass = rtrim($this->className.CON_SUFFOIX,'.php') ;
 		if(!class_exists($controllerClass) ) {
