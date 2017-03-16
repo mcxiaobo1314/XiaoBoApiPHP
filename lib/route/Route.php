@@ -62,7 +62,6 @@ class Route {
 	public function coustructs() {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
-
 		if(count($this->getUrlParamArr) == 1) {
 			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().$this->getDefualtUrl());
 		}
@@ -86,7 +85,6 @@ class Route {
 				$this->getUrlParamArr[2] = $actionName;
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
 				$this->flag = true;
-				$this->init();
 			}
 
 	}
@@ -168,7 +166,7 @@ class Route {
 			}
 
 			if($this->isAction($actionName)){
-				$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : $this->getParam();
+				$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
 				//视图初始化
 				if(class_exists('ViewApi')){
 					ViewApi::$view->init(array(
@@ -192,7 +190,7 @@ class Route {
 	 */
 	protected function isAction($actionName) {
 		Ref::$method = $actionName;
-		if(!Ref::hasMethod()){
+		if( !Ref::hasMethod()){
 			throw new XiaoBoException($actionName.'方法不存在');
 		}
 		return true;
@@ -206,9 +204,8 @@ class Route {
 	protected function isClass() {
 		$controllerPath = $this->isController();
 		$this->load($controllerPath);
-		$controllerFile = basename($controllerPath);
-		$controllerClass = rtrim($controllerFile,'.php');
-		if(!class_exists($controllerClass) ) {
+		$controllerClass = rtrim($this->className.CON_SUFFOIX,'.php') ;
+		if(!empty($controllerClass) && !class_exists($controllerClass) ) {
 			throw new XiaoBoException($controllerClass.'控制器不存在');
 		} 
 		return $controllerClass;
@@ -239,6 +236,7 @@ class Route {
 	 * @author wave
 	 */
 	public  function getUrlParam($flag = true) {
+		$getParam = false;
 		$rootPath = ROUTE_DS.basename($this->getPath()).ROUTE_DS;
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
 			$url = $_SERVER['ORIG_PATH_INFO'];
@@ -247,9 +245,10 @@ class Route {
 			$url = $_SERVER['PATH_INFO'];
 			$urlNum =2; //伪静态
 		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
-			$getParam = false;
 			$url = $_SERVER['REQUEST_URI'];
+			$url = $this->substr($url, '','index.php');
 			$urlArr = parse_url($url);
+
 			if(isset($urlArr['query'])){
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
@@ -261,17 +260,17 @@ class Route {
 		$this->setHost();
 		$this->setScheme();
 
-		if(isset($getParam)  && $flag && $urlNum === 3) {
+		if($getParam !== false  && $flag && $urlNum === 3) {
 			$url = $getParam;
 		}
 
-		if($url == $rootPath || (isset($getParam) && $getParam === false && $urlNum ===3)) {
+
+		if($url == $rootPath || (empty($url) && $getParam === false && $urlNum ===3)) {
 			$url = $this->getDefualtUrl();
 		}
 		if($this->flag && $flag){
 			$url = implode('/', $this->getUrlParamArr);
 		}
-
 		return $url;
 	}
 
