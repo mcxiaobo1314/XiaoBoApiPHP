@@ -15,7 +15,7 @@ class Route {
 	/**
 	 * 分组名字
 	 */
-	public $groupName = DEFAULT_PATH;
+	public $groupName = "";
 
 	/**
 	 * 类名字
