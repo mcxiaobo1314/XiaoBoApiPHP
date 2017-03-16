@@ -114,7 +114,8 @@ class Route {
 		}
 		//判断不是目录文件
 		if( !file_exists($controllerPath) ) {
-			return false;	
+			throw new XiaoBoException($this->getUrlParamArr[0]."分组文件夹不存在啊");
+			
 		} 
 
 
@@ -128,18 +129,20 @@ class Route {
 	 * @author wave
 	 */
 	protected function isController() {
-		$defaultPath = ($this->isPath() !== false) ? $this->isPath() : DEFAULT_PATH;
+		$defaultPath = ($this->isPath() !== false) ? $this->isPath() : "";
 		$defaultFile = ($this->isPath() !== false) ? $this->getUrlParamArr[1] : $this->getUrlParamArr[0];
 		$controllerPath =  $this->controllerPath . ROUTE_DS . 
 				$defaultPath . ROUTE_DS . 
 				CONTROLLER . ROUTE_DS . 
 				$defaultFile . 
 				CON_SUFFOIX;
+		$this->className = $defaultFile;
 		//判断是否是控制器文件
 		if( !file_exists($controllerPath)) {
 			return false;
+			
 		} 
-		$this->className = $defaultFile;
+		
 		return $controllerPath;
 	}
 
@@ -205,8 +208,8 @@ class Route {
 		$controllerPath = $this->isController();
 		$this->load($controllerPath);
 		$controllerClass = rtrim($this->className.CON_SUFFOIX,'.php') ;
-		if(!empty($controllerClass) && !class_exists($controllerClass) ) {
-			throw new XiaoBoException($controllerClass.'控制器不存在');
+		if(!class_exists($controllerClass) ) {
+			throw new XiaoBoException($this->className.'控制器不存在');
 		} 
 		return $controllerClass;
 	}
