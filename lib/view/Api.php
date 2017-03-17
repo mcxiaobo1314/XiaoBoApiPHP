@@ -12,24 +12,19 @@ class ViewApi {
 	 */
 	static public $view = '';
 
-	/**
-	 * url参数
-	 * @author wave
-	 */
-	static public $params = array();
 
 	/**
  	 * 视图初始化
  	 * @param array $params 获取路由url参数
  	 * @author wave
  	 */
- 	static public function init($params = array()) {
- 		self::$params = $params;
+ 	static public function init() {
  		require dirname(__FILE__).'/'.'View.php';
- 		self::$view =  new View();
+		Ref::classInstace('View');
+		self::$view= Ref::instance();
  	}
 
 }
-ViewApi::init(ViewApi::$params);
+ViewApi::init();
 
 ?>
