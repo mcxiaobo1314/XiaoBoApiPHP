@@ -41,6 +41,22 @@ class Ref{
 	}
 
 	/**
+	 * 获取类方法的参数
+	 * @return array
+     * @author wave
+	 */
+	static public function getParams(){
+		$params = array();
+		foreach(self::$methodRef->getParameters() as $param){
+			if($param->name){
+				$params[$param->name] = $param->name;
+			}
+		}
+		return $params;
+	}
+
+
+	/**
 	 * 判断类方法是否存在
 	 * @param string $method 方法名 
 	 * @return object
@@ -80,6 +96,16 @@ class Ref{
 			return self::$methodRef->invokeArgs($object,$params);
 		}
 		return self::$methodRef->invokeArgs(self::instance(),$params);
+	}
+
+	/**
+	 * 对初始类方法进行传递参数
+	 * @param array $params 参数
+	 * @return object
+	 * @author wave
+	 */
+	static public function invoke(){
+			return self::$methodRef->invoke(self::instance());
 	}
 }
 

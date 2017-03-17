@@ -54,6 +54,7 @@ class RouteApi {
  		}
  	}
 
+
  	/**
  	 * 获取当前url参数
  	 * @return string

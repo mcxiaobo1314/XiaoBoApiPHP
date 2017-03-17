@@ -53,9 +53,8 @@ class testController  extends Controller{
 		// var_dump($a->test());
 	}
 
-	public function sss($a,$b) {
-		echo 'ssss'.$a;
-		var_dump($b);
+	public function sss($ac,$bc) {
+		echo 'ssss'.$ac,$bc;
 	}
 
 

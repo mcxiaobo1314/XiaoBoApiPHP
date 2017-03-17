@@ -54,6 +54,9 @@ class Route {
 	public $flag = false;
 
 
+	public $get  = array();
+
+
 
 	/**
 	 * 初始化URL参数
@@ -151,37 +154,75 @@ class Route {
 	 * @author wave
 	 */
 	public function init() {
-			$this->coustructs();
-			$actionName = ($this->isPath() !== false && isset($this->getUrlParamArr[2])) ? 
-					$this->getUrlParamArr[2] : $this->getUrlParamArr[1];
-			$className = $this->isClass();
-			($this->isPath() !== false)  ? 
-			array_splice($this->getUrlParamArr,0,3) : 
-			array_splice($this->getUrlParamArr,0,2); 
-			$this->actionName = $actionName;
-			if ( !empty($className) ) {
-				//反射类初始化
-				Ref::classInstace($className);
-			}
+		$this->coustructs();
+		$actionName = ($this->isPath() !== false && isset($this->getUrlParamArr[2])) ? 
+				$this->getUrlParamArr[2] : $this->getUrlParamArr[1];
+		$className = $this->isClass();
+		($this->isPath() !== false)  ? 
+		array_splice($this->getUrlParamArr,0,3) : 
+		array_splice($this->getUrlParamArr,0,2); 
+		$this->actionName = $actionName;
+		if ( !empty($className) ) {
+			//反射类初始化
+			Ref::classInstace($className);
+		}
 
-			if($this->isAction($actionName)){
-				$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
-				//视图初始化
-				if(class_exists('ViewApi')){
-					Ref::methodInstace('View','init');
-					Ref::invokeArgs(array(array(
-						'group' => $this->groupName,
-						'class' => $this->className,
-						'action' => $this->actionName,
-						'controllerPath' => $this->controllerPath
-					)),ViewApi::$view);
-				}
-				//初始化反射类方法
-				Ref::methodInstace($className,$actionName);
+		if($this->isAction($actionName)){
+			$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
+			//视图初始化
+			if(class_exists('ViewApi')){
+				Ref::methodInstace('View','init');
+				Ref::invokeArgs(array(array(
+					'group' => $this->groupName,
+					'class' => $this->className,
+					'action' => $this->actionName,
+					'controllerPath' => $this->controllerPath
+				)),ViewApi::$view);
+			}
+			//初始化反射类方法
+			Ref::methodInstace($className,$actionName);
+			(BINDURLPARAM === true) && $this->getUrlParamArr = $this->bindParam();
+			if(!empty($this->getUrlParamArr)){
+
 				return Ref::invokeArgs($this->getUrlParamArr);
 			}
+			return call_user_func(array($className,$actionName));	
+		}
 	}
 
+
+	/**
+	 * 对函数进行绑定参数
+	 * @return Array
+	 * @author wave
+	 */
+	public function bindParam(){
+		$bindParam = array();
+		$urlParam = $this->getUrlParam($this->flag);
+		$bindParam = Ref::getParams();
+		$diffArr = array($this->groupName,$this->className,$this->actionName);
+		if(empty($this->get)){
+			$urlParam = $this->expUrlParamArr($urlParam);
+			$urlParam = array_diff($urlParam,$diffArr);
+			$urlParam = $this->filterArr($urlParam);
+			foreach($urlParam as $key=>$value){
+				if($key % 2 === 0 && in_array($value, $bindParam)){
+					$bindParam[$value] = isset($urlParam[$key + 1]) ? $urlParam[$key + 1] : "";
+				}
+			}
+		}else{
+			parse_str($this->get,$this->get);
+			$this->get = array_diff($this->get,$diffArr);
+			foreach($bindParam as $value){
+				if(isset($this->get[$value])){
+					$bindParam[$value] = $this->get[$value];
+				}
+
+			}
+		}
+
+		return $bindParam;
+	}
 
 	/**
 	 * 判断类的方法是否存在
@@ -250,6 +291,7 @@ class Route {
 			$urlArr = parse_url($url);
 
 			if(isset($urlArr['query'])){
+				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
 			$urlNum = 3; //动态
@@ -266,6 +308,7 @@ class Route {
 
 
 		if($url === $rootPath || $url === ROUTE_DS || (empty($url) && $getParam === false && $urlNum ===3)) {
+			$this->get = array();
 			$url = $this->getDefualtUrl();
 		}
 		if($this->flag && $flag){
@@ -300,10 +343,16 @@ class Route {
 		parse_str($getStr,$get);
 		if( isset($get[C]) && isset($get[A]) ) {
 			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
+			unset($get[C]);
+			unset($get[A]);
 		}
 
 		if(isset($get[G]) ) {
 			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
+			unset($get[G]);
+		}
+		if(!empty($get)){
+			$getUrl .= implode('/', $get);
 		}
 
 		return empty($getUrl) ? false : $getUrl;

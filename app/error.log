@@ -1,1 +1,49 @@
 server time:[1489680006]-url Pamas:[home/test/aaa]-message:E_NOTICE:Use of undefined constant DEFAULT_PATH - assumed 'DEFAULT_PATH'
+server time:[1489754401]-url Pamas:[home/test/sss/222/3333]-message:E_ERROR:Call to undefined method Ref::getUrl()
+server time:[1489755317]-url Pamas:[home/test/sss/a/222/b/3333]-message:E_ERROR:Call to undefined function arrau()
+server time:[1489755480]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489755529]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489755540]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489755677]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489755727]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489756209]-url Pamas:[home/test/sss/12/12]-message:E_NOTICE:Undefined variable: bc
+server time:[1489756229]-url Pamas:[home/test/sss/12/12]-message:E_NOTICE:Undefined variable: bc
+server time:[1489756381]-url Pamas:[home/test/sss/12/12]-message:E_NOTICE:Undefined variable: bc
+server time:[1489756408]-url Pamas:[home/test/sss/12/12]-message:E_NOTICE:Undefined variable: bc
+server time:[1489756445]-url Pamas:[home/test/sss/12/12]-message:E_NOTICE:Undefined variable: bc
+server time:[1489756720]-url Pamas:[home/test/sss/1/2]-message:E_NOTICE:Undefined variable: bc
+server time:[1489756782]-url Pamas:[home/test/sss/1/2]-message:E_NOTICE:Undefined variable: bc
+server time:[1489757163]-url Pamas:[home/test/sss/1/2]-message:E_WARNING:ReflectionMethod::invoke() expects at least 1 parameter, 0 given
+server time:[1489757253]-url Pamas:[home/test/sss/1/2]-message:E_ERROR:Uncaught exception 'ReflectionException' with message 'Non-object passed to Invoke()' in /Library/WebServer/Documents/XiaoBoPHP/lib/route/Route.php:185
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/route/Route.php(185): ReflectionMethod->invoke(NULL)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/route/Api.php(36): Route->init()
+#2 /Library/WebServer/Documents/XiaoBoPHP/lib/route/Api.php(117): RouteApi::getRoute()
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/core/Xml.php(136): require('/Library/WebSer...')
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/core/Xml.php(106): XmlParse->load('/Library/WebSer...')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/core/Xml.php(70): XmlParse->loadComp('route')
+#6 [internal function]: XmlParse->init()
+#7 /Library/WebServer/Documents/XiaoBoPHP/index.php(37): call_user_func_array(Array, Array)
+#8 /Library/WebServer/Documents/XiaoBoPHP/public/index.php(2): require('/Library/WebSer...')
+#9 {main}
+  thrown
+server time:[1489757390]-url Pamas:[home/test/sss/1/2]-message:E_ERROR:Call to a member function invoke() on null
+server time:[1489757491]-url Pamas:[home/test/sss/1/2]-message:E_ERROR:Uncaught exception 'ReflectionException' with message 'Non-object passed to Invoke()' in /Library/WebServer/Documents/XiaoBoPHP/lib/core/Ref.php:108
+Stack trace:
+#0 /Library/WebServer/Documents/XiaoBoPHP/lib/core/Ref.php(108): ReflectionMethod->invoke(NULL)
+#1 /Library/WebServer/Documents/XiaoBoPHP/lib/route/Route.php(189): Ref::invoke()
+#2 /Library/WebServer/Documents/XiaoBoPHP/lib/route/Api.php(36): Route->init()
+#3 /Library/WebServer/Documents/XiaoBoPHP/lib/route/Api.php(117): RouteApi::getRoute()
+#4 /Library/WebServer/Documents/XiaoBoPHP/lib/core/Xml.php(136): require('/Library/WebSer...')
+#5 /Library/WebServer/Documents/XiaoBoPHP/lib/core/Xml.php(106): XmlParse->load('/Library/WebSer...')
+#6 /Library/WebServer/Documents/XiaoBoPHP/lib/core/Xml.php(70): XmlParse->loadComp('route')
+#7 [internal function]: XmlParse->init()
+#8 /Library/WebServer/Documents/XiaoBoPHP/index.php(37): call_user_func_array(Array, Array)
+#9 /Library/WebServer/Documents/XiaoBoPHP/public/index.php(2): require('/Library/WebSer...')
+#10
+server time:[1489757511]-url Pamas:[home/test/sss/1/2]-message:E_NOTICE:Undefined variable: bc
+server time:[1489757635]-url Pamas:[home/test/sss/1/2]-message:E_WARNING:call_user_func() expects parameter 1 to be a valid callback, no array or string given
+server time:[1489757669]-url Pamas:[home/test/sss/1/2]-message:E_NOTICE:Undefined variable: bc
+server time:[1489757709]-url Pamas:[home/test/sss/1/2]-message:E_NOTICE:Undefined variable: ac
+server time:[1489757710]-url Pamas:[home/test/sss/1/2]-message:E_NOTICE:Undefined variable: ac
+server time:[1489757724]-url Pamas:[home/test/sss/1/2]-message:E_NOTICE:Undefined variable: bc
