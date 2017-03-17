@@ -7,18 +7,6 @@
 class Ref{
 
 	/**
-	 * 类名
-	 * @author wave
-	 */
-	static  public  $class;
-
-	/**
-	 * 方法名
-	 * @author wave
-	 */
-	static  public  $method;
-	
-	/**
 	 * 保存反射类对象
 	 * @author wave
 	 */
@@ -33,40 +21,45 @@ class Ref{
 
 	/**
 	 * 初始化反射类
+	 * @param string $class 类名 
 	 * @return object
 	 * @author wave
 	 */
-	static public function classInstace(){
-		self::$classRef = new ReflectionClass(self::$class);
+	static public function classInstace($class = ''){
+		self::$classRef = new ReflectionClass($class);
 	}
 
 	/**
 	 * 初始化反射类方法
+	 * @param string $class 类名 
+	 * @param string $method 方法名 
 	 * @return object
 	 * @author wave
 	 */
-	static public function methodInstace(){
-		self::$methodRef = new ReflectionMethod(self::$class,self::$method);
+	static public function methodInstace($class = '',$method = ''){
+		self::$methodRef = new ReflectionMethod($class,$method);
 	}
 
 	/**
 	 * 判断类方法是否存在
+	 * @param string $method 方法名 
 	 * @return object
 	 * @author wave
 	 */
-	static public function hasMethod(){
-		return self::$classRef->hasMethod(self::$method); 
+	static public function hasMethod($method = ''){
+		return self::$classRef->hasMethod($method); 
 	}
 
 	/**
 	 * 获取类方法
+	 * @param string $method 方法名 
 	 * @return object
 	 * @author wave
 	 */
-	static public function getMethod(){
-	 	return self::$classRef->getMethod(self::$method);
+	static public function getMethod($method = ''){
+	 	return self::$classRef->getMethod($method);
 	}
-
+	
 	/**
 	 * 类初始化
 	 * @return object
@@ -90,10 +83,3 @@ class Ref{
 	}
 }
 
-//演示示例
-//Ref::$class = "a";
-//Ref::$method = "test1";
-//Ref::classInstace();
-//echo Ref::hasMethod();
-//Ref::methodInstace();
-//Ref::invokeArgs(array('aaaa',11));
