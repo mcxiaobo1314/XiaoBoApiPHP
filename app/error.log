@@ -51,3 +51,6 @@ server time:[1489758469]-url Pamas:[home/test/aaa]-message:E_ERROR:Using $this w
 server time:[1489758523]-url Pamas:[home/test/aaa]-message:E_ERROR:Using $this when not in object context
 server time:[1489758554]-url Pamas:[home/test/aaa]-message:E_ERROR:Using $this when not in object context
 server time:[1489758595]-url Pamas:[home/test/aaa]-message:E_ERROR:Using $this when not in object context
+server time:[1489759184]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489759224]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489759410]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc

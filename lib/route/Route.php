@@ -197,6 +197,7 @@ class Route {
 		$urlParam = $this->getUrlParam($this->flag);
 		$bindParam = Ref::getParams();
 		$diffArr = array($this->groupName,$this->className,$this->actionName);
+		$flag = false;
 		if(empty($this->get)){
 			$urlParam = $this->expUrlParamArr($urlParam);
 			$urlParam = array_diff($urlParam,$diffArr);
@@ -204,6 +205,7 @@ class Route {
 			foreach($urlParam as $key=>$value){
 				if($key % 2 === 0 && in_array($value, $bindParam) && isset($bindParam[$value])){
 					$bindParam[$value] = isset($urlParam[$key + 1]) ? $urlParam[$key + 1] : "";
+					$flag = true;
 				}
 			}
 		}else{
@@ -212,12 +214,13 @@ class Route {
 			foreach($bindParam as $value){
 				if(isset($this->get[$value]) && isset($bindParam[$value])){
 					$bindParam[$value] = $this->get[$value];
+					$flag = true;
 				}
 
 			}
 		}
 
-		return $bindParam;
+		return ($flag === true) ? $bindParam : array();
 	}
 
 	/**
