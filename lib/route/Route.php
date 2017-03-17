@@ -63,7 +63,7 @@ class Route {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
 		if(count($this->getUrlParamArr) == 1) {
-			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam().ROUTE_DS.$this->getDefualtUrl());
+			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam());
 		}
 		XiaoBoError::init($this->getUrlParamArr);
 		//$this->init();
@@ -266,7 +266,7 @@ class Route {
 		}
 
 
-		if($url == $rootPath || (empty($url) && $getParam === false && $urlNum ===3)) {
+		if($url == $rootPath || $url == ROUTE_DS || (empty($url) && $getParam === false && $urlNum ===3)) {
 			$url = $this->getDefualtUrl();
 		}
 		if($this->flag && $flag){
