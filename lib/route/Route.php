@@ -202,19 +202,24 @@ class Route {
 			$urlParam = $this->expUrlParamArr($urlParam);
 			$urlParam = array_diff($urlParam,$diffArr);
 			$urlParam = $this->filterArr($urlParam);
+			$temp = array();
 			foreach($urlParam as $key=>$value){
-				if($key % 2 === 0 && in_array($value, $bindParam) && isset($bindParam[$value])){
-					$bindParam[$value] = isset($urlParam[$key + 1]) ? $urlParam[$key + 1] : "";
+				if($key % 2 === 0 && in_array($value, $bindParam) && isset($bindParam[$value]) && !empty($urlParam[$key + 1])) {
+					$bindParam[$value] = $urlParam[$key + 1];
 					$flag = true;
+					$temp[$value] = $value;
 				}
 			}
+			$bindParam = array_intersect_key($bindParam, $temp);
 		}else{
 			parse_str($this->get,$this->get);
 			$this->get = array_diff($this->get,$diffArr);
 			foreach($bindParam as $value){
-				if(isset($this->get[$value]) && isset($bindParam[$value])){
+				if(isset($this->get[$value]) && isset($bindParam[$value]) && !empty($this->get[$value])){
 					$bindParam[$value] = $this->get[$value];
 					$flag = true;
+				}else{
+					unset($bindParam[$value]);
 				}
 
 			}

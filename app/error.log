@@ -54,3 +54,11 @@ server time:[1489758595]-url Pamas:[home/test/aaa]-message:E_ERROR:Using $this w
 server time:[1489759184]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
 server time:[1489759224]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
 server time:[1489759410]-url Pamas:[home/test/sss]-message:E_NOTICE:Undefined variable: bc
+server time:[1489759579]-url Pamas:[home/test/sss/a/a]-message:E_NOTICE:Undefined variable: bc
+server time:[1489760001]-url Pamas:[home/test/sss/ac/a]-message:E_NOTICE:Undefined variable: bc
+server time:[1489760015]-url Pamas:[home/test/sss/ac/a]-message:E_NOTICE:Undefined variable: bc
+server time:[1489760049]-url Pamas:[home/test/sss/ac/a]-message:E_NOTICE:Undefined variable: bc
+server time:[1489760058]-url Pamas:[home/test/sss/ac/a]-message:E_NOTICE:Undefined variable: bc
+server time:[1489760206]-url Pamas:[home/test/sss/ac/a]-message:E_NOTICE:Undefined variable: bc
+server time:[1489760213]-url Pamas:[home/test/sss/ac/a]-message:E_NOTICE:Undefined variable: bc
+server time:[1489760222]-url Pamas:[home/test/sss/12]-message:E_NOTICE:Undefined variable: bc
