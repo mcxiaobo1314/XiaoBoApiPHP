@@ -26,20 +26,18 @@ class LoadModel {
 		if(!class_exists($dao)) {
 			throw new XiaoBoException("加载模型类名:".$dao."不存在");
 		}
-		Ref::$class = $dao; //传入类名
-		Ref::$method = $func; //传入方法名
 		//初始化反射类
-		Ref::classInstace();
-		
-		if(Ref::$method != "" && !Ref::hasMethod()){
-			throw new XiaoBoException("模型方法".$method."不存在");
+		Ref::classInstace($dao);
+
+		if(!Ref::hasMethod($func)){
+			throw new XiaoBoException("模型方法".$func."不存在");
 		}
 
 		if(empty($objArr[$tableName.$dao])) {
 			//初始化类
 			$objArr[$tableName.$dao] = Ref::instance();
 			//初始化反射类方法
-			Ref::methodInstace();
+			Ref::methodInstace($dao,$func);
 			//传入参数
 			Ref::invokeArgs($params,$objArr[$tableName.$dao]);
 		}
