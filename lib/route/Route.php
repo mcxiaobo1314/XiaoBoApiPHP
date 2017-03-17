@@ -204,9 +204,6 @@ class Route {
 	 */
 	protected function isClass() {
 		$controllerPath = $this->isController();
-		if($controllerPath === false ) {
-			throw new XiaoBoException($this->className.'分组不存在');
-		} 
 		$this->load($controllerPath);
 		$controllerClass = rtrim($this->className.CON_SUFFOIX,'.php') ;
 		if(!class_exists($controllerClass) ) {
