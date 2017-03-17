@@ -57,7 +57,7 @@ if(!defined('VARIABLE')){
 
 define("DEBUG", true); //true开启debug false关闭debug
 
-define("BINDURLPARAM",true); //开启url参数绑定，函数如:aaa($test,$test2),URL如:&test=1&test2=333 才可以获取到
+define("BINDURLPARAM",false); //开启url参数绑定，函数如:aaa($test,$test2),URL如:&test=1&test2=333 才可以获取到
 
 
 if(!defined('APP_ROOT_PATH')) {

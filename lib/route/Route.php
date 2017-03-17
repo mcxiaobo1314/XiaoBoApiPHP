@@ -182,11 +182,7 @@ class Route {
 			//初始化反射类方法
 			Ref::methodInstace($className,$actionName);
 			(BINDURLPARAM === true) && $this->getUrlParamArr = $this->bindParam();
-			if(!empty($this->getUrlParamArr)){
-
-				return Ref::invokeArgs($this->getUrlParamArr);
-			}
-			return call_user_func(array($className,$actionName));	
+			return Ref::invokeArgs($this->getUrlParamArr);	
 		}
 	}
 
@@ -206,7 +202,7 @@ class Route {
 			$urlParam = array_diff($urlParam,$diffArr);
 			$urlParam = $this->filterArr($urlParam);
 			foreach($urlParam as $key=>$value){
-				if($key % 2 === 0 && in_array($value, $bindParam)){
+				if($key % 2 === 0 && in_array($value, $bindParam) && isset($bindParam[$value])){
 					$bindParam[$value] = isset($urlParam[$key + 1]) ? $urlParam[$key + 1] : "";
 				}
 			}
@@ -214,7 +210,7 @@ class Route {
 			parse_str($this->get,$this->get);
 			$this->get = array_diff($this->get,$diffArr);
 			foreach($bindParam as $value){
-				if(isset($this->get[$value])){
+				if(isset($this->get[$value]) && isset($bindParam[$value])){
 					$bindParam[$value] = $this->get[$value];
 				}
 
