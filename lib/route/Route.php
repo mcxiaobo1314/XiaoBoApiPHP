@@ -160,10 +160,10 @@ class Route {
 			array_splice($this->getUrlParamArr,0,2); 
 			$this->actionName = $actionName;
 			if ( !empty($className) ) {
-				Ref::$class = $className;
 				//反射类初始化
-				Ref::classInstace();
+				Ref::classInstace($className);
 			}
+
 
 			if($this->isAction($actionName)){
 				$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
@@ -177,7 +177,7 @@ class Route {
 					));
 				}
 				//初始化反射类方法
-				Ref::methodInstace();
+				Ref::methodInstace($className,$actionName);
 				return Ref::invokeArgs($this->getUrlParamArr);
 			}
 	}
@@ -189,8 +189,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function isAction($actionName) {
-		Ref::$method = $actionName;
-		if( !Ref::hasMethod()){
+		if( !Ref::hasMethod($actionName)){
 			throw new XiaoBoException($actionName.'方法不存在');
 		}
 		return true;
