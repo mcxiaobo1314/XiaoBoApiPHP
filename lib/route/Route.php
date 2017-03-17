@@ -266,7 +266,7 @@ class Route {
 		}
 
 
-		if($url == $rootPath || $url == ROUTE_DS || (empty($url) && $getParam === false && $urlNum ===3)) {
+		if($url === $rootPath || $url === ROUTE_DS || (empty($url) && $getParam === false && $urlNum ===3)) {
 			$url = $this->getDefualtUrl();
 		}
 		if($this->flag && $flag){
