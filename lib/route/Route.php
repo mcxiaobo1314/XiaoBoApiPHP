@@ -15,7 +15,7 @@ class Route {
 	/**
 	 * 分组名字
 	 */
-	public $groupName = DEFAULT_PATH;
+	public $groupName = "";
 
 	/**
 	 * 类名字
@@ -108,17 +108,15 @@ class Route {
 	 * @author wave
 	 */
 	protected function isPath() {
-		$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0];
-
-		if( !is_dir($controllerPath) ) {
-			return false;
-		}
-		//判断不是目录文件
-		if( !file_exists($controllerPath) ) {
-			return false;
-		} 
+		$controllerPath =  $this->controllerPath . ROUTE_DS . $this->getUrlParamArr[0].ROUTE_DS;
 		$this->groupName = $this->getUrlParamArr[0];
-		return $this->getUrlParamArr[0];
+
+		//判断不是目录文件
+		if( !file_exists($controllerPath)) {
+			throw new XiaoBoException($this->groupName."分组文件不存在");
+		} 
+		
+		return $this->groupName;
 	}
 
 	/**
@@ -127,8 +125,10 @@ class Route {
 	 * @author wave
 	 */
 	protected function isController() {
-		$defaultPath = ($this->isPath() !== false) ? $this->isPath() : DEFAULT_PATH;
-		$defaultFile = ($this->isPath() !== false) ? $this->getUrlParamArr[1] : $this->getUrlParamArr[0];
+		$defaultPath = $this->isPath();
+		$defaultFile = ($this->isPath() !== false && count($this->getUrlParamArr) >=3) ? 
+						$this->getUrlParamArr[1] : $this->getUrlParamArr[0];
+
 		$controllerPath =  $this->controllerPath . ROUTE_DS . 
 				$defaultPath . ROUTE_DS . 
 				CONTROLLER . ROUTE_DS . 
@@ -152,9 +152,8 @@ class Route {
 	 */
 	public function init() {
 			$this->coustructs();
-			$this->getUrlParamArr[2] = isset($this->getUrlParamArr[2]) ? $this->getUrlParamArr[2] : NULL;
-			$this->getUrlParamArr[1] = isset($this->getUrlParamArr[1]) ? $this->getUrlParamArr[1] : NULL;
-			$actionName = ($this->isPath() !== false) ? $this->getUrlParamArr[2] : $this->getUrlParamArr[1];
+			$actionName = ($this->isPath() !== false && isset($this->getUrlParamArr[2])) ? 
+					$this->getUrlParamArr[2] : $this->getUrlParamArr[1];
 			$className = $this->isClass();
 			($this->isPath() !== false)  ? 
 			array_splice($this->getUrlParamArr,0,3) : 
@@ -221,8 +220,9 @@ class Route {
 		$url = DEFAULT_ROUTE;
 		if(empty($_GET)){
 			$urlArr = $this->filterArr(explode('/', $url));
-			$_GET[C] = $urlArr[0];
-			$_GET[A] = $urlArr[1];
+			$_GET[G] = $urlArr[0];
+			$_GET[C] = $urlArr[1];
+			$_GET[A] = $urlArr[2];
 		}
 		
 		return $url;
