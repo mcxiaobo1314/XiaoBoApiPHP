@@ -164,17 +164,17 @@ class Route {
 				Ref::classInstace($className);
 			}
 
-
 			if($this->isAction($actionName)){
 				$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
 				//视图初始化
 				if(class_exists('ViewApi')){
-					ViewApi::$view->init(array(
+					Ref::methodInstace('View','init');
+					Ref::invokeArgs(array(array(
 						'group' => $this->groupName,
 						'class' => $this->className,
 						'action' => $this->actionName,
 						'controllerPath' => $this->controllerPath
-					));
+					)),ViewApi::$view);
 				}
 				//初始化反射类方法
 				Ref::methodInstace($className,$actionName);
