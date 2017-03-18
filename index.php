@@ -25,7 +25,7 @@ AutoLoads::init();
 $XmlParse = new XmlParse();
 
 //加载自定义模块 如:array('thinkphp','yii')
-$XmlParse ->loadCustom(array('thinkphp'));
+$XmlParse ->loadCustom(array());
 
 //重新选择加载组件 
 //$XmlParse->compName = array();

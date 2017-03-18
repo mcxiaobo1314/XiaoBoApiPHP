@@ -97,6 +97,16 @@ class Controller  {
 	public function import($file = '',$path = '',$first = false){
 		return LoadModel::import($file,$this->getPath().$path,$first);
 	}
+
+	/**
+	 * url专跳
+	 * @param Array $params 参数
+	 * @param bool $urlRewrite 是否伪静态
+	 * @author wave
+	 */
+	public function urlTo($params = array(), $urlRewrite = false){
+		return urlTo($params,$urlRewrite);
+	}
 	
  	/**
  	 * 获取当前url参数

@@ -16,7 +16,7 @@ class XmlParse {
 	 * 加载组件名字
 	 * @author wave
 	 */
-	public $compName = array('conf','model','view','controller','route','cache');
+	public $compName = array('conf','helpers','model','view','controller','route','cache');
 
 	/**
 	 * 保存XML路径
@@ -98,7 +98,7 @@ class XmlParse {
 
 		$this->compPath[$name] = (array)$this->xml->$name->path;
 		$versionArr = (array)$this->xml->$name->version;
-		
+	
 		if($versionArr[0] < self::VERSION ) {
 			return false;
 		}

@@ -9,6 +9,14 @@
 		<path>/conf/conf.php</path>
 	</conf>
 	<!--公用配置文件 end-->
+	
+	<!-- 加载全局方法 start -->
+	<helpers>
+		<name>XiaoBoPHP加载全局方法 beta</name>
+		<version>0.0.1</version>
+		<path>/helpers/functions.php</path>
+	</helpers>
+	<!-- 加载全局方法 end -->
 
 	<!--这是加载模型的配置 start-->
 	<model>
@@ -45,6 +53,7 @@
 
 	<!--自定义API组件加载 start-->
 	<custom>
+
 		<!--例子 start-->
 		<thinkphp>
 			<path>/thinkphp/Api.php</path>

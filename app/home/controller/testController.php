@@ -13,12 +13,12 @@ class testController  extends Controller{
 		//$this->getScheme();  //获取是http还是https
 	}
 
-	public function aaa() {
+	public function aaa() {		
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
-		//引入第三api扩展
-		// $thinkphp = new thinkphp();
-		// $thinkphp->test();		
+
+		//加true转换伪静态,不加true转换静态
+		//echo $this->urlTo(array('g'=>'home','c'=>'test','a'=>'aaa','id'=>'222','cc'=>'333'),true);	
 
 		//$user = $this->LoadModel('users');
 		// $user->validate = array(
