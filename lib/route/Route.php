@@ -83,9 +83,9 @@ class Route {
 	 */
 	public function setRoute($groupName, $className,$actionName,$params = array()){
 			if($groupName && $className && $actionName){
-				$this->getUrlParamArr[0] = $groupName;
-				$this->getUrlParamArr[1] = $className;
-				$this->getUrlParamArr[2] = $actionName;
+				$this->getUrlParamArr[G] = $groupName;
+				$this->getUrlParamArr[C] = $className;
+				$this->getUrlParamArr[A] = $actionName;
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
 				$this->flag = true;
 			}
@@ -194,18 +194,21 @@ class Route {
 	 */
 	public function bindParam(){
 		$bindParam = array();
-		$urlParam = $this->getUrlParam($this->flag);
+		$diffArr = array();
+		$urlParam = $this->flag === false  ? $this->getUrlParam($this->flag) : $this->getUrlParamArr;
 		$bindParam = Ref::getParams();
-		$diffArr = array($this->groupName,$this->className,$this->actionName);
+		if($this->groupName && $this->className && $this->actionName){
+			$diffArr = array($this->groupName,$this->className,$this->actionName);
+		}
 		$flag = false;
 		if(empty($this->get)){
-			$urlParam = $this->expUrlParamArr($urlParam);
-			$urlParam = array_diff($urlParam,$diffArr);
+			$this->flag === false && $urlParam = $this->expUrlParamArr($urlParam);
+			!empty($urlParam) && $urlParam = array_diff($urlParam,$diffArr);
 			$urlParam = $this->filterArr($urlParam);
 			$temp = array();
 			foreach($urlParam as $key=>$value){
-				if($key % 2 === 0 && in_array($value, $bindParam) && isset($bindParam[$value]) && !empty($urlParam[$key + 1])) {
-					$bindParam[$value] = $urlParam[$key + 1];
+				if($key % 2 === 0 && in_array($value, $bindParam) && isset($bindParam[$value]) && !empty($urlParam[array_search($value, $urlParam)+1])) {	
+					$bindParam[$value] = $urlParam[array_search($value, $urlParam)+1];
 					$flag = true;
 					$temp[$value] = $value;
 				}
@@ -316,7 +319,7 @@ class Route {
 			$url = $this->getDefualtUrl();
 		}
 		if($this->flag && $flag){
-			$url = implode('/', $this->getUrlParamArr);
+			$url = urlTo($this->getUrlParamArr,true);
 		}
 		return $url;
 	}

@@ -5,15 +5,18 @@
  */
 
 /**
- * url专跳
+ * url转换
  * @param Array $params 参数
  * @param bool $urlRewrite 是否伪静态
  * @author wave
  */
 function urlTo($params = array(),$urlRewrite = false){
 	if($urlRewrite){
-		$diff =  array($params[G],$params[A],$params[C]);
-	    $params = array_diff($params, $diff);
+		$diff  = array();
+		if(isset($params[G]) && isset($params[C]) && isset($params[A]) ){
+			$diff =  array($params[G],$params[C],$params[A]);
+		}	   
+		$params = array_diff($params, $diff);
 	    $urlStr = '';
 	    foreach($params as $key => $value){
 	    	$urlStr .= ROUTE_DS.$key.ROUTE_DS.$value;
