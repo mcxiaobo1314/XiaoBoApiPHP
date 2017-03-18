@@ -282,7 +282,7 @@ class Route {
 	 */
 	public  function getUrlParam($flag = true) {
 		$getParam = false;
-		$rootPath = ROUTE_DS.basename($this->getPath()).ROUTE_DS;
+		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()));
 		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
 			$url = $_SERVER['ORIG_PATH_INFO'];
 			$urlNum =2;  //伪静态
@@ -311,7 +311,7 @@ class Route {
 		}
 
 
-		if($url === $rootPath || $url === ROUTE_DS || (empty($url) && $getParam === false && $urlNum ===3)) {
+		if(strtolower(rtrim($url,ROUTE_DS)) === $rootPath || $url === ROUTE_DS || (empty($url) && $getParam === false && $urlNum ===3)) {
 			$this->get = array();
 			$url = $this->getDefualtUrl();
 		}
