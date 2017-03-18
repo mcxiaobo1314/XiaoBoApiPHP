@@ -7,8 +7,8 @@
 
 header("X-Powered-By:XiaoBoPHP");
 
-if (version_compare("5.3", PHP_VERSION, ">")) {
-     die("请安装php5.3的版本");
+if (version_compare("5.3", PHP_VERSION, ">=")) {
+     die("install version >= php 5.3");
 }
 
 define('LIB_PATH','lib'); //核心目录文件名
