@@ -86,6 +86,10 @@ class Route {
 				$this->getUrlParamArr[G] = $groupName;
 				$this->getUrlParamArr[C] = $className;
 				$this->getUrlParamArr[A] = $actionName;
+				if(!empty($_GET)){
+					$_GET = array_merge($_GET,$this->getUrlParamArr);
+					$params = array_merge($params,$_GET);
+				}
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
 				$this->flag = true;
 			}

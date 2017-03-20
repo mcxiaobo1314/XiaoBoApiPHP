@@ -25,3 +25,25 @@ function urlTo($params = array(),$urlRewrite = false){
 	}
 	return '?'.http_build_query($params);
 }
+
+/**
+ * 转义数组
+ * @param array $get 要转义的数组
+ * @return array
+ * @author wave
+ */
+function addslashesArr($get = array()){
+	foreach($get as $k => $v){
+		if(is_string($v)){
+			$get[$k] = addslashes($v);
+		}elseif(is_array($v)) {
+			$get[$k] = addslashesArr($v);
+		}
+	}
+	return $get;
+}
+
+
+
+
+
