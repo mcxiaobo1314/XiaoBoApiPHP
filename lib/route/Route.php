@@ -300,8 +300,9 @@ class Route {
 			if(isset($urlArr['query'])){
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
-			}else{
-				$url = '';
+			}
+			if(stripos($url,$rootPath) !==  false){
+				$url = substr($url,stripos($url,$rootPath));
 			}
 			$urlNum = 3; //动态
 		} else if (!empty($_SERVER['argv'][1])){  //cli 模式
