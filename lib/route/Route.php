@@ -290,17 +290,16 @@ class Route {
 	public  function getUrlParam($flag = true) {
 		$getParam = false;
 		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()));
-		if ( !empty($_SERVER['ORIG_PATH_INFO']) ) {
-			$url = $_SERVER['ORIG_PATH_INFO'];
+		if (Server::get('ORIG_PATH_INFO')) {
+			$url = Server::get('ORIG_PATH_INFO');
 			$urlNum =2;  //伪静态
-		} else if ( !empty($_SERVER['PATH_INFO']) ) {
-			$url = $_SERVER['PATH_INFO'];
+		} else if (Server::get('PATH_INFO')) {
+			$url = Server::get('PATH_INFO');
 			$urlNum =2; //伪静态
-		} else if ( !empty($_SERVER['REQUEST_URI']) ) {
-			$url = $_SERVER['REQUEST_URI'];
+		} else if (Server::get('REQUEST_URI')) {
+			$url =  Server::get('REQUEST_URI');
 			$url = $this->substr($url, '','index.php');
 			$urlArr = parse_url($url);
-
 			if(isset($urlArr['query'])){
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
@@ -309,8 +308,8 @@ class Route {
 				$url = substr($url,stripos($url,$rootPath));
 			}
 			$urlNum = 3; //动态
-		} else if (!empty($_SERVER['argv'][1])){  //cli 模式
-			$url = $_SERVER['argv'][1];
+		} else if (Server::getCliArgs()){  //cli 模式
+			$url = Server::getCliArgs();
 		}
 
 		$this->setHost();
@@ -336,7 +335,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function setScheme(){
-		$this->scheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : $this->host; 
+		$this->scheme = Server::get('REQUEST_SCHEME'); 
 	}
 
 
@@ -345,7 +344,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function setHost(){
-		$this->host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : $this->host; 
+		$this->host =  Server::get('SERVER_NAME');
 	}
 
 	/**
