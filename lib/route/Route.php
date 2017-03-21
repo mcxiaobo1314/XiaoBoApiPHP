@@ -355,7 +355,7 @@ class Route {
 	 */
 	protected function ReturnGetParam($getStr) {	
 		parse_str($getStr,$get);
-		$getUrl = '';
+		$getUrl = $this->getDefualtUrl().ROUTE_DS;
 		if( isset($get[C]) && isset($get[A]) ) {
 			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
 			unset($get[C]);
