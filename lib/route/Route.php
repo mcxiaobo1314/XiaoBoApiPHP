@@ -366,10 +366,6 @@ class Route {
 			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[G]);
 		}
-		if(!empty($get)){
-			$getUrl .= implode('/', $get);
-		}
-
 		return empty($getUrl) ? false : $getUrl;
 	}
 
