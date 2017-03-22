@@ -26,7 +26,21 @@ class Server {
 		return isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '';
 	}
 
+	/**
+	 * 判断是否是http请求
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isHttp(){
+		return self::get('REQUEST_SCHEME') == 'http';
+	}
 
-
-
+	/**
+	 * 判断是否是https请求
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isHttps(){
+		return self::get('REQUEST_SCHEME') == 'https';
+	}
 }
