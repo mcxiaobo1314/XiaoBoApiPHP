@@ -211,8 +211,9 @@ class Route {
 			$urlParam = $this->filterArr($urlParam);
 			$temp = array();
 			foreach($urlParam as $key=>$value){
-				if($key % 2 === 0 && in_array($value, $bindParam) && isset($bindParam[$value]) && !empty($urlParam[array_search($value, $urlParam)+1])) {	
-					$bindParam[$value] = $urlParam[array_search($value, $urlParam)+1];
+				$findkey = array_search($value, $urlParam);
+				if($key % 2 === 0 && isset($bindParam[$value]) && !empty($urlParam[$findkey+1])) {	
+					$bindParam[$value] = $urlParam[$findkey+1];
 					$flag = true;
 					$temp[$value] = $value;
 				}
