@@ -48,7 +48,29 @@ class RouteApi {
  	static public function aliasRoute($url='',$g= '',$c= '' ,$a = '',$params = array()){
  		self::$flag = false;
  		$urlArr = parse_url(self::$route->getUrlParam(self::$flag));
- 		if(isset($urlArr['path']) && rtrim($urlArr['path'],'/') == rtrim($url,'/')){
+ 		$defaultUrl = rtrim($url,'/');
+ 		$getUrl = isset($urlArr['path']) ? rtrim($urlArr['path'],'/') : '';
+
+ 		if(strpos($getUrl,".") !== false){
+ 			$getArr = explode(".", $getUrl);
+ 			$getUrl = $getArr[0];
+ 		}
+
+ 		preg_match_all("/\{\:[\d]+\}/",$defaultUrl,$arr);
+
+ 		if(!empty($arr[0])){
+ 			$getUrlArr =  array_values(array_filter(explode(ROUTE_DS,$getUrl)));
+			$defaultUrlArr = array_values(array_filter(explode(ROUTE_DS, $defaultUrl)));
+			if(!empty($getUrlArr) && !empty($defaultUrlArr)){
+				$getUrlArrs = array_diff($getUrlArr,$defaultUrlArr);
+			}
+			$params = array_combine(array_values($params),array_values($getUrlArrs));
+ 			$defaultUrl = str_replace($arr[0], $params, $defaultUrl);
+ 		}
+ 		if(!empty($getArr[1])){
+ 			$getUrl .= '.'.$getArr[1];
+ 		}
+ 		if( $getUrl == $defaultUrl){
  			//ViewApi::$view->setRoute($g,$c,$a);
  			self::$route->setRoute($g,$c,$a,$params);
  			
