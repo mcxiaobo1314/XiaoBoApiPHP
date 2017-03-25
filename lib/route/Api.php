@@ -59,8 +59,8 @@ class RouteApi {
  		preg_match_all("/\{\:[\d]+\}/",$defaultUrl,$arr);
 
  		if(!empty($arr[0])){
- 			$getUrlArr =  array_values(array_filter(explode(ROUTE_DS,$getUrl)));
-			$defaultUrlArr = array_values(array_filter(explode(ROUTE_DS, $defaultUrl)));
+ 			$getUrlArr =  self::expFilter($getUrl);
+			$defaultUrlArr = self::expFilter($defaultUrl);
 			if(!empty($getUrlArr) && !empty($defaultUrlArr)){
 				$getUrlArrs = array_diff($getUrlArr,$defaultUrlArr);
 			}
@@ -137,6 +137,21 @@ class RouteApi {
  		return self::$route->scheme;
  	}
  	
+
+ 	/**
+ 	 * 字符串拆分数组，并过滤空数组
+ 	 * @param string $str 要拆分的字符串
+ 	 * @param string $exp 拆分的字符
+ 	 * @return array
+ 	 * @author wave
+ 	 */
+ 	static private function expFilter($str = '',$exp = ROUTE_DS){
+ 		if(is_string($str)){
+ 			return array_values(array_filter(explode($exp,$str)));
+ 		}
+ 		return array();
+ 	}
+
  }
 //初始化路由类对象
 RouteApi::init();
