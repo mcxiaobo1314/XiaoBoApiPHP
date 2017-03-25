@@ -1,0 +1,4 @@
+server time:[1490455043]-url Pamas:[favicon.ico]-message:E_WARNING:array_combine(): Both parameters should have an equal number of elements
+server time:[1490455138]-url Pamas:[favicon.ico]-message:E_WARNING:array_combine(): Both parameters should have an equal number of elements
+server time:[1490455159]-url Pamas:[home/test/aaa]-message:E_WARNING:array_combine(): Both parameters should have an equal number of elements
+server time:[1490455159]-url Pamas:[favicon.ico]-message:E_WARNING:array_combine(): Both parameters should have an equal number of elements

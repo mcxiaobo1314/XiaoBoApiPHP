@@ -64,8 +64,13 @@ class RouteApi {
 			if(!empty($getUrlArr) && !empty($defaultUrlArr)){
 				$getUrlArrs = array_diff($getUrlArr,$defaultUrlArr);
 			}
-			$params = array_combine(array_values($params),array_values($getUrlArrs));
- 			$defaultUrl = str_replace($arr[0], $params, $defaultUrl);
+			$params = array_values($params);
+			$getUrlArrs = array_values($getUrlArrs);
+			if(count($params) === count($getUrlArrs)){
+				$params = array_combine($params,$getUrlArrs);
+				$defaultUrl = str_replace($arr[0], $params, $defaultUrl);
+			}
+ 			
  		}
  		if(!empty($getArr[1])){
  			$getUrl .= '.'.$getArr[1];
