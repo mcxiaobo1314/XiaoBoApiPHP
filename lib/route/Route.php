@@ -320,8 +320,9 @@ class Route {
 			$url = $getParam;
 		}
 
-
-		if(strtolower(rtrim($url,ROUTE_DS)) === $rootPath || $url === ROUTE_DS || (empty($url) && $getParam === false && $urlNum ===3)) {
+		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || 
+			($url === ROUTE_DS) || 
+			(empty($url) && $getParam === false && $urlNum ===3) ) {
 			$this->get = array();
 			$url = $this->getDefualtUrl();
 		}

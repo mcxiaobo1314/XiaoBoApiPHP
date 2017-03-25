@@ -23,8 +23,9 @@ class RouteApi {
  	 * @author wave
  	 */
  	static public function init() {
- 		require dirname(__FILE__).'/'.'Route.php';
- 		self::$route = new Route();
+ 		if(load(dirname(__FILE__).'/'.'Route.php')){
+ 			self::$route = new Route();
+ 		}
  	}
 
  	/**

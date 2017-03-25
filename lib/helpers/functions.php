@@ -43,6 +43,16 @@ function addslashesArr($get = array()){
 	return $get;
 }
 
+/**
+ * 加载文件
+ * @param string $file 加载文件路径
+ * @return bool
+ * @author wave
+ */
+function load($file){
+	return require $file;
+}
+
 
 
 
