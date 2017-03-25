@@ -356,7 +356,7 @@ class Route {
 	 */
 	protected function ReturnGetParam($getStr) {	
 		parse_str($getStr,$get);
-		$getUrl = $this->getDefualtUrl().ROUTE_DS;
+		$getUrl = '';
 		if( isset($get[C]) && isset($get[A]) ) {
 			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
 			unset($get[C]);
@@ -366,6 +366,9 @@ class Route {
 		if(isset($get[G]) ) {
 			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[G]);
+		}
+		if(empty($getUrl)){
+			$getUrl = $this->getDefualtUrl().ROUTE_DS;
 		}
 		return empty($getUrl) ? false : $getUrl;
 	}
