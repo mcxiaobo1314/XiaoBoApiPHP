@@ -43,4 +43,9 @@ class Server {
 	static public function isHttps(){
 		return self::get('REQUEST_SCHEME') == 'https';
 	}
+
+	static public function isAjax(){
+		return strtolower(self::get('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest';
+	}
+
 }
