@@ -65,9 +65,6 @@ class Route {
 	public function coustructs() {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
-		if(count($this->getUrlParamArr) == 1) {
-			$this->getUrlParamArr = $this->expUrlParamArr($this->getUrlParam());
-		}
 		XiaoBoError::init($this->getUrlParamArr);
 		//$this->init();
 	}
