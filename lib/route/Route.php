@@ -357,22 +357,20 @@ class Route {
 		if(isset($get[A])){
 			$getUrl = ROUTE_DS . $get[A] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[A]);
-		}else {
-			throw new XiaoBoException(A."参数未定义");
 		}
 		
 		if(isset($get[C])){
 			$getUrl = ROUTE_DS . $get[C] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[C]);
-		}else {
-			throw new XiaoBoException(C."参数未定义");
 		}
-		
+
 		if(isset($get[G]) ) {
 			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[G]);
-		}else {
-			throw new XiaoBoException(G."参数未定义");
+		}
+		
+		if(empty($getUrl)){
+			$getUrl = $this->getDefualtUrl().ROUTE_DS;
 		}
 		
 		return empty($getUrl) ? false : $getUrl;
