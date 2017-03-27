@@ -24,16 +24,18 @@ class Container {
 	 * @param string $class 类
 	 * @param string $method 方法
 	 * @param array $params 参数  
+	 * @param string $prefix 类前缀
 	 * @author wave
 	 */
-	public static function instace($class,$method = '',$params = array()){
-		if(empty(self::$app[$class]) && class_exists($class)){
-			self::$app[$class] = new $class();
+	public static function instace($class,$method = '',$params = array(),$prefix = ''){
+		$pclass = $prefix.$class;
+		if(empty(self::$app[$pclass]) && class_exists($class)){
+			self::$app[$pclass] = new $class();
 		}
-		if($method != '' && self::$app[$class] instanceof $class){
-			return self::methodInstace(self::$app[$class],$method,$params);
+		if($method != '' && self::$app[$pclass] instanceof $class){
+			return self::methodInstace(self::$app[$pclass],$method,$params);
 		}
-		if(empty(self::$app[$class])){
+		if(empty(self::$app[$pclass])){
 			throw new XiaoBoException($class."类不存在");
 		}
 	}

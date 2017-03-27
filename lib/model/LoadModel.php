@@ -25,8 +25,8 @@ class LoadModel {
 		$dao = ucfirst($dao);
 
 		if(empty($objArr[$tableName.$dao])) {
-			Container::instace($dao,$func,$params);
-			$objArr[$tableName.$dao] = Container::$app[$dao];
+			Container::instace($dao,$func,$params,$tableName);
+			$objArr[$tableName.$dao] = Container::$app[$tableName.$dao];
 		}
 		return $objArr[$tableName.$dao];
 	}
