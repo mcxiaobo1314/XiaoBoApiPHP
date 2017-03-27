@@ -23,27 +23,11 @@ class LoadModel {
 	static function load($dao = 'Mysql',$params = array(),$func = '',$tableName = '') {
 		static $objArr = array();
 		$dao = ucfirst($dao);
-		if(!class_exists($dao)) {
-			throw new XiaoBoException("加载模型类名:".$dao."不存在");
-		}
-		//初始化反射类
-		Ref::classInstace($dao);
-
-		if(!Ref::hasMethod($func)){
-			throw new XiaoBoException("模型方法".$func."不存在");
-		}
 
 		if(empty($objArr[$tableName.$dao])) {
-			//初始化类
-			$objArr[$tableName.$dao] = Ref::instance();
-			//初始化反射类方法
-			Ref::methodInstace($dao,$func);
-			//传入参数
-			Ref::invokeArgs($params,$objArr[$tableName.$dao]);
+			Container::instace($dao,$func,$params);
+			$objArr[$tableName.$dao] = Container::$app[$dao];
 		}
-		// if(method_exists($objArr[$tableName.$dao], $func)){
-		// 	 call_user_func_array(array($objArr[$tableName.$dao],$func),$params);
-		// }
 		return $objArr[$tableName.$dao];
 	}
 

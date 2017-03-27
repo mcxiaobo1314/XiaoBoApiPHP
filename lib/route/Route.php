@@ -53,7 +53,10 @@ class Route {
 	 */
 	public $flag = false;
 
-
+	/**
+	 * 保存get参数
+	 * @author wave
+	 */
 	public $get  = array();
 
 
@@ -65,8 +68,9 @@ class Route {
 	public function coustructs() {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
+		$this->setHost();
+		$this->setScheme();
 		XiaoBoError::init($this->getUrlParamArr);
-		//$this->init();
 	}
 
 
@@ -170,16 +174,14 @@ class Route {
 
 		if($this->isAction($actionName)){
 			$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
-			//视图初始化
-			if(class_exists('ViewApi')){
-				Ref::methodInstace('View','init');
-				Ref::invokeArgs(array(array(
+			Container::methodInstace(Container::$app['View'],'init',array(
+				array(
 					'group' => $this->groupName,
 					'class' => $this->className,
 					'action' => $this->actionName,
 					'controllerPath' => $this->controllerPath
-				)),ViewApi::$view);
-			}
+				)
+			));
 			//初始化反射类方法
 			Ref::methodInstace($className,$actionName);
 			(BINDURLPARAM === true) && $this->getUrlParamArr = $this->bindParam();
@@ -309,9 +311,6 @@ class Route {
 		} else if (Server::getCliArgs()){  //cli 模式
 			$url = Server::getCliArgs();
 		}
-
-		$this->setHost();
-		$this->setScheme();
 
 		if($getParam !== false  && $flag && $urlNum === 3) {
 			$url = $getParam;

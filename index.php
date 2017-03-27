@@ -22,16 +22,13 @@ require  str_replace('\\', '/', dirname(__FILE__)).'/'.LIB_PATH.'/core/AutoLoad.
 AutoLoads::init();
 
 //初始化自由组装组件
-$XmlParse = new XmlParse();
+Container::instace('XmlParse');
 
 //加载自定义模块 如:array('thinkphp','yii')
-$XmlParse ->loadCustom(array());
+Container::$app['XmlParse']->loadCustom(array());
 
 //重新选择加载组件 
-//$XmlParse->compName = array();
-
-
-
+//Container::$app['XmlParse']->compName = array();
 
 //初始化XML解析器
-call_user_func_array(array($XmlParse, "init"),array()); 
+Container::methodInstace(Container::$app['XmlParse'],'init');

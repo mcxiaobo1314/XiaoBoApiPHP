@@ -7,10 +7,10 @@
 class RouteApi {
 
 	/**
-	 * 初始化路由
+	 * 保存路由初始化对象
 	 * @author wave
 	 */
- 	static protected $route;
+	static protected $route;
 
  	/**
  	 * 标示是否定义路由别名
@@ -24,7 +24,8 @@ class RouteApi {
  	 */
  	static public function init() {
  		if(load(dirname(__FILE__).'/'.'Route.php')){
- 			self::$route = new Route();
+ 			Container::instace('Route');
+ 			self::$route = Container::$app['Route'];
  		}
  	}
 
@@ -34,7 +35,7 @@ class RouteApi {
  	 * @author wave
  	 */
  	static public function getRoute() {
- 		return self::$route->init();
+ 		return Container::methodInstace(self::$route,'init');
  	}
 
 	/**
@@ -77,7 +78,6 @@ class RouteApi {
  			$getUrl .= '.'.$getArr[1];
  		}
  		if( $getUrl == $defaultUrl){
- 			//ViewApi::$view->setRoute($g,$c,$a);
  			self::$route->setRoute($g,$c,$a,$params);
  			
  		}

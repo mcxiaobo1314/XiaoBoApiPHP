@@ -141,7 +141,6 @@ class Mysql extends Dao {
 			$this->limit . ' ' ;
 		$this->motehd = 'select';
 		$this->_unset();
-				var_dump($this->firstSql);
 		return $this->query($this->firstSql);
 	}
 
