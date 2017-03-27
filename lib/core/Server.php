@@ -44,6 +44,11 @@ class Server {
 		return self::get('REQUEST_SCHEME') == 'https';
 	}
 
+	/**
+	 * 判断是否ajax请求
+	 * @return bool
+	 * @author wave
+	 */
 	static public function isAjax(){
 		return strtolower(self::get('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest';
 	}
