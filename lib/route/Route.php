@@ -357,15 +357,18 @@ class Route {
 	protected function ReturnGetParam($getStr) {	
 		parse_str($getStr,$get);
 		$getUrl = '';
-		if( isset($get[C]) && isset($get[A])  && isset($get[G]) ) {
-			$getUrl = ROUTE_DS . $get[C] . ROUTE_DS . $get[A] . ROUTE_DS;
-			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-			unset($get[C]);
+		if(isset($get[A])){
+			$getUrl = ROUTE_DS . $get[A] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[A]);
-			unset($get[G]);
 		}
-		if(empty($getUrl)){
-			$getUrl = $this->getDefualtUrl().ROUTE_DS;
+		if(isset($get[C])){
+			$getUrl = ROUTE_DS . $get[C] . (empty($getUrl) ? ROUTE_DS : $getUrl);
+			unset($get[C]);
+		}
+
+		if(isset($get[G]) ) {
+			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
+			unset($get[G]);
 		}
 		return empty($getUrl) ? false : $getUrl;
 	}
