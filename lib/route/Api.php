@@ -155,7 +155,9 @@ class RouteApi {
 
  }
 //初始化路由类对象
-RouteApi::init();
+Container::staticInstace('RouteApi','init');
+//RouteApi::init();
 require  str_replace('\\', '/', dirname(__FILE__)).'/../conf/Route.php';  
 //获取路由参数
-RouteApi::getRoute();
+Container::staticInstace('RouteApi','getRoute');
+//RouteApi::getRoute();

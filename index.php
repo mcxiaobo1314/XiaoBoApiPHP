@@ -16,8 +16,6 @@ define('LIB_PATH','lib'); //核心目录文件名
 //自动加载类,只有调用类的时候才会加载
 require  str_replace('\\', '/', dirname(__FILE__)).'/'.LIB_PATH.'/core/AutoLoad.php';
 
-
-
 //初始化自动加载类
 AutoLoads::init();
 

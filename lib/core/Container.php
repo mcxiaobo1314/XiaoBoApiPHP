@@ -14,6 +14,12 @@ class Container {
 	public static $app = array();
 
 	/**
+	 * 保存静态方法
+	 * @author wave
+	 */
+	public static $staticApp = array();
+
+	/**
 	 * 初始化容器
 	 * @param string $class 类
 	 * @param string $method 方法
@@ -30,8 +36,19 @@ class Container {
 		if(empty(self::$app[$class])){
 			throw new XiaoBoException($class."类不存在");
 		}
-		
-		
+	}
+
+	/**
+	 * 静态方法调用
+	 * @param string $class 类
+	 * @param string $method 方法
+	 * @param array $params 参数  
+	 * @author wave
+	 */
+	public static function staticInstace($class,$method = '',$params = array()){
+		if(empty(self::$staticApp[$class.'_'.$method]) && class_exists($class)){
+			self::$staticApp[$class.'_'.$method] = $class::$method();
+		}
 	}
 
 

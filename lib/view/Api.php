@@ -26,6 +26,7 @@ class ViewApi {
  	}
 
 }
-ViewApi::init();
+Container::staticInstace('ViewApi','init');
+//ViewApi::init();
 
 ?>

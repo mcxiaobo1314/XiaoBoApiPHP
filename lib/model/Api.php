@@ -19,7 +19,7 @@ class ModelApi {
 	 *@author wave
 	 */
 	static function init($type = 'Mysql') {
-		require dirname(__FILE__).'/LoadModel.php';
+		load(dirname(__FILE__).'/LoadModel.php');
 		$type = ucfirst($type);
 		LoadModel::import('/'.$type.'.php',dirname(__FILE__));
 	}
@@ -90,11 +90,8 @@ class ModelApi {
 	 * @author wave
 	 */
 	static function config(){
-		static $config = null;
-		if(!$config && class_exists("Config")){
-			$config = new Config;
-		}
-		return $config;
+		Container::instace('config');
+		return Container::$app['config'];
 	}
 
 }
