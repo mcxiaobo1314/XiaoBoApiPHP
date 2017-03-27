@@ -354,26 +354,44 @@ class Route {
 	protected function ReturnGetParam($getStr) {	
 		parse_str($getStr,$get);
 		$getUrl = '';
+		$flag = false;
 		if(isset($get[A])){
 			$getUrl = ROUTE_DS . $get[A] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-			unset($get[A]);
+			$flag = true;
 		}
-		
+
 		if(isset($get[C])){
 			$getUrl = ROUTE_DS . $get[C] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-			unset($get[C]);
+			$flag = true;
 		}
 
 		if(isset($get[G]) ) {
 			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-			unset($get[G]);
+			$flag = true;
 		}
+		
+		$this->issetParam((isset($get[G]) ? $get[G] : ''),$flag,G);
+		$this->issetParam((isset($get[C]) ? $get[C] : ''),$flag,C);
+		$this->issetParam((isset($get[A]) ? $get[A] : ''),$flag,A);
 		
 		if(empty($getUrl)){
 			$getUrl = $this->getDefualtUrl().ROUTE_DS;
 		}
 		
 		return empty($getUrl) ? false : $getUrl;
+	}
+	
+	/**
+	 * 判断参数是否存在
+	 * @param sting $param 参数
+	 * @param bool $flag 标识
+	 * @param string $key 键
+	 * @author wave
+	 */
+	protected function issetParam($param,$flag,$key){
+		if($flag == true && (!isset($param) || $param == '')){
+			throw new XiaoBoException($key."参数不存在");
+		}
 	}
 
 	/**
