@@ -357,37 +357,26 @@ class Route {
 		if(isset($get[A])){
 			$getUrl = ROUTE_DS . $get[A] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[A]);
+		}else {
+			throw new XiaoBoException(A."参数未定义");
 		}
+		
 		if(isset($get[C])){
 			$getUrl = ROUTE_DS . $get[C] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[C]);
+		}else {
+			throw new XiaoBoException(C."参数未定义");
 		}
-
+		
 		if(isset($get[G]) ) {
 			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
 			unset($get[G]);
+		}else {
+			throw new XiaoBoException(G."参数未定义");
 		}
+		
 		return empty($getUrl) ? false : $getUrl;
 	}
-
-	/**
-	 * 获取URL参数
-	 * @return Array
-	 * @author wave
-	 */
-	protected function getParam() {
-		$get = !empty($_GET) ? $_GET : array();
-		if( isset($get[C]) && isset($get[A]) ) {
-			unset($get[C]);
-			unset($get[A]);
-		}
-		if( isset($get[G]) ) {
-			unset($get[G]);
-		}
-		return $get;
-	}
-
-
 
 	/**
 	 * 获取服务器相对路径目录
