@@ -13,11 +13,6 @@ class Container {
 	 */
 	public static $app = array();
 
-	/**
-	 * 保存静态方法
-	 * @author wave
-	 */
-	public static $staticApp = array();
 
 	/**
 	 * 初始化容器
@@ -48,12 +43,38 @@ class Container {
 	 * @author wave
 	 */
 	public static function staticInstace($class,$method = '',$params = array()){
-		if(empty(self::$staticApp[$class.'_'.$method]) && class_exists($class)){
-			self::$staticApp[$class.'_'.$method] = $class::$method();
+		if(empty(self::$app[$class.'_'.$method]) && class_exists($class)){
+			self::$app[$class.'_'.$method] = $class::$method();
 		}
 	}
 
-
+	/**
+	 * 注入实例化
+	 * @param string $key 要绑定的key
+	 * @param string/function $value 要实例化的值
+	 * @param array $params 要初始化的参数
+	 * @author wave
+	 */
+	public function set($key,$value,$params = array()){
+		if(empty(self::$app[$key]) && is_string($value)){
+			Ref::classInstace($value);
+			self::$app[$key] = empty($params) ? Ref::instance() :  Ref::instanceArgs($params);
+		}else if(empty(self::$app[$key]) && is_callable($value)) {
+			self::$app[$key] = $value(self::$app);
+		}
+	}
+	
+	/**
+	 * 获取实例化
+	 * @param string $key 要绑定的key
+	* @author wave
+	 */
+	public static function get($key){
+		if(isset(self::$app[$key])){
+			return self::$app[$key];
+		}
+	}
+	
 	/**
 	 * 调用类方法
 	 * @param object $obj 对象
