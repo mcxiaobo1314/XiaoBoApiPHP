@@ -41,6 +41,25 @@ class Ref{
 	}
 
 	/**
+	 * 判断是否公共方法
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isPublic(){
+		return self::$methodRef->isPublic();
+	}
+
+	/**
+	 * 判断是否静态方法
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isStatic(){
+		return self::$methodRef->isStatic();	
+	}
+
+
+	/**
 	 * 获取类方法的参数
 	 * @return array
      * @author wave

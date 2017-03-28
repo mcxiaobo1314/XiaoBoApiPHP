@@ -45,7 +45,12 @@ class Container {
 	 */
 	public static function staticInstace($class,$method = '',$params = array()){
 		if(empty(self::$app[$class.'_'.$method]) && class_exists($class)){
-			self::$app[$class.'_'.$method] = $class::$method();
+			Ref::methodInstace($class,$method);
+			if(Ref::isPublic() && Ref::isStatic()){
+				self::$app[$class.'_'.$method] = $class::$method();
+			}else {
+				throw new XiaoBoException($class.'::'.$method."不是公共的静态方法");
+			} 
 		}
 	}
 

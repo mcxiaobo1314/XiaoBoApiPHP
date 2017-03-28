@@ -98,3 +98,4 @@ if(!defined('G')) {
 if(!defined('A')) {
 	define('A','a'); //方法
 }
+

@@ -27,6 +27,7 @@ class Controller  {
 	public $Config;
 
 
+
 	/**
 	 * 初始化操作
 	 * @author wave
