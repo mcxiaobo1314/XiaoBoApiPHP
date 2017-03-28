@@ -15,7 +15,6 @@ class ViewApi {
  	static public function init() {
  		if(load(dirname(__FILE__).'/'.'View.php')){
  			Container::instace('View');
-			Container::$app['View'];
 		}
  	}
 
