@@ -55,7 +55,7 @@ class Container {
 	 * @param array $params 要初始化的参数
 	 * @author wave
 	 */
-	public function set($key,$value,$params = array()){
+	public static function set($key,$value,$params = array()){
 		if(empty(self::$app[$key]) && is_string($value)){
 			Ref::classInstace($value);
 			self::$app[$key] = empty($params) ? Ref::instance() :  Ref::instanceArgs($params);
@@ -67,11 +67,23 @@ class Container {
 	/**
 	 * 获取实例化
 	 * @param string $key 要绑定的key
-	* @author wave
+	 * @author wave
 	 */
 	public static function get($key){
 		if(isset(self::$app[$key])){
 			return self::$app[$key];
+		}
+	}
+
+
+	/**
+	 * 删除实例化
+	 * @param string $key 要删除的key
+	 * @author wave
+	 */
+	public static function del($key){
+		if(isset(self::$app[$key])){
+			unset(self::$app[$key]);
 		}
 	}
 	

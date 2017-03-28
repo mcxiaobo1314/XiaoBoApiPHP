@@ -13,7 +13,7 @@ class testController  extends Controller{
 		//$this->getScheme();  //获取是http还是https
 	}
 
-	public function aaa() {		
+	public function aaa() {	
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
 
