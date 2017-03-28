@@ -22,11 +22,13 @@ AutoLoads::init();
 //初始化自由组装组件
 Container::instace('XmlParse');
 
+$XmlParse = Container::get('XmlParse');
+
 //加载自定义模块 如:array('thinkphp','yii')
-Container::$app['XmlParse']->loadCustom(array());
+$XmlParse->loadCustom(array());
 
 //重新选择加载组件 
-//Container::$app['XmlParse']->compName = array();
+//$XmlParse->compName = array();
 
 //初始化XML解析器
-Container::methodInstace(Container::$app['XmlParse'],'init');
+$XmlParse->init();
