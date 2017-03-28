@@ -91,7 +91,7 @@ class ModelApi {
 	 */
 	static function config(){
 		Container::instace('config');
-		return Container::$app['config'];
+		return Container::get('config');
 	}
 
 }
