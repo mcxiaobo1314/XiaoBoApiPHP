@@ -39,15 +39,9 @@ class LoadModel {
 	 * @author wave
 	 */
 	static function import($file = '', $path = '',$first = true) {
-		static $pathArr = array();
 		$file = $first === true  ?  ucfirst($file) : $file;
 		$path = $path.$file;
-		if(empty($pathArr[$path])) {
-			$pathArr[$path] = $path;
-		}
-		if(file_exists($pathArr[$path])) {
-			require $pathArr[$path];
-		}
+		return load($path);
 	}
 
 }

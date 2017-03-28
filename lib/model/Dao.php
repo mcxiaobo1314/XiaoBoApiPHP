@@ -160,7 +160,7 @@ abstract class Dao {
 	 * 条件判断符号
 	 * @author wave
 	 */
-	protected $judge = array('>','<','!=','like','<>','>=','<=');
+	protected $judge = array('>','<','!=','like','<>','>=','<=','in');
 
 
 	/**
