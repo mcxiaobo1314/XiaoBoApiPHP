@@ -84,6 +84,16 @@ class Ref{
 	static public function instance(){
 		return self::$classRef->newInstance();
 	}
+	
+	/**
+	 * 带参数类初始化
+	 * @param Array $params
+	 * @return object
+	 * @author wave
+	 */
+	static public function instanceArgs($params = array()){
+		return self::$classRef->newInstanceArgs($params);
+	}
 
 	/**
 	 * 对初始类方法进行传递参数
