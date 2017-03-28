@@ -174,7 +174,7 @@ class Route {
 
 		if($this->isAction($actionName)){
 			$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
-			Container::methodInstace(Container::$app['View'],'init',array(
+			Container::methodInstace(Container::get('View'),'init',array(
 				array(
 					'group' => $this->groupName,
 					'class' => $this->className,
