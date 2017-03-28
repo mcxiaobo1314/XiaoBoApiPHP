@@ -25,7 +25,7 @@ class Container {
 	public static function instace($class,$method = '',$params = array(),$prefix = ''){
 		$pclass = $prefix.$class;
 		if(empty(self::$app[$pclass]) && class_exists($class)){
-			self::$app[$pclass] = new $class();
+			self::$app[$pclass] =  new $class();
 		}
 		if($method != '' && self::$app[$pclass] instanceof $class){
 			return self::methodInstace(self::$app[$pclass],$method,$params);
@@ -34,6 +34,7 @@ class Container {
 			throw new XiaoBoException($class."类不存在");
 		}
 	}
+
 
 	/**
 	 * 静态方法调用
@@ -63,6 +64,7 @@ class Container {
 			self::$app[$key] = $value(self::$app);
 		}
 	}
+
 	
 	/**
 	 * 获取实例化

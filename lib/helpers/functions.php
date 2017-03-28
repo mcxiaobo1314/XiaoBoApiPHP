@@ -50,7 +50,14 @@ function addslashesArr($get = array()){
  * @author wave
  */
 function load($file){
-	return require $file;
+	static $fileArr = array();
+	if(empty($fileArr[$file])){
+		$fileArr[$file] = $file;
+	}
+	if(file_exists($fileArr[$file])){
+		return require $fileArr[$file];
+	}
+	return false;
 }
 
 
