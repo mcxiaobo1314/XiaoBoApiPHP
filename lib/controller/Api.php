@@ -59,10 +59,7 @@ class Controller  {
 	 * @author wave
 	 */
 	public function View() {
-		if(class_exists('ViewApi')) {
-			return ViewApi::$view;
-		}
-		throw new XiaoBoException('请先载入View Api文件');
+		return Container::get('View');
 	}
 
 	/**
