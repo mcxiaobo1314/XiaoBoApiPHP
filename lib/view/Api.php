@@ -6,12 +6,6 @@
 
 class ViewApi {
 
-	/**
-	 * 保存视图
-	 * @author wave
-	 */
-	static public $view = '';
-
 
 	/**
  	 * 视图初始化
@@ -21,12 +15,11 @@ class ViewApi {
  	static public function init() {
  		if(load(dirname(__FILE__).'/'.'View.php')){
  			Container::instace('View');
-			self::$view= Container::$app['View'];
+			Container::$app['View'];
 		}
  	}
 
 }
 Container::staticInstace('ViewApi','init');
-//ViewApi::init();
 
 ?>
