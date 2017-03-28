@@ -26,7 +26,7 @@ class LoadModel {
 
 		if(empty($objArr[$tableName.$dao])) {
 			Container::instace($dao,$func,$params,$tableName);
-			$objArr[$tableName.$dao] = Container::$app[$tableName.$dao];
+			$objArr[$tableName.$dao] = Container::get($tableName.$dao);
 		}
 		return $objArr[$tableName.$dao];
 	}
