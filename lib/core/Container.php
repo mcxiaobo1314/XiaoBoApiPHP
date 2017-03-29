@@ -24,7 +24,12 @@ class Container {
 	 * @author wave
 	 */
 	private static $bindPrefix = 'bind_';
-
+	
+	/**
+	 * 被绑定注入的前缀
+	 * @author wave
+	 */
+	private static $bbindPrefix = 'bbind_';
 
 	/**
 	 * 初始化容器
@@ -119,7 +124,7 @@ class Container {
 			self::$app[self::$bindPrefix.$key] = Ref::instance(self::$bind[$key]);
 		}else if (is_string(self::$bind[$key]) && class_exists(self::$bind[$key])){
 			self::instace(self::$bind[$key]);
-			self::$app[self::$bindPrefix.$key] = self::instance(self::get(self::$bind[$key]),'',array(),self::$bindPrefix);
+			self::$app[self::$bindPrefix.$key] = self::instance(self::get(self::$bind[$key]),'',array(),self::$bbindPrefix);
 		}else if(is_array(self::$bind[$key])){
 			self::$app[self::$bindPrefix.$key] = Ref::instanceArgs(self::$bind[$key]);
 		}
@@ -128,7 +133,7 @@ class Container {
 	
 	
 	/**
-	 * 获取实例化
+	 * 获取
 	 * @param string $key 要绑定的key
 	 * @return null/bool
 	 * @author wave
@@ -144,12 +149,16 @@ class Container {
 
 
 	/**
-	 * 删除实例化
+	 * 删除
 	 * @param string $key 要删除的key
 	 * @author wave
 	 */
 	public static function del($key){
-		if(isset(self::$app[$key])){
+		if(isset(self::$bind[$key])){
+			unset(self::$app[self::$bindPrefix.$key]);
+			unset(self::$app[self::$bbindPrefix.$key]);
+			unset(self::$bind[$key]);
+		}else if(isset(self::$app[$key])){
 			unset(self::$app[$key]);
 		}
 	}
