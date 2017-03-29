@@ -1,0 +1,20 @@
+server time:[1490798379]-url Pamas:[home/test/aaa]-message:E_PARSE:parse error
+server time:[1490798430]-url Pamas:[home/test/aaa]-message:E_PARSE:parse error
+server time:[1490798453]-url Pamas:[home/test/aaa]-message:E_PARSE:parse error
+server time:[1490798494]-url Pamas:[home/test/aaa]-message:E_PARSE:parse error
+server time:[1490799106]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799188]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799196]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799201]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799201]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799392]-url Pamas:[home/test/aaa]-message:E_ERROR:Call to undefined function rtirm()
+server time:[1490799490]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799495]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799499]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799536]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799628]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799630]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799664]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799668]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799684]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given
+server time:[1490799689]-url Pamas:[]-message:E_WARNING:array_splice() expects parameter 1 to be array, boolean given

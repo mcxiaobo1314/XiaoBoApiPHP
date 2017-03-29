@@ -11,9 +11,15 @@ class testController  extends Controller{
 		//$this->getPath(); //获取网站的跟目录
 		//$this->getHost(); //获取当前域名
 		//$this->getScheme();  //获取是http还是https
+
 	}
 
 	public function aaa() {	
+		$url = $this->getScheme()."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$url = parse_url($url);
+		$url['path']= str_replace('/index.php', '', $url['path']);
+		$url = $url['scheme']."://".$url['host'].(empty($url['path']) ? '' : $url['path']);
+		$this->view->assign('favcion',$url.'/favcion.ico');
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
 

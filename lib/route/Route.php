@@ -103,7 +103,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function expUrlParamArr($dataStr = '' , $exp = ROUTE_DS) {
-		$dataStr = str_replace(array('//',"favicon.ico"), array($exp,"") , $dataStr);
+		$dataStr = str_replace(array('//'), array($exp) , $dataStr);
 		$getUrlParamArr = !empty($dataStr) ? explode($exp, $dataStr) : array();
 		$getUrlParamArr = $this->filterArr($getUrlParamArr);
 		return !empty($getUrlParamArr) ? $getUrlParamArr : false;
@@ -163,11 +163,9 @@ class Route {
 		$actionName = ($this->isPath() !== false && isset($this->getUrlParamArr[2])) ? 
 				$this->getUrlParamArr[2] : $this->getUrlParamArr[1];
 		$className = $this->isClass();
-		if(!empty($this->getUrlParamArr)){
-			($this->isPath() !== false)  ?
-			array_splice($this->getUrlParamArr,0,3) : 
-			array_splice($this->getUrlParamArr,0,2); 
-		}
+		($this->isPath() !== false)  ?
+		array_splice($this->getUrlParamArr,0,3) : 
+		array_splice($this->getUrlParamArr,0,2); 
 		
 		$this->actionName = $actionName;
 		if ( !empty($className) ) {
@@ -301,12 +299,14 @@ class Route {
 			$url =  Server::get('REQUEST_URI');
 			$url = $this->substr($url, '','index.php');
 			$urlArr = parse_url($url);
+
 			if(isset($urlArr['query'])){
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
 			if(stripos($url,$rootPath) !==  false){
-				$url = substr($url,stripos($url,$rootPath));
+				$url = $this->subistr($url,'',$rootPath);
+				//$url = substr($url,stripos($url,$rootPath));
 			}
 			$urlNum = 3; //动态
 		} else if (Server::getCliArgs()){  //cli 模式
@@ -317,7 +317,7 @@ class Route {
 			$url = $getParam;
 		}
 
-		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || 
+		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || rtrim($url,ROUTE_DS) === '/public' || 
 			($url === ROUTE_DS) ||
 			(empty($url) && $getParam === false && $urlNum ===3) ) {
 			$this->get = array();
@@ -326,6 +326,7 @@ class Route {
 		if($this->flag && $flag){
 			$url = urlTo($this->getUrlParamArr,true);
 		}
+
 		return $url;
 	}
 
@@ -453,5 +454,19 @@ class Route {
 		return $string;
 	}
 
+	/**
+	 * 替换第一次出现的字符串不区大写
+	 * @param string $string 要替换的字符串
+	 * @param string $repalce 被替换的字符串
+	 * @param string $t_repalce 要替换的字符串
+	 * @return string
+	 * @author wave
+	 */
+	protected function subistr($string,$repalce,$t_repalce){
+		if(stripos($string,$t_repalce)  !== false){
+			return substr_replace($string,$repalce,stripos($string,$t_repalce),strlen($t_repalce));
+		}
+		return $string;
+	}
 
 }

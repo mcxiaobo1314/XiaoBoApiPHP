@@ -10,7 +10,7 @@ header("X-Powered-By:XiaoBoPHP");
 if (version_compare("5.3", PHP_VERSION, ">=")) {
      die("install version >= php 5.3");
 }
-
+ini_set('display_errors','Off');
 define('LIB_PATH','lib'); //核心目录文件名
 
 //自动加载类,只有调用类的时候才会加载

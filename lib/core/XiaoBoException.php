@@ -27,7 +27,6 @@ class XiaoBoException extends Exception {
 	 * @author wave
 	 */
 	public function __construct($message = '',$trace = array()) {
-		ini_set('display_errors','Off');
 		if(!empty($message)){
 			$this->message = $message;
 		}
