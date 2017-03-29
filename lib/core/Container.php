@@ -112,7 +112,7 @@ class Container {
 		}else if(is_array(self::$bind[$key])){
 			self::$app[self::$bindPrefix.$key] = Ref::instanceArgs(self::$bind[$key]);
 		}
-		return self::get($key);
+		return self::get($key,true);
 	}
 	
 	
