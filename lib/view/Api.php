@@ -13,9 +13,7 @@ class ViewApi {
  	 * @author wave
  	 */
  	static public function init() {
- 		if(load(dirname(__FILE__).'/'.'View.php')){
- 			Container::instace('View');
-		}
+ 		load(dirname(__FILE__).'/'.'View.php');
  	}
 
 }
