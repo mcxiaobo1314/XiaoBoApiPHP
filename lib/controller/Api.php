@@ -68,10 +68,8 @@ class Controller  {
 	 * @author wave
 	 */
 	public function ModelType($type = 'Mysql') {
-		if(class_exists('ModelApi')) {
-			return ModelApi::init($type);
-		}
-		throw new XiaoBoException('请先载入Model Api文件');
+		Container::set('ModelApi_init',"ModelApi::init",array($type));
+		return Container::get('ModelApi_init');
 	}
 
 	/**
