@@ -304,7 +304,8 @@ class Route {
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
-			$url = $this->subistr($url,'',$rootPath);
+			$subflag = false; //判断是否有替换
+			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
 			$urlNum = 3; //动态
 		} else if (Server::getCliArgs()){  //cli 模式
 			$url = Server::getCliArgs();
@@ -315,7 +316,7 @@ class Route {
 		}
 
 		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || 
-			rtrim($url,ROUTE_DS) === '/public' || 
+			(rtrim($url,ROUTE_DS) === '/public' && $subflag) || 
 			($url === ROUTE_DS) ||
 			(empty($url) && $getParam === false && $urlNum ===3) ) {
 			$this->get = array();
@@ -432,29 +433,18 @@ class Route {
 	 * @param string $string 要替换的字符串
 	 * @param string $repalce 被替换的字符串
 	 * @param string $t_repalce 要替换的字符串
+	 * @param string $dist 查询下标函数 strpos/stripos
+	 * @param bool $flag 标示是否替换
 	 * @return string
 	 * @author wave
 	 */
-	protected function substr($string,$repalce,$t_repalce){
-		if(strpos($string,$t_repalce)  !== false){
-			return substr_replace($string,$repalce,strpos($string,$t_repalce),strlen($t_repalce));
+	protected function substr($string,$repalce,$t_repalce,$dist="strpos",&$flag = false){
+		if(in_array($dist, array("strpos","stripos"))  &&  $dist($string,$t_repalce)  !== false){
+			$flag = true;
+			return substr_replace($string,$repalce,$dist($string,$t_repalce),strlen($t_repalce));
 		}
 		return $string;
 	}
 
-	/**
-	 * 替换第一次出现的字符串不区大写
-	 * @param string $string 要替换的字符串
-	 * @param string $repalce 被替换的字符串
-	 * @param string $t_repalce 要替换的字符串
-	 * @return string
-	 * @author wave
-	 */
-	protected function subistr($string,$repalce,$t_repalce){
-		if(stripos($string,$t_repalce)  !== false){
-			return substr_replace($string,$repalce,stripos($string,$t_repalce),strlen($t_repalce));
-		}
-		return $string;
-	}
 
 }
