@@ -60,7 +60,8 @@ class Controller  {
 	 * @author wave
 	 */
 	public function View() {
-		return Container::get('View');
+		Container::make('View');
+		return Container::get('View',true);
 	}
 
 	/**
