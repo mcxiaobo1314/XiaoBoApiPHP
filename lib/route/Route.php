@@ -242,7 +242,7 @@ class Route {
 	 */
 	protected function isAction($actionName) {
 		if( !Ref::hasMethod($actionName)){
-			throw new XiaoBoException($actionName.'方法不存在');
+			throw new XiaoBoException($actionName.'方法不存在',false);
 		}
 		return true;
 	}
@@ -257,7 +257,7 @@ class Route {
 		$this->load($controllerPath);
 		$controllerClass = rtrim($this->className.CON_SUFFOIX,'.php') ;
 		if(!class_exists($controllerClass) ) {
-			throw new XiaoBoException($this->className.'控制器不存在');
+			throw new XiaoBoException($this->className.'控制器不存在',false);
 		} 
 		return $controllerClass;
 	}
@@ -389,7 +389,7 @@ class Route {
 	 */
 	protected function issetParam($param,$flag,$key){
 		if($flag == true && (!isset($param) || $param == '')){
-			throw new XiaoBoException($key."参数不存在");
+			throw new XiaoBoException($key."参数不存在",false);
 		}
 	}
 
