@@ -87,6 +87,22 @@ class XmlParse {
 	}
 
 	/**
+	 * 获取服务器相对路径目录
+	 * @return String 
+	 * @author wave
+	 */
+	public function getPath($dir = "") {
+		if($dir == ""){
+			$dir = dirname(__FILE__);
+		}
+		$currPath = basename($dir); //获取当前文件名
+		$searchArr = array('\\',$currPath);
+		$replaceArr = array('/','');
+		$path = str_replace($searchArr, $replaceArr, $dir);
+		return $path;
+	}
+
+	/**
 	 * 加载自定义组件
 	 * @param String $name 加载组件的名称
 	 * @author wave
@@ -104,19 +120,6 @@ class XmlParse {
 		}
 
 		$this->load($this->getPath().$this->compPath[$name][0]);
-	}
-
-	/**
-	 * 获取服务器相对路径目录
-	 * @return String 
-	 * @author wave
-	 */
-	protected function getPath() {
-		$currPath = basename(dirname(__FILE__)); //获取当前文件名
-		$searchArr = array('\\',$currPath);
-		$replaceArr = array('/','');
-		$path = str_replace($searchArr, $replaceArr, dirname(__FILE__));
-		return $path;
 	}
 
 

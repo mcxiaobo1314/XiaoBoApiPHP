@@ -399,11 +399,8 @@ class Route {
 	 * @author wave
 	 */
 	protected function getPath() {
-		$appPath = dirname(dirname(__FILE__));
-		$currPath = basename($appPath);
-		$searchArr = array('\\',$currPath);
-		$replaceArr = array(ROUTE_DS,'');
-		$appPath = str_replace($searchArr, $replaceArr, $appPath);
+		$XmlParse = Container::get('XmlParse');
+		$appPath = $XmlParse->getPath(dirname(dirname(__FILE__)));
 		return $appPath;
 	}
 
@@ -414,14 +411,7 @@ class Route {
 	 */
 	protected function load($filePath = '') {
 		$filePath  = str_replace('//', '/', $filePath);
-		static $fileArr = array();
-		if( empty($fileArr[$filePath]) && file_exists($filePath) ) {
-			$fileArr[$filePath] = $filePath;
-		}
-
-		if( !empty($fileArr[$filePath]) ) {
-			require $fileArr[$filePath];
-		}	
+		return load($filePath);
 	}
 
 	/**
