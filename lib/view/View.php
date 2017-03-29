@@ -79,7 +79,7 @@ class View {
 	 * @param Object $routeObj 路由对象
 	 * @author wave
 	 */
-	public function init($param = array()) {
+	public function __construct($param = array()) {
 		$this->getUrlParamArr = $param;
 		//编译路径
 		$this->pathArr['cache'] = $this->getUrlParamArr['controllerPath'].ROUTE_DS.$this->getUrlParamArr['group'].
