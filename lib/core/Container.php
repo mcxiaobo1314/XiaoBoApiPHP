@@ -47,7 +47,8 @@ class Container {
 		if(empty(self::$app[$class.'_'.$method]) && class_exists($class)){
 			Ref::methodInstace($class,$method);
 			if(Ref::isPublic() && Ref::isStatic()){
-				self::$app[$class.'_'.$method] = $class::$method();
+				$class::$method();
+				self::$app[$class.'_'.$method] = true;
 			}else {
 				throw new XiaoBoException($class.'::'.$method."不是公共的静态方法");
 			} 
@@ -66,7 +67,8 @@ class Container {
 			Ref::classInstace($value);
 			self::$app[$key] = empty($params) ? Ref::instance() :  Ref::instanceArgs($params);
 		}else if(empty(self::$app[$key]) && is_callable($value)) {
-			self::$app[$key] = $value(self::$app);
+			self::$app[$key] = !empty($params) ? call_user_func_array($value,$params) : 
+					call_user_func_array($value,array(self::$app));
 		}
 	}
 
