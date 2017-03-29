@@ -63,12 +63,14 @@ class Container {
 	 * @author wave
 	 */
 	public static function set($key,$value,$params = array()){
-		if(empty(self::$app[$key]) && is_string($value)){
+		if(empty(self::$app[$key]) && class_exists($value)){
 			Ref::classInstace($value);
 			self::$app[$key] = empty($params) ? Ref::instance() :  Ref::instanceArgs($params);
 		}else if(empty(self::$app[$key]) && is_callable($value)) {
-			self::$app[$key] = !empty($params) ? call_user_func_array($value,$params) : 
+			self::$app[$key] = !empty($params) ? call_user_func_array($value,$params) :
 					call_user_func_array($value,array(self::$app));
+		}else if(empty(self::$app[$key]) && (is_string($value) || is_array($value)) ){
+			self::$app[$key] = $value;
 		}
 	}
 
