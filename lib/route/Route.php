@@ -317,7 +317,8 @@ class Route {
 			$url = $getParam;
 		}
 
-		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || rtrim($url,ROUTE_DS) === '/public' || 
+		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || 
+			rtrim($url,ROUTE_DS) === '/public' || 
 			($url === ROUTE_DS) ||
 			(empty($url) && $getParam === false && $urlNum ===3) ) {
 			$this->get = array();

@@ -14,12 +14,7 @@ class testController  extends Controller{
 
 	}
 
-	public function aaa() {	
-		$url = $this->getScheme()."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		$url = parse_url($url);
-		$url['path']= str_replace('/index.php', '', $url['path']);
-		$url = $url['scheme']."://".$url['host'].(empty($url['path']) ? '' : $url['path']);
-		$this->view->assign('favcion',$url.'/favcion.ico');
+	public function aaa() {
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
 
