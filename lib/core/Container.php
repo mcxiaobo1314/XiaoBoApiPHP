@@ -93,14 +93,18 @@ class Container {
 	/**
 	 * 初始化绑定参数
 	 * @param string $key 要初始化·绑定的类
+	 * @param array $params 要传入的参数
+	 * @return object
 	 * @author wave
 	 */
-	public static function make($key){
+	public static function make($key,$params = array()){
 		if(!isset(self::$bind[$key])){
 			throw new XiaoBoException($key."未进行绑定,请先bind");
 		}
 		Ref::classInstace($key);
-		if(is_object(self::$bind[$key]) ){
+		if(self::$bind[$key] instanceof Closure || is_callable(self::$bind[$key])){
+			self::$app[self::$bindPrefix.$key] = call_user_func_array(self::$bind[$key],$params);
+		}else if(is_object(self::$bind[$key])){
 			self::$app[self::$bindPrefix.$key] = Ref::instance(self::$bind[$key]);
 		}else if (is_string(self::$bind[$key]) && class_exists(self::$bind[$key])){
 			self::instace(self::$bind[$key]);
