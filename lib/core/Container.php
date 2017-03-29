@@ -53,26 +53,6 @@ class Container {
 		}
 	}
 
-
-	/**
-	 * 静态方法调用
-	 * @param string $class 类
-	 * @param string $method 方法
-	 * @param array $params 参数  
-	 * @author wave
-	 */
-	public static function staticInstace($class,$method = '',$params = array()){
-		if(!isset(self::$app[$class.'_'.$method]) && class_exists($class)){
-			Ref::methodInstace($class,$method);
-			if(Ref::isPublic() && Ref::isStatic()){
-				$class::$method();
-				self::$app[$class.'_'.$method] = true;
-			}else {
-				throw new XiaoBoException($class.'::'.$method."不是公共的静态方法");
-			} 
-		}
-	}
-
 	/**
 	 * 注入实例化
 	 * @param string $key 要绑定的key
