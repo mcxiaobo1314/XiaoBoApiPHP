@@ -304,7 +304,6 @@ class Route {
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
-			$subflag = false; //判断是否有替换
 			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
 			$urlNum = 3; //动态
 		} else if (Server::getCliArgs()){  //cli 模式
@@ -443,6 +442,7 @@ class Route {
 			$flag = true;
 			return substr_replace($string,$repalce,$dist($string,$t_repalce),strlen($t_repalce));
 		}
+		$flag = false;
 		return $string;
 	}
 
