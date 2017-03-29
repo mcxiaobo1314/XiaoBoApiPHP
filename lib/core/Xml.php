@@ -88,6 +88,7 @@ class XmlParse {
 
 	/**
 	 * 获取服务器相对路径目录
+	 * @param string $dir 路径
 	 * @return String 
 	 * @author wave
 	 */
