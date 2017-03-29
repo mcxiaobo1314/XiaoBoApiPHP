@@ -97,10 +97,14 @@ class Ref{
 	
 	/**
 	 * 类初始化
+	 * @param  string $param 要实例化参数
 	 * @return object
 	 * @author wave
 	 */
-	static public function instance(){
+	static public function instance($param = ''){
+		if($param != ''){
+			return self::$classRef->newInstance($param);
+		}
 		return self::$classRef->newInstance();
 	}
 	
