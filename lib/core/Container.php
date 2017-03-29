@@ -64,13 +64,13 @@ class Container {
 		if(isset(self::$app[$key])){
 			throw new XiaoBoException("该".$key."值已经注入过了,请先del,再来注入");
 		}
-		if(class_exists($value)){
+		if(is_string($value) && class_exists($value)){
 			Ref::classInstace($value);
 			self::$app[$key] = empty($params) ? Ref::instance() :  Ref::instanceArgs($params);
 		}else if(is_callable($value)) {
 			self::$app[$key] = !empty($params) ? call_user_func_array($value,$params) : 
 							call_user_func_array($value,array(self::$app));
-		}else if((is_string($value) || is_array($value)) ){
+		}else if((is_string($value) || is_array($value) || is_object($value) ) ){
 			self::$app[$key] = $value;
 		}
 	}
@@ -117,20 +117,20 @@ class Container {
 	
 	
 	/**
-	 * 获取
+	 * 获取实例化
 	 * @param string $key 要绑定的key
+	 * @param bool $bind 是否获取绑定值
 	 * @return null/bool
 	 * @author wave
 	 */
-	public static function get($key){
-		if(isset(self::$app[self::$bindPrefix.$key])){
+	public static function get($key,$bind = false){
+		if(isset(self::$app[self::$bindPrefix.$key]) && $bind ){
 			return self::$app[self::$bindPrefix.$key];
-		}else if(isset(self::$app[$key])){
+		}else if(isset(self::$app[$key]) && !$bind){
 			return self::$app[$key];
 		}
 		return NULL;
 	}
-
 
 	/**
 	 * 删除
