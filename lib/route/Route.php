@@ -304,10 +304,7 @@ class Route {
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
-			if(stripos($url,$rootPath) !==  false){
-				$url = $this->subistr($url,'',$rootPath);
-				//$url = substr($url,stripos($url,$rootPath));
-			}
+			$url = $this->subistr($url,'',$rootPath);
 			$urlNum = 3; //动态
 		} else if (Server::getCliArgs()){  //cli 模式
 			$url = Server::getCliArgs();
