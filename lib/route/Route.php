@@ -121,7 +121,7 @@ class Route {
 
 		//判断不是目录文件
 		if( !file_exists($controllerPath)) {
-			throw new XiaoBoException($this->groupName."分组文件不存在");
+			throw new XiaoBoException($this->groupName."分组文件不存在",false);
 		} 
 		
 		return $this->groupName;
@@ -318,7 +318,7 @@ class Route {
 		}
 
 		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || 
-			($url === ROUTE_DS) || 
+			($url === ROUTE_DS) ||
 			(empty($url) && $getParam === false && $urlNum ===3) ) {
 			$this->get = array();
 			$url = $this->getDefualtUrl();
