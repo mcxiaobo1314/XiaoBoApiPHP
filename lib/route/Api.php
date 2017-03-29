@@ -25,7 +25,7 @@ class RouteApi {
  	static public function init() {
  		if(load(dirname(__FILE__).'/'.'Route.php')){
  			Container::instace('Route');
- 			self::$route = Container::$app['Route'];
+ 			self::$route = Container::get('Route');
  		}
  	}
 
@@ -156,8 +156,7 @@ class RouteApi {
  }
 //初始化路由类对象
 Container::staticInstace('RouteApi','init');
-//RouteApi::init();
-require  str_replace('\\', '/', dirname(__FILE__)).'/../conf/Route.php';  
+//加载路由配置文件
+load(str_replace('\\', '/', dirname(__FILE__)).'/../conf/Route.php');  
 //获取路由参数
 Container::staticInstace('RouteApi','getRoute');
-//RouteApi::getRoute();
