@@ -103,6 +103,25 @@ class XmlParse {
 		return $path;
 	}
 
+
+	/**
+	 * 引入文件
+	 * @param Sting $filePath 文件相对路径
+	 * @author wave
+	 */
+	public function load($filePath = '') {
+		$filePath  = str_replace('//', '/', $filePath);
+		static $fileArr = array();
+		if( empty($fileArr[$filePath]) && file_exists($filePath) ) {
+			$fileArr[$filePath] = $filePath;
+		}
+
+		if( !empty($fileArr[$filePath]) ) {
+			return require $fileArr[$filePath];
+		}
+		return false;	
+	}	
+
 	/**
 	 * 加载自定义组件
 	 * @param String $name 加载组件的名称
@@ -122,24 +141,6 @@ class XmlParse {
 
 		$this->load($this->getPath().$this->compPath[$name][0]);
 	}
-
-
-	/**
-	 * 引入文件
-	 * @param Sting $filePath 文件相对路径
-	 * @author wave
-	 */
-	protected function load($filePath = '') {
-		$filePath  = str_replace('//', '/', $filePath);
-		static $fileArr = array();
-		if( empty($fileArr[$filePath]) && file_exists($filePath) ) {
-			$fileArr[$filePath] = $filePath;
-		}
-
-		if( !empty($fileArr[$filePath]) ) {
-			require $fileArr[$filePath];
-		}	
-	}	
 }
 
 //调用示例
