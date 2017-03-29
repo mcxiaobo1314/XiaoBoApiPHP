@@ -117,7 +117,7 @@ class Container {
 	
 	
 	/**
-	 * 获取实例化
+	 * 获取值	
 	 * @param string $key 要绑定的key
 	 * @param bool $bind 是否获取绑定值
 	 * @return null/bool
@@ -133,16 +133,17 @@ class Container {
 	}
 
 	/**
-	 * 删除
+	 * 删除值	
 	 * @param string $key 要删除的key
+	 * @param bool $bind 是否删除绑定值
 	 * @author wave
 	 */
-	public static function del($key){
-		if(isset(self::$bind[$key])){
+	public static function del($key,$bind = false){
+		if(isset(self::$bind[$key]) && $bind ){
 			unset(self::$app[self::$bindPrefix.$key]);
 			unset(self::$app[self::$bbindPrefix.$key]);
 			unset(self::$bind[$key]);
-		}else if(isset(self::$app[$key])){
+		}else if(isset(self::$app[$key]) && !$bind ){
 			unset(self::$app[$key]);
 		}
 	}
