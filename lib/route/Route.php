@@ -103,8 +103,8 @@ class Route {
 	 * @author wave
 	 */
 	protected function expUrlParamArr($dataStr = '' , $exp = ROUTE_DS) {
-		$dataStr = str_replace(array('//'), array($exp) , $dataStr);
-		$getUrlParamArr = explode($exp, $dataStr);
+		$dataStr = str_replace(array('//',"favicon.ico"), array($exp,"") , $dataStr);
+		$getUrlParamArr = !empty($dataStr) ? explode($exp, $dataStr) : array();
 		$getUrlParamArr = $this->filterArr($getUrlParamArr);
 		return !empty($getUrlParamArr) ? $getUrlParamArr : false;
 	}
@@ -163,9 +163,12 @@ class Route {
 		$actionName = ($this->isPath() !== false && isset($this->getUrlParamArr[2])) ? 
 				$this->getUrlParamArr[2] : $this->getUrlParamArr[1];
 		$className = $this->isClass();
-		($this->isPath() !== false)  ? 
-		array_splice($this->getUrlParamArr,0,3) : 
-		array_splice($this->getUrlParamArr,0,2); 
+		if(!empty($this->getUrlParamArr)){
+			($this->isPath() !== false)  ?
+			array_splice($this->getUrlParamArr,0,3) : 
+			array_splice($this->getUrlParamArr,0,2); 
+		}
+		
 		$this->actionName = $actionName;
 		if ( !empty($className) ) {
 			//反射类初始化
@@ -430,7 +433,7 @@ class Route {
 	 */
 	protected function filterArr($arr){
 		if ( !empty($arr) ) {
-			return	array_values(array_filter($arr));
+			return	array_filter($arr) ? array_values(array_filter($arr)) : array();
 		}
 		return array();
 	}
