@@ -286,7 +286,6 @@ class Route {
 				$_GET[C] = $urlArr[1];
 				$_GET[A] = $urlArr[2];
 			}
-			
 		}
 		
 		return $url;
