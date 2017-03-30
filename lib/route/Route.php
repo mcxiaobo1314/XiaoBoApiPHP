@@ -70,7 +70,6 @@ class Route {
 		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
 		$this->setHost();
 		$this->setScheme();
-		XiaoBoError::init($this->getUrlParamArr);
 	}
 
 
