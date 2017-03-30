@@ -54,10 +54,10 @@ class XiaoBoException extends Exception {
 	 * @author wave
 	 */
 	private function errorHtml($trace , $messages = ""){
-		$html  = "<html><head><meta charset='utf-8'></meta><title>XiaoBoApiPHP框架提醒您错误信息</title></head><body>";
+		$html  = "<html><head><meta charset='utf-8'></meta><title>XiaoBoApiPHP框架提醒您</title></head><body>";
 		$html .= "<div style='padding:0px;margin:0px; width:80% height:80%; margin:0 auto;margin-top:10%; background:#DDDDDD;'>";
-		$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您错误信息:【{$messages}】</h2></dd>";
 		if(DEBUG){
+			$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您错误信息:【{$messages}】</h2></dd>";
 			isset($trace['file']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>文件路径:{$trace['file']}</dt>";
 			isset($trace['line']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>第:{$trace['line']}行</dt>";
 			isset($trace['class']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>类名:{$trace['class']}</dt>";
@@ -66,6 +66,8 @@ class XiaoBoException extends Exception {
 			isset($trace['line']) &&  isset($trace['file']) && $html .= "<dt style='text-indent:60px; width:10% height:30px; line-height:30px; background:#888888;'>
 				".$this->showErrorPhp($trace['file'],$trace['line'])."
 				</dt>";
+		}else {
+			$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您:【该页面不存在或者被删除了】</h2></dd>";
 		}
 		$html .= "<dt style='text-align:right; width:100% height:30px; line-height:30px;'>QQ群：114252528</dt>";
 		$html .= "<dt style='text-align:right; width:100% height:30px; line-height:30px;'><a href='https://www.github.com/mcxiaobo1314' style='color:black;'>github</a> | <a style='color:black;' href='http://xbphp.nmfox.com'>官网</a></dt>";
