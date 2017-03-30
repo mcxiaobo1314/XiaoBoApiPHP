@@ -57,7 +57,7 @@ if(!defined('VARIABLE')){
 
 define("DEBUG", true); //true开启debug false关闭debug
 
-define("IS_AILAS",true); //true设置了别名url就不能用伪静态和动态访问
+define("IS_AILAS",true); //true设置了别名url就不能用伪静态和动态访问,只能用别名url访问
 
 define("BINDURLPARAM",true); //开启url参数绑定，函数如:aaa($test,$test2),URL如:&test=1&test2=333 才可以获取到
 
