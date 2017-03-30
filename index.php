@@ -10,7 +10,7 @@ header("X-Powered-By:XiaoBoPHP");
 ini_set('display_errors','Off');
 
 if (version_compare("5.3", PHP_VERSION, ">=")) {
-     die("install version >= php 5.3");
+     die("install php version >=  5.3");
 }
 
 define('APP_ROOT_PATH', 'app'); //代码防止的目录
