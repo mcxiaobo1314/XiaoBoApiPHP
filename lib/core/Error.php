@@ -33,11 +33,9 @@ class XiaoBoError {
 
 	/**
 	 * 初始化错误类
-	 * @param  array $urlPamas url参数
 	 * @author wave
 	 */
-	public static function init($urlPamas = array()){
-		self::$urlPamas = !empty($urlPamas) ? implode("/", $urlPamas) : "";
+	public static function init(){
 		register_shutdown_function("XiaoBoError::echoErr");
 	}
 
@@ -64,8 +62,8 @@ class XiaoBoError {
 	 */
 	public static function log($message = "",$file = "error.log"){
 		$serverTime = $_SERVER["REQUEST_TIME"];
-		$path = getcwd().ROUTE_DS.'..'.ROUTE_DS.APP_ROOT_PATH.ROUTE_DS.$file;
-		$error = "server time:[".$serverTime ."]-url Pamas:[".self::$urlPamas."]-message:".$message;
+		$path = dirname(__FILE__).ROUTE_DS.'..'.ROUTE_DS.'..'.ROUTE_DS.APP_ROOT_PATH.ROUTE_DS.$file;
+		$error = "server time:[".$serverTime ."]-url Pamas:[".Server::get('REQUEST_URI')."]-message:".$message;
 		return file_put_contents($path,$error."\r\n",FILE_APPEND);
 	}
 
