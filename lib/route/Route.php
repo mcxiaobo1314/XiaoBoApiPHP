@@ -281,9 +281,12 @@ class Route {
 		$url = DEFAULT_ROUTE;
 		if(empty($_GET)){
 			$urlArr = $this->filterArr(explode('/', $url));
-			$_GET[G] = $urlArr[0];
-			$_GET[C] = $urlArr[1];
-			$_GET[A] = $urlArr[2];
+			if(count($urlArr) >= 3){
+				$_GET[G] = $urlArr[0];
+				$_GET[C] = $urlArr[1];
+				$_GET[A] = $urlArr[2];
+			}
+			
 		}
 		
 		return $url;

@@ -84,7 +84,7 @@ if(!defined('ROUTE_DS')) {
 	define('ROUTE_DS','/'); 
 }
 if(!defined('DEFAULT_ROUTE')) {
-	define('DEFAULT_ROUTE','home/test/aaa'); //默认访问,写法: 分组文件夹名/控制器/方法名
+	define('DEFAULT_ROUTE','/index.html'); //默认访问,写法: 分组文件夹名/控制器/方法名
 }
 if(!defined('C')) {
 	define('C','c'); //控制器
