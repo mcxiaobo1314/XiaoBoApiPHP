@@ -51,10 +51,7 @@ class RouteApi {
  		self::$flag = false;
 
  		$aliasUrl = $g.ROUTE_DS.$c.ROUTE_DS.$a;
- 		if(!in_array($aliasUrl,self::$route->aliasUrl)){
-			self::$route->aliasUrl[$aliasUrl] =  true;
- 		}
- 		
+		self::$route->aliasUrl[$aliasUrl] =  true;
  		$urlArr = parse_url(self::$route->getUrlParam(self::$flag));
  		$defaultUrl = rtrim($url,'/');
  		$getUrl = isset($urlArr['path']) ? rtrim($urlArr['path'],'/') : '';
