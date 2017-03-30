@@ -13,6 +13,7 @@ if (version_compare("5.3", PHP_VERSION, ">=")) {
      die("install version >= php 5.3");
 }
 
+define('APP_ROOT_PATH', 'app'); //代码防止的目录
 define('LIB_PATH','lib'); //核心目录文件名
 
 //自动加载类,只有调用类的时候才会加载
