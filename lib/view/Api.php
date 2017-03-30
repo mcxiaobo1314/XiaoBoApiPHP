@@ -5,8 +5,7 @@
  */
 
 class ViewApi {
-
-
+	
 	/**
  	 * 视图初始化
  	 * @param array $params 获取路由url参数
@@ -17,6 +16,5 @@ class ViewApi {
  	}
 
 }
-ViewApi::init();
 
 ?>

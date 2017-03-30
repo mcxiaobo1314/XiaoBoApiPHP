@@ -16,7 +16,7 @@ class XmlParse {
 	 * 加载组件名字
 	 * @author wave
 	 */
-	public $compName = array('conf','helpers','model','view','controller','route','cache');
+	public $compName = array();
 
 	/**
 	 * 保存XML路径
@@ -37,6 +37,12 @@ class XmlParse {
 	protected $compPath = array();
 
 	/**
+	 * 自定义组件加载
+	 * @author wave
+	 */
+	protected $custom = array();
+
+	/**
 	 * 版本
 	 * @author wave
 	 */
@@ -53,21 +59,39 @@ class XmlParse {
 	 * @author wave
 	 */
 	public function __construct() {
-
 		$this->pathName = dirname(__FILE__).'/conf/'.self::XML_CONFIG_FILE;
 		if(file_exists($this->pathName)) {
 			$this->xml = simplexml_load_file($this->pathName);
 		}
+		if(!empty($this->xml)){
+			$this->compName = (array)$this->xml;
+			$this->compName = $this->uset($this->compName,'comment');
+			if(isset($this->compName['custom'])){
+				$this->custom = (array)$this->compName['custom'];
+				$this->custom = $this->uset($this->custom,'comment');
+				$this->compName = $this->uset($this->compName,'custom');
+			}
+
+			$this->compName = !empty($this->compName) ? array_keys($this->compName) : array();
+			$this->custom = !empty($this->custom) ? array_keys($this->custom) : array();
+		}
+
 	}
 
 	/**
 	 * 初始化加载自定义模块
+	 * @param function $callback 回调方法
 	 * @author wave 
 	 */
-	public function init() {
-
-		foreach($this->compName as $value) {
-			$this->loadComp($value);
+	public function init($callback = '') {
+		if($this->compName){
+			foreach($this->compName as $value) {
+				$this->loadComp($value);
+			}
+		}
+		$this->loadCustom($this->custom);
+		if($callback instanceof Closure || is_callable($callback)){
+			call_user_func($callback);
 		}
 	}
 
@@ -121,6 +145,20 @@ class XmlParse {
 		}
 		return false;	
 	}	
+
+	/**
+	 * 毁掉数组下标
+	 * @param array $arr 数组
+	 * @param string $key 下标
+	 * @return array
+	 * @author wave
+	 */
+	protected function uset($arr,$key){
+		if(is_array($arr) && isset($arr[$key])){
+			unset($arr[$key]);
+		}
+		return $arr;
+	}
 
 	/**
 	 * 加载自定义组件

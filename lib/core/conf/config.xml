@@ -2,13 +2,29 @@
 
 <list>
 
-	<!--公用配置文件 start-->
+	<!--数据库配置文件 start-->
+	<databaseConf>
+		<name>XiaoBoPHP数据库配置文件</name>
+		<version>0.0.1</version>
+		<path>/conf/database.php</path>
+	</databaseConf>
+	<!--数据库配置文件 end-->
+
+	<!--视图配置文件 start-->
+	<viewConf>
+		<name>XiaoBoPHP视图配置文件</name>
+		<version>0.0.1</version>
+		<path>/conf/viewConf.php</path>
+	</viewConf>
+	<!--视图配置文件 end-->
+
+	<!--核心配置文件 start-->
 	<conf>
 		<name>XiaoBoPHP配置文件</name>
 		<version>0.0.1</version>
-		<path>/conf/conf.php</path>
+		<path>/conf/Conf.php</path>
 	</conf>
-	<!--公用配置文件 end-->
+	<!--核心配置文件 end-->
 	
 	<!-- 加载全局方法 start -->
 	<helpers>
@@ -59,10 +75,6 @@
 			<path>/thinkphp/Api.php</path>
 		</thinkphp>
 		<!--例子 end-->
-
-		<!-- <定义组件名字>
-			<path>/route/Api.php</path>
-		</定义组件名字> -->
 		
 	</custom>
 	<!--自定义API组件加载 end-->

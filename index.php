@@ -21,20 +21,7 @@ require  str_replace('\\', '/', dirname(__FILE__)).'/'.LIB_PATH.'/core/AutoLoad.
 
 //初始化自动加载类
 AutoLoads::init();
-
 //初始化自定义错误
 XiaoBoError::init();
 
-//初始化自由组装组件
-Container::instace('XmlParse');
-
-$XmlParse = Container::get('XmlParse');
-
-//加载自定义模块 如:array('thinkphp','yii')
-$XmlParse->loadCustom(array());
-
-//重新选择加载组件 
-//$XmlParse->compName = array();
-
-//初始化XML解析器
-$XmlParse->init();
+Bootstrap::instace();
