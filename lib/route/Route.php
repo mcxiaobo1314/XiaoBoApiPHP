@@ -59,6 +59,12 @@ class Route {
 	 */
 	public $get  = array();
 
+	/**
+	 * 设置了别名的url
+	 * @author wave
+	 */
+	public $aliasUrl = array();
+
 
 
 	/**
@@ -167,6 +173,12 @@ class Route {
 		array_splice($this->getUrlParamArr,0,2); 
 		
 		$this->actionName = $actionName;
+		$currentUrl = $this->groupName.ROUTE_DS.$this->className.ROUTE_DS.$this->actionName;
+		if(isset($this->aliasUrl[$currentUrl])  && $this->aliasUrl[$currentUrl] === true && IS_AILAS){
+			throw new XiaoBoException("已经定义了别名url,请使用别名url访问");
+				
+		}
+
 		if ( !empty($className) ) {
 			//反射类初始化
 			Ref::classInstace($className);
