@@ -24,4 +24,10 @@ AutoLoads::init();
 //初始化自定义错误
 XiaoBoError::init();
 
-Bootstrap::instace();
+//初始化自由组装组件
+Container::instace('XmlParse');
+
+$XmlParse = Container::get('XmlParse');
+
+//初始化XML解析器
+$XmlParse->init();

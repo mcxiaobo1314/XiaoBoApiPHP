@@ -22,7 +22,7 @@
 	<conf>
 		<name>XiaoBoPHP配置文件</name>
 		<version>0.0.1</version>
-		<path>/conf/Conf.php</path>
+		<path>/conf/conf.php</path>
 	</conf>
 	<!--核心配置文件 end-->
 	
