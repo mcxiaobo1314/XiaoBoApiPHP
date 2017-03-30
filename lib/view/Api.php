@@ -16,5 +16,6 @@ class ViewApi {
  	}
 
 }
-
+//视图加载
+ViewApi::init();
 ?>
