@@ -7,10 +7,12 @@
 
 header("X-Powered-By:XiaoBoPHP");
 
+ini_set('display_errors','Off');
+
 if (version_compare("5.3", PHP_VERSION, ">=")) {
      die("install version >= php 5.3");
 }
-ini_set('display_errors','Off');
+
 define('LIB_PATH','lib'); //核心目录文件名
 
 //自动加载类,只有调用类的时候才会加载
@@ -18,6 +20,9 @@ require  str_replace('\\', '/', dirname(__FILE__)).'/'.LIB_PATH.'/core/AutoLoad.
 
 //初始化自动加载类
 AutoLoads::init();
+
+//初始化自定义错误
+XiaoBoError::init();
 
 //初始化自由组装组件
 Container::instace('XmlParse');
