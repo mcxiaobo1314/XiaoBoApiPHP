@@ -117,7 +117,7 @@ class Container {
 				self::$app[self::$bindPrefix.$key] = self::instace(self::$bind[$key],'',array(),self::$bbindPrefix);
 			}else{
 				Ref::classInstace(self::$bind[$key]);
-				self::$app[self::$bindPrefix.$key] = Ref::instance(self::$bind[$key]);
+				self::$app[self::$bindPrefix.$key] = Ref::instance($params);
 			}
 		}else if(is_array(self::$bind[$key]) && $flag){
 			self::$app[self::$bindPrefix.$key] = Ref::instanceArgs(self::$bind[$key]);
