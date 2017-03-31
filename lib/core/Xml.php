@@ -43,6 +43,12 @@ class XmlParse {
 	protected $custom = array();
 
 	/**
+	 * 判断是否加载过自定义组件
+	 * @author wave
+	 */
+	protected static $customPath = array();
+
+	/**
 	 * 版本
 	 * @author wave
 	 */
@@ -89,7 +95,7 @@ class XmlParse {
 				$this->loadComp($value);
 			}
 		}
-		
+		$this->loadCustom($this->custom);
 	}
 
 	/**
@@ -108,13 +114,13 @@ class XmlParse {
 		if(empty($this->xml->custom)) {
 			return false;
 		}
-
+		$custom = !empty(self::$customPath) ? array_diff($custom, self::$customPath) : $custom;
 		foreach ($custom as $key => $value) {
 			if($this->xml->custom->$value->isload == true){
+				self::$customPath[] = $value;
 				$value = (array)$this->xml->custom->$value->path;
 				$this->load($this->getPath().$value[0]);
 			}
-			
 		}
 	}
 
