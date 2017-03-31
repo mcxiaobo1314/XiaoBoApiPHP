@@ -51,6 +51,7 @@ class Container {
 		if(!isset(self::$app[$pclass])) {
 			throw new XiaoBoException($class."类不存在");
 		}
+		return self::$app[$pclass];
 	}
 
 	/**
@@ -82,8 +83,8 @@ class Container {
 	 * @author wave
 	 */
 	public static function bind($key,$value){
-		if(!class_exists($key)){
-			throw new XiaoBoException("该".$key."类不存在,请先引入该类");
+		if(!isset($key) || !isset($value)){
+			throw new XiaoBoException("参数不存在");
 		}
 		if(!isset(self::$bind[$key]) && $value != ''){
 			self::$bind[$key] = $value;
@@ -101,15 +102,24 @@ class Container {
 		if(!isset(self::$bind[$key])){
 			throw new XiaoBoException($key."未进行绑定,请先bind");
 		}
-		Ref::classInstace($key);
+		
+		$flag = false;
+		if(class_exists($key)){
+			$flag = true;
+			Ref::classInstace($key);
+		}
 		if(self::$bind[$key] instanceof Closure || is_callable(self::$bind[$key])){
 			self::$app[self::$bindPrefix.$key] = call_user_func_array(self::$bind[$key],$params);
-		}else if(is_object(self::$bind[$key])){
+		}else if(is_object(self::$bind[$key]) && $flag){
 			self::$app[self::$bindPrefix.$key] = Ref::instance(self::$bind[$key]);
 		}else if (is_string(self::$bind[$key]) && class_exists(self::$bind[$key])){
-			self::instace(self::$bind[$key]);
-			self::$app[self::$bindPrefix.$key] = self::instance(self::get(self::$bind[$key]),'',array(),self::$bbindPrefix);
-		}else if(is_array(self::$bind[$key])){
+			if(empty($params)){
+				self::$app[self::$bindPrefix.$key] = self::instace(self::$bind[$key],'',array(),self::$bbindPrefix);
+			}else{
+				Ref::classInstace(self::$bind[$key]);
+				self::$app[self::$bindPrefix.$key] = Ref::instance(self::$bind[$key]);
+			}
+		}else if(is_array(self::$bind[$key]) && $flag){
 			self::$app[self::$bindPrefix.$key] = Ref::instanceArgs(self::$bind[$key]);
 		}
 		return self::get($key,true);
