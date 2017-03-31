@@ -42,6 +42,22 @@ class Controller  {
 	}
 
 	/**
+	 * 设置是否加载自定义组件
+	 * @param string $name 自定义组件名称
+	 * @param bool $bool 是否加载组建 true加载 false不加载
+	 * @author wave
+	 */
+	public function setCustom($name,$bool = true){
+		$XmlParse = Container::get('XmlParse');
+		if(isset($XmlParse->xml->custom->$name)){
+
+			$XmlParse->xml->custom->$name->isload = $bool;
+			$XmlParse->loadCustomInit();
+		}
+	}
+
+
+	/**
 	 * 加载模型文件
 	 * @param string $modelFile 模型文件 不带Model.php
 	 * @param array $params 参数

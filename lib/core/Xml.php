@@ -89,6 +89,14 @@ class XmlParse {
 				$this->loadComp($value);
 			}
 		}
+		
+	}
+
+	/**
+	 * 自定义组件加载
+	 * @author  wave
+	 */
+	public function loadCustomInit(){
 		$this->loadCustom($this->custom);
 	}
 
@@ -102,8 +110,11 @@ class XmlParse {
 		}
 
 		foreach ($custom as $key => $value) {
-			$value = (array)$this->xml->custom->$value->path;
-			$this->load($this->getPath().$value[0]);
+			if($this->xml->custom->$value->isload == true){
+				$value = (array)$this->xml->custom->$value->path;
+				$this->load($this->getPath().$value[0]);
+			}
+			
 		}
 	}
 

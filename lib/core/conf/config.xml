@@ -72,6 +72,7 @@
 
 		<!--例子 start-->
 		<thinkphp>
+			<isload>false</isload> <!-- 是否加载组建 -->
 			<path>/thinkphp/Api.php</path>
 		</thinkphp>
 		<!--例子 end-->
