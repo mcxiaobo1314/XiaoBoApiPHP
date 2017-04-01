@@ -102,25 +102,48 @@ class Container {
 		if(!isset(self::$bind[$key])){
 			throw new XiaoBoException($key."未进行绑定,请先bind");
 		}
-		
-		$flag = false;
-		if(class_exists($key)){
-			$flag = true;
-			Ref::classInstace($key);
+		if(isset(self::$app[self::$bindPrefix.$key])){
+			return self::$app[self::$bindPrefix.$key];
 		}
-		if(self::$bind[$key] instanceof Closure || is_callable(self::$bind[$key])){
-			self::$app[self::$bindPrefix.$key] = call_user_func_array(self::$bind[$key],$params);
-		}else if(is_object(self::$bind[$key]) && $flag){
+		
+		$bool = class_exists($key) ? Ref::classInstace($key) : true;
+		$bindValBool = is_string(self::$bind[$key]) && class_exists(self::$bind[$key]) ?  
+				Ref::classInstace(self::$bind[$key]) : true;
+
+		//判断绑定的KEY的值是当前的KEY的值的实例
+		if(self::$bind[$key] instanceof $key && !$bool){
+			self::$app[self::$bindPrefix.$key] = self::$bind[$key];
+		}
+		//判断绑定的KEY的值不是当前的KEY的值的实例
+		 if(!self::$bind[$key] instanceof $key && !$bool && !$bindValBool){
 			self::$app[self::$bindPrefix.$key] = Ref::instance(self::$bind[$key]);
-		}else if (is_string(self::$bind[$key]) && class_exists(self::$bind[$key])){
-			if(empty($params)){
-				self::$app[self::$bindPrefix.$key] = self::instace(self::$bind[$key],'',array(),self::$bbindPrefix);
-			}else{
-				Ref::classInstace(self::$bind[$key]);
-				self::$app[self::$bindPrefix.$key] = Ref::instance($params);
-			}
-		}else if(is_array(self::$bind[$key]) && $flag){
-			self::$app[self::$bindPrefix.$key] = Ref::instanceArgs(self::$bind[$key]);
+		}
+		//判断绑定的KEY的值是数组
+		 if(is_array(self::$bind[$key]) && !$bool){
+			self::$app[self::$bindPrefix.$key] = Ref::instance(self::$bind[$key]);
+		}
+		//判断绑定的KEY的值是闭包函数 或者是回调函数
+		 if(self::$bind[$key] instanceof Closure || is_callable(self::$bind[$key])){
+			self::$app[self::$bindPrefix.$key] = is_array($params) ? 
+					call_user_func_array(self::$bind[$key],$params) : 
+			 		call_user_func(self::$bind[$key],$params);
+		}
+		
+		//判断返回值不是当前类的实例,并且当前KEY是类
+		 if(!self::$app[self::$bindPrefix.$key] instanceof $key && !$bool){
+			self::$app[self::$bindPrefix.$key] = !empty(self::$app[self::$bindPrefix.$key]) ? 
+						Ref::instance(self::$app[self::$bindPrefix.$key]) :
+			 			Ref::instance(self::$bind[$key]);
+		}
+
+		
+		//判断当前key的值不是类
+		 if($bool && $bindValBool && empty(self::$app[self::$bindPrefix.$key])){
+			self::$app[self::$bindPrefix.$key] = self::$bind[$key];
+		}
+		//判断当前绑定key的值是类
+		 if(!$bindValBool){
+			self::$app[self::$bindPrefix.$key] = Ref::instance($params);
 		}
 		return self::get($key,true);
 	}
