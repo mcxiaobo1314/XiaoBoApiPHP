@@ -69,7 +69,12 @@
 
 	<!--自定义API组件加载 start-->
 	<custom>
-
+		<!-- session api  start-->
+		<session>
+			<isload>false</isload>
+			<path>/session/Api.php</path>
+		</session>
+		<!-- session api  end-->
 
 		<!--例子 start-->
 		<thinkphp>

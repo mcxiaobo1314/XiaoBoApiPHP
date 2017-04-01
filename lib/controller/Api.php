@@ -19,6 +19,12 @@ class Controller  {
 	 */
 	public $dbType = 'Mysql';
 
+	/**
+	 * session类
+	 * @author wave
+	 */
+	public $session = '';
+
 
 	/**
 	 * 数据库连接
@@ -54,6 +60,19 @@ class Controller  {
 			$XmlParse->xml->custom->$name->isload = $bool;
 			$XmlParse->loadCustomInit();
 		}
+		$this->session();
+	}
+
+	/**
+	 * 获取session类
+	 * @author wave
+	 */
+	public function session(){
+		if(class_exists('SessionApi')){
+			session_start();
+			$this->session = Container::get('sess',true);
+		}
+		
 	}
 
 

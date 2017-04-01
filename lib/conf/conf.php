@@ -24,6 +24,10 @@ define('CACHE','cache'); //缓存的目录
 
 define('MOD_SUFFOIX','Model.php'); //模型的后缀名字
 
+define('SESSION_PATH', ''); //设置session文件目录，绝对路径
+
+define('SESSION_SUFFIX','xb_'); //session文件的前缀
+
 define('ROUTE_DS','/'); 
 
 define('C','c'); //控制器
