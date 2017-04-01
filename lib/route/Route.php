@@ -93,8 +93,9 @@ class Route {
 				$this->getUrlParamArr[C] = $className;
 				$this->getUrlParamArr[A] = $actionName;
 				if(!empty($_GET)){
-					$_GET = array_merge($_GET,$this->getUrlParamArr);
-					$params = array_merge($params,$_GET);
+					$_GET = array_diff($this->getUrlParamArr,$_GET);
+					$this->getUrlParamArr = array_merge($this->getUrlParamArr,$_GET);
+					$params = array_merge($params,$this->getUrlParamArr);
 				}
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
 				$this->flag = true;
@@ -316,6 +317,10 @@ class Route {
 			if(isset($urlArr['query'])){
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
+			}
+			if(isset($urlArr['path']) && $urlArr['path'] !== ROUTE_DS){
+				$getParam = false;
+				$url = $urlArr['path'];
 			}
 			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
 			$urlNum = 3; //动态
