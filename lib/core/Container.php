@@ -136,7 +136,6 @@ class Container {
 			 			Ref::instance(self::$bind[$key]);
 		}
 
-		
 		//判断当前key的值不是类
 		 if($bool && $bindValBool && empty(self::$app[self::$bindPrefix.$key])){
 			self::$app[self::$bindPrefix.$key] = self::$bind[$key];
