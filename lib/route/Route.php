@@ -338,7 +338,8 @@ class Route {
 		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || 
 			(rtrim($url,ROUTE_DS) === '/public' && $subflag) || 
 			($url === ROUTE_DS) ||
-			(empty($url) && $getParam === false && $urlNum ===3) ) {
+			(empty($url) && $getParam === false && $urlNum ===3) ) 
+		{
 			$this->get = array();
 			$url = $this->getDefualtUrl();
 		}
