@@ -4,7 +4,7 @@
  * @author wave
  */
 
-class Session {
+class FileSessionHandler {
 
 	/**
 	 *  session的前缀
@@ -47,7 +47,7 @@ class Session {
 	 * session生存时间
 	 * @author wave
 	 */
-	protected $liletime = SESSION_LIFETIME;
+	protected $litetime = SESSION_LIFETIME;
 
 
 
@@ -67,10 +67,12 @@ class Session {
 		$this->Route = Container::get('Route');
 		$this->sessionPath = !empty(SESSION_PATH) ? SESSION_PATH : 
 				$this->Route->controllerPath.ROUTE_DS.$this->Route->groupName.ROUTE_DS.$this->cache;
-		$this->sessId .= $this->suffix;
-		$this->sessId .=  isset($_COOKIE['PHPSESSID']) ?  $_COOKIE['PHPSESSID'] : '';
-		$this->sessId .=  isset($_GET['PHPSESSID'] && !isset($_COOKIE['PHPSESSID'])) ? 
-						htmlspecialchars($_GET['PHPSESSID']) : '';
+		if(isset($_COOKIE['PHPSESSID'])){
+			$this->sessId = $this->suffix.$_COOKIE['PHPSESSID'];
+		}
+		if(empty($this->sessId) && !empty($_GET['PHPSESSID'])){
+			$this->sessId = $this->suffix.htmlspecialchars($_GET['PHPSESSID']);
+		}
 	}
 
 	/**
@@ -127,8 +129,17 @@ class Session {
 	 * 打开session
 	 * @author wave
 	 */
-	public function open(){
+	public function open($savePath,$sessionName){
 		$this->isPath();
+		return true;
+	}
+
+	/**
+	 * 关闭
+	 * @author wave
+	 */
+	public function close(){
+		return true;
 	}
 
 	/**
@@ -138,7 +149,7 @@ class Session {
 	public function gc(){
 		$fileArr = glob($this->sessionPath.ROUTE_DS.$this->suffix.'*');
 		foreach ($fileArr as $key => $value) {
-			if(filemtime($value) + $this->liletime < Server::get('REQUEST_TIME')){
+			if(filemtime($value) + $this->litetime < Server::get('REQUEST_TIME')){
 				@unlink($value);
 			}
 		}

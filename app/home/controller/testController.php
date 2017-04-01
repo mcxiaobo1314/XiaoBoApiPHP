@@ -17,8 +17,8 @@ class testController  extends Controller{
 	public function aaa() {
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
-		// $this->setCustom('session');
-		// $this->session->write('a','1111');
+		//$this->setCustom('session');
+		//$this->session->write('a','1111');
 		// echo $this->session->read('a');
 		//var_dump($this);
 		//var_dump(class_exists('SessionApi'));

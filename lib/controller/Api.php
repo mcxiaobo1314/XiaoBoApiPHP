@@ -56,23 +56,10 @@ class Controller  {
 	public function setCustom($name,$bool = true){
 		$XmlParse = Container::get('XmlParse');
 		if(isset($XmlParse->xml->custom->$name)){
-
 			$XmlParse->xml->custom->$name->isload = $bool;
 			$XmlParse->loadCustomInit();
 		}
 		$this->session();
-	}
-
-	/**
-	 * 获取session类
-	 * @author wave
-	 */
-	public function session(){
-		if(class_exists('SessionApi')){
-			session_start();
-			$this->session = Container::get('sess',true);
-		}
-		
 	}
 
 
@@ -204,6 +191,17 @@ class Controller  {
  	}
 
 
+	/**
+	 * 获取session类
+	 * @author wave
+	 */
+	protected function session(){
+		if(class_exists('SessionApi')){
+			$this->session = Container::get('sess',true);
+		}
+		
+	}
+	
 	/**
 	 * 加载数据库配置
 	 * @return OBject
