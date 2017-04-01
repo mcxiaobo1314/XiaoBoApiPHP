@@ -28,6 +28,8 @@ define('SESSION_PATH', ''); //设置session文件目录，绝对路径
 
 define('SESSION_SUFFIX','xb_'); //session文件的前缀
 
+define('SESSION_LIFETIME','3600'); //session生存时间  单位秒
+
 define('ROUTE_DS','/'); 
 
 define('C','c'); //控制器

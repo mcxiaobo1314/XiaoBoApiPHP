@@ -43,6 +43,13 @@ class Session {
 	 */
 	protected $decrypt = "base64_decode";
 
+	/**
+	 * session生存时间
+	 * @author wave
+	 */
+	protected $liletime = SESSION_LIFETIME;
+
+
 
 	/**
 	 * 获取路由对象
@@ -62,7 +69,8 @@ class Session {
 				$this->Route->controllerPath.ROUTE_DS.$this->Route->groupName.ROUTE_DS.$this->cache;
 		$this->sessId .= $this->suffix;
 		$this->sessId .=  isset($_COOKIE['PHPSESSID']) ?  $_COOKIE['PHPSESSID'] : '';
-		$this->sessId .=  isset($_GET['PHPSESSID']) ? htmlspecialchars($_GET['PHPSESSID']) : '';
+		$this->sessId .=  isset($_GET['PHPSESSID'] && !isset($_COOKIE['PHPSESSID'])) ? 
+						htmlspecialchars($_GET['PHPSESSID']) : '';
 	}
 
 	/**
@@ -130,7 +138,7 @@ class Session {
 	public function gc(){
 		$fileArr = glob($this->sessionPath.ROUTE_DS.$this->suffix.'*');
 		foreach ($fileArr as $key => $value) {
-			if(filemtime($value) + 1 < Server::get('REQUEST_TIME')){
+			if(filemtime($value) + $this->liletime < Server::get('REQUEST_TIME')){
 				@unlink($value);
 			}
 		}
@@ -193,8 +201,6 @@ class Session {
 		}
 	}
 
-
-
-
-
 }
+
+?>
