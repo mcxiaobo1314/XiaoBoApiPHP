@@ -153,6 +153,7 @@ class FileSessionHandler {
 				@unlink($value);
 			}
 		}
+		return true;
 	}
 
 	
