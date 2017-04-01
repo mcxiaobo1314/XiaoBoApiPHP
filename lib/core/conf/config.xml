@@ -70,6 +70,7 @@
 	<!--自定义API组件加载 start-->
 	<custom>
 
+
 		<!--例子 start-->
 		<thinkphp>
 			<isload>false</isload> <!-- 是否加载组建 -->

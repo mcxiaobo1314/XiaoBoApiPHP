@@ -130,7 +130,9 @@ class Container {
 		}
 		
 		//判断返回值不是当前类的实例,并且当前KEY是类
-		 if(!self::$app[self::$bindPrefix.$key] instanceof $key && !$bool){
+		if(isset(self::$app[self::$bindPrefix.$key]) && 
+		 	!self::$app[self::$bindPrefix.$key] instanceof $key && !$bool) 
+		{
 			self::$app[self::$bindPrefix.$key] = !empty(self::$app[self::$bindPrefix.$key]) ? 
 						Ref::instance(self::$app[self::$bindPrefix.$key]) :
 			 			Ref::instance(self::$bind[$key]);
