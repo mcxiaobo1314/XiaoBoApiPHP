@@ -92,9 +92,9 @@ class Route {
 				$this->getUrlParamArr[G] = $groupName;
 				$this->getUrlParamArr[C] = $className;
 				$this->getUrlParamArr[A] = $actionName;
-				if(!empty($_GET)){
-					$_GET = array_diff($this->getUrlParamArr,$_GET);
-					$this->getUrlParamArr = array_merge($this->getUrlParamArr,$_GET);
+				if(!empty($this->get)){
+					$this->get = array_diff($this->getUrlParamArr,$this->get);
+					$this->getUrlParamArr = array_merge($this->get,$this->getUrlParamArr);
 					$params = array_merge($params,$this->getUrlParamArr);
 				}
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
@@ -313,19 +313,20 @@ class Route {
 			$url =  Server::get('REQUEST_URI');
 			$url = $this->substr($url, '','index.php');
 			$urlArr = parse_url($url);
-
-			if(isset($urlArr['query'])){
-				$this->get = $urlArr['query'];
-				$getParam = $this->ReturnGetParam($urlArr['query']);
-			}
+			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
 			if(isset($urlArr['path']) && 
 			   ($urlArr['path'] !== ROUTE_DS && 
-			    strtolower(rtrim($urlArr['path'],ROUTE_DS)) !== $rootPath))
+			    strtolower(rtrim($urlArr['path'],ROUTE_DS)) !== $rootPath) 
+				&& (rtrim($url,ROUTE_DS) === '/public' && $subflag) )
 			{
 				$getParam = false;
 				$url = $urlArr['path'];
 			}
-			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
+			else if(isset($urlArr['query'])){
+				$this->get = $urlArr['query'];
+				$getParam = $this->ReturnGetParam($urlArr['query']);
+			}
+	
 			$urlNum = 3; //动态
 		} else if (Server::getCliArgs()){  //cli 模式
 			$url = Server::getCliArgs();
