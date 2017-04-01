@@ -318,7 +318,10 @@ class Route {
 				$this->get = $urlArr['query'];
 				$getParam = $this->ReturnGetParam($urlArr['query']);
 			}
-			if(isset($urlArr['path']) && $urlArr['path'] !== ROUTE_DS){
+			if(isset($urlArr['path']) && 
+			   ($urlArr['path'] !== ROUTE_DS && 
+			    strtolower(rtrim($urlArr['path'],ROUTE_DS)) !== $rootPath))
+			{
 				$getParam = false;
 				$url = $urlArr['path'];
 			}
