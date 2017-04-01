@@ -186,12 +186,12 @@ class Route {
 
 		if($this->isAction($actionName)){
 			$this->getUrlParamArr = !empty($this->getUrlParamArr) ? $this->getUrlParamArr : array();
-			Container::bind('View',array(array(
+			Container::bind('View',array(
 					'group' => $this->groupName,
 					'class' => $this->className,
 					'action' => $this->actionName,
 					'controllerPath' => $this->controllerPath
-			)));
+			));
 			//初始化反射类方法
 			Ref::methodInstace($className,$actionName);
 			(BINDURLPARAM === true) && $this->getUrlParamArr = $this->bindParam();
