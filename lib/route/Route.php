@@ -322,9 +322,10 @@ class Route {
 		} else if (Server::get('REQUEST_URI')) {
 			$url =  Server::get('REQUEST_URI');
 			$url = $this->substr($url, '','index.php');
-			$urlArr = parse_url($url);
 			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
 			$url = $this->isAliasUrl($url);
+			$urlArr = parse_url($url);
+
 			if(isset($urlArr['path']) && 
 			   ($urlArr['path'] !== ROUTE_DS && 
 			    strtolower(rtrim($urlArr['path'],ROUTE_DS)) !== $rootPath) 
