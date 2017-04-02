@@ -28,7 +28,7 @@ class FileSessionHandler {
 	 * 默认文件保存路径
 	 * @author wave
 	 */
-	protected $sessionPath ='';
+	public $sessionPath ='';
 
 	/**
 	 * 加密变量

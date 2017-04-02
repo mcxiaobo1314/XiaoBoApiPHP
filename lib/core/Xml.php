@@ -95,7 +95,7 @@ class XmlParse {
 				$this->loadComp($value);
 			}
 		}
-		$this->loadCustom($this->custom);
+		//$this->loadCustom($this->custom);
 	}
 
 	/**
