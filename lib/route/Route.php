@@ -324,7 +324,7 @@ class Route {
 			$url = $this->substr($url, '','index.php');
 			$urlArr = parse_url($url);
 			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
-
+			$url = $this->isAliasUrl($url);
 			if(isset($urlArr['path']) && 
 			   ($urlArr['path'] !== ROUTE_DS && 
 			    strtolower(rtrim($urlArr['path'],ROUTE_DS)) !== $rootPath) 
@@ -363,6 +363,24 @@ class Route {
 		 }
 		return $url;
 	}
+
+
+	/**
+	 * 判断是否当前别名url访问,并删除动态参数
+	 * @param string $url
+	 * @return string
+	 * @author wave
+	 */
+	protected function isAliasUrl($url){
+		if(strpos($url,'?') !== false){
+			$aliasUrl = substr($url,0,strpos($url, '?'));
+			if(isset($this->aliasUrl['alias'][$aliasUrl])){
+				return $aliasUrl;
+			}
+		}
+		return $url;
+	}
+
 
 	/**
 	 * 设置scheme
