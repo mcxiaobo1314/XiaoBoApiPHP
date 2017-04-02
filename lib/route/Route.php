@@ -65,6 +65,8 @@ class Route {
 	 */
 	public $aliasUrl = array();
 
+	public $aliasGetUrl = array();
+
 
 
 	/**
@@ -176,7 +178,7 @@ class Route {
 		
 		$this->actionName = $actionName;
 		$currentUrl = $this->groupName.ROUTE_DS.$this->className.ROUTE_DS.$this->actionName;
-		if(isset($this->aliasUrl[$currentUrl])  && $this->aliasUrl[$currentUrl] === true && IS_AILAS){
+		if(isset($this->aliasUrl['get'][$currentUrl])  && $this->aliasUrl['get'][$currentUrl] === true && IS_AILAS){
 			throw new XiaoBoException("已经定义了别名url,请使用别名url访问",false);
 				
 		}
@@ -281,6 +283,11 @@ class Route {
 	 */
 	protected function getDefualtUrl(){
 		$url = DEFAULT_ROUTE;
+		if(isset($this->aliasUrl['alias'][$url])){
+			$urlArr = array_keys($this->aliasUrl['get']);
+			$url = $urlArr[0];
+		}
+	
 		if(empty($_GET)){
 			$urlArr = $this->filterArr(explode('/', $url));
 			if(count($urlArr) >= 3){
@@ -334,7 +341,7 @@ class Route {
 		} else if (Server::getCliArgs()){  //cli 模式
 			$url = Server::getCliArgs();
 		}
-		
+
 		if($getParam !== false  && $flag && $urlNum === 3) {
 			$url = $getParam;
 		}
