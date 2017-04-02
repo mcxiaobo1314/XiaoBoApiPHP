@@ -65,7 +65,7 @@ class Route {
 	 */
 	public $aliasUrl = array();
 
-	public $aliasGetUrl = array();
+	public $default = false;
 
 
 
@@ -178,7 +178,8 @@ class Route {
 		
 		$this->actionName = $actionName;
 		$currentUrl = $this->groupName.ROUTE_DS.$this->className.ROUTE_DS.$this->actionName;
-		if(isset($this->aliasUrl['get'][$currentUrl])  && $this->aliasUrl['get'][$currentUrl] === true && IS_AILAS){
+
+		if(isset($this->aliasUrl['get'][$currentUrl])  && $this->aliasUrl['get'][$currentUrl] === true && IS_AILAS && $this->default === false){
 			throw new XiaoBoException("已经定义了别名url,请使用别名url访问",false);
 				
 		}
@@ -282,6 +283,7 @@ class Route {
 	 * @author wave
 	 */
 	protected function getDefualtUrl(){
+		$this->default = true;
 		$url = DEFAULT_ROUTE;
 		if(isset($this->aliasUrl['alias'][$url])){
 			$urlArr = array_keys($this->aliasUrl['get']);
@@ -296,7 +298,7 @@ class Route {
 				$_GET[A] = $urlArr[2];
 			}
 		}
-		
+
 		return $url;
 	}
 
