@@ -192,11 +192,6 @@ class FileSessionHandler {
 		}
 	}
 
-    protected function generateId()
-    {
-        return hash('sha256', uniqid('ss_mock_', true));
-    }
-
 	/**
 	 * 判断session文件路径是否存在
 	 * @author wave
