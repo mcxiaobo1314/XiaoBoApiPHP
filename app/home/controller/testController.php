@@ -3,7 +3,7 @@
 class testController  extends Controller{
 
 	public function __construct(){
-		//$this->setCustom('session');加载session
+		//$this->setCustom('session');//加载session
 		parent::__construct();
 		//$this->getUrl();  //获取当前反问url参数
 		//$this->getGroup(); //获取当前访问分组

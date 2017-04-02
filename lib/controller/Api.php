@@ -57,7 +57,7 @@ class Controller  {
 		$XmlParse = Container::get('XmlParse');
 		if(isset($XmlParse->xml->custom->$name)){
 			$XmlParse->xml->custom->$name->isload = $bool;
-			$XmlParse->loadCustomInit();
+			$XmlParse->loadCustom($name);
 		}
 		$this->session();
 	}

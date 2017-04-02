@@ -95,33 +95,35 @@ class XmlParse {
 				$this->loadComp($value);
 			}
 		}
-		//$this->loadCustom($this->custom);
-	}
-
-	/**
-	 * 自定义组件加载
-	 * @author  wave
-	 */
-	public function loadCustomInit(){
-		$this->loadCustom($this->custom);
 	}
 
 	/**
      * 加载自定义组件模块
+     * @param array $custom 加载组件xml名字
      * @author wave
 	 */
 	public function loadCustom($custom = array()) {
 		if(empty($this->xml->custom)) {
 			return false;
 		}
-		$custom = !empty(self::$customPath) ? array_diff($custom, self::$customPath) : $custom;
-		foreach ($custom as $key => $value) {
-			if($this->xml->custom->$value->isload == 1){
-				self::$customPath[] = $value;
-				$value = (array)$this->xml->custom->$value->path;
-				$this->load($this->getPath().$value[0]);
+
+		if(is_array($custom)){
+			$custom = !empty(self::$customPath) ? array_diff($custom, self::$customPath) : $custom;
+			foreach ($custom as $key => $value) {
+				if($this->xml->custom->$value->isload == 1){
+					self::$customPath[] = $value;
+					$value = (array)$this->xml->custom->$value->path;
+					$this->load($this->getPath().$value[0]);
+				}
+			}
+		}else if(is_string($custom) && !isset(self::$customPath[$custom])) {
+			if($this->xml->custom->$custom->isload == 1){
+					self::$customPath[] = $custom;
+					$value = (array)$this->xml->custom->$custom->path;
+					$this->load($this->getPath().$value[0]);
 			}
 		}
+		
 	}
 
 	/**

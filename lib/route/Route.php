@@ -65,6 +65,10 @@ class Route {
 	 */
 	public $aliasUrl = array();
 
+	/**
+	 * 判断是否默认url访问
+	 * @author wave
+	 */
 	public $default = false;
 
 
