@@ -25,6 +25,8 @@ class SessionApi{
             array($sess,'gc')  
         );
         session_start();  
+        $sess->sessId .= $sess->suffix.session_id();
+        $sess->isPath();
 	}
 
 }

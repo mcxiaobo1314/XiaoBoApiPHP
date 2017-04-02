@@ -10,13 +10,13 @@ class FileSessionHandler {
 	 *  session的前缀
 	 *  @author wave
 	 */
-	protected $suffix = SESSION_SUFFIX;
+	public $suffix = SESSION_SUFFIX;
 
 	/**
 	 * session id
 	 * @author wave
 	 */
-	protected $sessId = '';
+	public $sessId = '';
 
 	/**
 	 * 保存session文件路径
@@ -67,12 +67,7 @@ class FileSessionHandler {
 		$this->Route = Container::get('Route');
 		$this->sessionPath = !empty(SESSION_PATH) ? SESSION_PATH : 
 				$this->Route->controllerPath.ROUTE_DS.$this->Route->groupName.ROUTE_DS.$this->cache;
-		if(isset($_COOKIE['PHPSESSID'])){
-			$this->sessId = $this->suffix.$_COOKIE['PHPSESSID'];
-		}
-		if(empty($this->sessId) && !empty($_GET['PHPSESSID'])){
-			$this->sessId = $this->suffix.htmlspecialchars($_GET['PHPSESSID']);
-		}
+
 	}
 
 	/**
@@ -130,7 +125,7 @@ class FileSessionHandler {
 	 * @author wave
 	 */
 	public function open($savePath,$sessionName){
-		$this->isPath();
+		//$this->isPath();
 		return true;
 	}
 
@@ -197,17 +192,22 @@ class FileSessionHandler {
 		}
 	}
 
+    protected function generateId()
+    {
+        return hash('sha256', uniqid('ss_mock_', true));
+    }
+
 	/**
 	 * 判断session文件路径是否存在
 	 * @author wave
 	 */
-	protected function isPath(){
+	public function isPath(){
 		$session = $this->sessionPath.ROUTE_DS;	
 		if(!file_exists($session)){
 			@mkdir($session,0777,true);
 			@chmod($session,0777);
 		}
-		$session .= $this->sessId;
+		$session .=  $this->sessId;
 		if(!file_exists($session)){ 
 			return file_put_contents($session,'');
 		}

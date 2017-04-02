@@ -3,6 +3,7 @@
 class testController  extends Controller{
 
 	public function __construct(){
+		//$this->setCustom('session');加载session
 		parent::__construct();
 		//$this->getUrl();  //获取当前反问url参数
 		//$this->getGroup(); //获取当前访问分组
@@ -17,7 +18,6 @@ class testController  extends Controller{
 	public function aaa() {
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
-		//$this->setCustom('session');
 		//$this->session->write('a','1111');
 		// echo $this->session->read('a');
 		//var_dump($this);

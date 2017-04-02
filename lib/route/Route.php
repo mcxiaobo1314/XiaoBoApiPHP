@@ -51,7 +51,7 @@ class Route {
 	 * 标示定义路由
 	 * @author wave
 	 */
-	public $flag = false;
+	public $flag = true;
 
 	/**
 	 * 保存get参数
@@ -73,7 +73,7 @@ class Route {
 	 */
 	public function coustructs() {
 		$this->controllerPath = $this->getPath().APP_ROOT_PATH;
-		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam());
+		$this->getUrlParamArr =	$this->expUrlParamArr($this->getUrlParam($this->flag));
 		$this->setHost();
 		$this->setScheme();
 	}
@@ -93,12 +93,13 @@ class Route {
 				$this->getUrlParamArr[C] = $className;
 				$this->getUrlParamArr[A] = $actionName;
 				if(!empty($this->get)){
-					$this->get = array_diff($this->getUrlParamArr,$this->get);
+					$this->get = array_diff($this->get,$this->getUrlParamArr);
 					$this->getUrlParamArr = array_merge($this->get,$this->getUrlParamArr);
 					$params = array_merge($params,$this->getUrlParamArr);
 				}
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
-				$this->flag = true;
+
+				$this->flag = false;
 			}
 
 	}
@@ -314,11 +315,13 @@ class Route {
 			$url = $this->substr($url, '','index.php');
 			$urlArr = parse_url($url);
 			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
+
 			if(isset($urlArr['path']) && 
 			   ($urlArr['path'] !== ROUTE_DS && 
 			    strtolower(rtrim($urlArr['path'],ROUTE_DS)) !== $rootPath) 
 				&& (rtrim($url,ROUTE_DS) === '/public' && $subflag) )
 			{
+				$this->get = array();
 				$getParam = false;
 				$url = $urlArr['path'];
 			}
@@ -331,7 +334,7 @@ class Route {
 		} else if (Server::getCliArgs()){  //cli 模式
 			$url = Server::getCliArgs();
 		}
-
+		
 		if($getParam !== false  && $flag && $urlNum === 3) {
 			$url = $getParam;
 		}
@@ -344,10 +347,11 @@ class Route {
 			$this->get = array();
 			$url = $this->getDefualtUrl();
 		}
-		if($this->flag && $flag){
-			$url = urlTo($this->getUrlParamArr,true);
-		}
 
+		//获取别名url
+		if(!$this->flag){
+		 	$url = urlTo($this->getUrlParamArr,true);
+		 }
 		return $url;
 	}
 
