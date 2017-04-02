@@ -71,14 +71,14 @@
 	<custom>
 		<!-- session api  start-->
 		<session>
-			<isload>false</isload>
+			<isload>0</isload>
 			<path>/session/Api.php</path>
 		</session>
 		<!-- session api  end-->
 
 		<!--例子 start-->
 		<thinkphp>
-			<isload>false</isload> <!-- 是否加载组建 -->
+			<isload>0</isload> <!-- 是否加载组建 -->
 			<path>/thinkphp/Api.php</path>
 		</thinkphp>
 		<!--例子 end-->

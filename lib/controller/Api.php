@@ -53,7 +53,7 @@ class Controller  {
 	 * @param bool $bool 是否加载组建 true加载 false不加载
 	 * @author wave
 	 */
-	public function setCustom($name,$bool = true){
+	public function setCustom($name,$bool = 1){
 		$XmlParse = Container::get('XmlParse');
 		if(isset($XmlParse->xml->custom->$name)){
 			$XmlParse->xml->custom->$name->isload = $bool;
@@ -199,7 +199,6 @@ class Controller  {
 		if(class_exists('SessionApi')){
 			$this->session = Container::get('sess',true);
 		}
-		
 	}
 	
 	/**

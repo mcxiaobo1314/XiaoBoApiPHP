@@ -116,7 +116,7 @@ class XmlParse {
 		}
 		$custom = !empty(self::$customPath) ? array_diff($custom, self::$customPath) : $custom;
 		foreach ($custom as $key => $value) {
-			if($this->xml->custom->$value->isload == true){
+			if($this->xml->custom->$value->isload == 1){
 				self::$customPath[] = $value;
 				$value = (array)$this->xml->custom->$value->path;
 				$this->load($this->getPath().$value[0]);
