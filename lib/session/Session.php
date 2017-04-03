@@ -113,9 +113,9 @@ class FileSessionHandler {
 			$data = file_get_contents($sessionPath);
 			if(function_exists($this->decrypt)){
 				$data = isset($data) ? call_user_func($this->decrypt,$data) : array();
-				$data = json_decode($data,true);
-				$data = isset($data[$id]) ? $data[$id] : $data;
 			}
+			$data = json_decode($data,true);
+			$data = isset($data[$id]) ? $data[$id] : $data;
 			return $data;
 		}
 	}
