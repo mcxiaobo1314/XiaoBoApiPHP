@@ -65,7 +65,7 @@ class FileSessionHandler {
 	 */
 	public function __construct(){
 		$this->Route = Container::get('Route');
-		$this->sessionPath = !empty(SESSION_PATH) ? SESSION_PATH : 
+		$this->sessionPath = SESSION_PATH != '' ? SESSION_PATH : 
 				$this->Route->controllerPath.ROUTE_DS.$this->Route->groupName.ROUTE_DS.$this->cache;
 
 	}
@@ -109,7 +109,7 @@ class FileSessionHandler {
 	 */
 	public function read($id = '') {
 		$sessionPath = $this->sessionPath.ROUTE_DS.$this->sessId;
-		if(file_exists($sessionPath)){
+		if(file_exists($sessionPath) && is_file($sessionPath)){
 			$data = file_get_contents($sessionPath);
 			if(function_exists($this->decrypt)){
 				$data = isset($data) ? call_user_func($this->decrypt,$data) : array();

@@ -89,10 +89,13 @@ class XmlParse {
 	 * @param function $callback 回调方法
 	 * @author wave 
 	 */
-	public function init() {
+	public function init($callback = '') {
 		if($this->compName){
 			foreach($this->compName as $value) {
 				$this->loadComp($value);
+				if(is_callable($callback)){
+					call_user_func($callback,$value);
+				}
 			}
 		}
 	}

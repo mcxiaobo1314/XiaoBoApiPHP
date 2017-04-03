@@ -30,4 +30,4 @@ Container::instace('XmlParse');
 $XmlParse = Container::get('XmlParse');
 
 //初始化XML解析器
-$XmlParse->init();
+$XmlParse->init("Bootstrap::app");
