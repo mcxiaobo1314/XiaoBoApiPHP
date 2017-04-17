@@ -28,7 +28,12 @@ class XiaoBoError {
 		 '2048' => 'E_STRICT',
 		 '8191' => 'E_ALL'
 	);
-
+	
+	/**
+	 *  错误信息数组
+	 * @author wave
+	 */
+	public static $errArr = array();
 
 
 	/**
@@ -36,21 +41,30 @@ class XiaoBoError {
 	 * @author wave
 	 */
 	public static function init(){
+		set_error_handler('XiaoBoError::ErrorHandler');
 		register_shutdown_function("XiaoBoError::echoErr");
 	}
 
+	/**
+	 * 抛出错误头信息
+	 * @param int $errno 错误级别
+	 * @param string $errstr 错误信息
+	 * @param string $errfile 错误文件路径
+	 * @param int $errline 错误行数
+	 * @author wave
+	 */
+	public static function ErrorHandler($errno,$errstr, $errfile, $errline){
+		self::$errArr = array('type'=>$errno,'message'=>$errstr,'file'=>$errfile,'line'=>$errline);
+		self::getError();
+	}
 
 	/**
 	 * 抛出错误信息
 	 * @author wave
 	 */
 	public static function echoErr(){
-		$errArr = error_get_last();
-		if(!empty($errArr)){
-			if(isset(self::$level[$errArr['type']]))
-				$errArr['message'] =  self::$level[$errArr['type']].":".$errArr['message'];
-			throw new XiaoBoException($errArr['message'],$errArr);
-		}
+		self::$errArr =  error_get_last();
+		self::getError();
 	}
 
 	/**
@@ -65,6 +79,18 @@ class XiaoBoError {
 		$path = dirname(__FILE__) . '/../../' . APP_ROOT_PATH .'/'. $file;
 		$error = "server time:[".$serverTime ."]-url Pamas:[".Server::get('REQUEST_URI')."]-message:".$message;
 		return file_put_contents($path,$error."\r\n",FILE_APPEND);
+	}
+	
+	/**
+	 * 获取错误信息
+	 * @author wave
+	 */
+	public static function getError(){
+		if(!empty(self::$errArr)){
+			if(isset(self::$level[self::$errArr['type']]))
+				self::$errArr ['message'] =  self::$level[self::$errArr['type']].":".self::$errArr['message'];
+			throw new XiaoBoException(self::$errArr['message'],self::$errArr);
+		}
 	}
 
 
