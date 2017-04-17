@@ -98,11 +98,11 @@ class Route {
 				$this->getUrlParamArr[G] = $groupName;
 				$this->getUrlParamArr[C] = $className;
 				$this->getUrlParamArr[A] = $actionName;
-				if(!empty($this->get)){
-					$this->get = array_diff($this->get,$this->getUrlParamArr);
-					$this->getUrlParamArr = array_merge($this->get,$this->getUrlParamArr);
-					$params = array_merge($params,$this->getUrlParamArr);
-				}
+				//if(!empty($this->get)){
+				//	$this->get = array_diff($this->get,$this->getUrlParamArr);
+				//	$this->getUrlParamArr = array_merge($this->get,$this->getUrlParamArr);
+				//	$params = array_merge($params,$this->getUrlParamArr);
+				//}
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
 
 				$this->flag = false;
@@ -389,6 +389,7 @@ class Route {
 
 		//获取别名url
 		if(!$this->flag){
+			$this->get = array();
 		 	$url = urlTo($this->getUrlParamArr,true);
 		 }
 		return $url;
