@@ -183,7 +183,7 @@ class Route {
 		$this->actionName = $actionName;
 		$currentUrl = $this->groupName.ROUTE_DS.$this->className.ROUTE_DS.$this->actionName;
 
-		if(isset($this->aliasUrl['get'][$currentUrl])  && $this->aliasUrl['get'][$currentUrl] === true && IS_AILAS && $this->default === false){
+		if($this->isAliasUrlParam($currentUrl) && IS_AILAS && $this->default === false){
 			throw new XiaoBoException("已经定义了别名url,请使用别名url访问",false);
 				
 		}
