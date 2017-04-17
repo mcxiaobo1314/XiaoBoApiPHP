@@ -214,14 +214,16 @@ class Route {
 	 * @return Array
 	 * @author wave
 	 */
+	/**
+	 * 对函数进行绑定参数
+	 * @return Array
+	 * @author wave
+	 */
 	public function bindParam(){
 		$bindParam = array();
-		$diffArr = array();
 		$urlParam = $this->flag === false  ? $this->getUrlParam($this->flag) : $this->getUrlParamArr;
 		$bindParam = Ref::getParams();
-		if($this->groupName && $this->className && $this->actionName){
-			$diffArr = array($this->groupName,$this->className,$this->actionName);
-		}
+		$diffArr = $this->setDiffArr();
 		$flag = false;
 		if(empty($this->get)){
 			$this->flag === false && $urlParam = $this->expUrlParamArr($urlParam);
@@ -252,6 +254,18 @@ class Route {
 		}
 
 		return ($flag === true) ? $bindParam : array();
+	}
+
+	/**
+	 * 设置对比数组
+	 * @return array
+	 * @author wave
+	 */
+	protected function setDiffArr(){
+		if($this->groupName && $this->className && $this->actionName){
+			return array($this->groupName,$this->className,$this->actionName);
+		}
+		return array();
 	}
 
 	/**
