@@ -366,7 +366,7 @@ class Route {
 			}
 			else if(isset($urlArr['query'])){
 				$this->get = $urlArr['query'];
-				$getParam = $this->ReturnGetParam($urlArr['query']);
+				$getParam = $this->ReturnGetParam($urlArr['query'],$flag);
 			}
 	
 			$urlNum = 3; //动态
@@ -433,38 +433,48 @@ class Route {
 	/**
 	 * 返回GET参入参数
 	 * @param string $getStr 获取get参数
+	 * @param bool $aliasFlag 是否别名访问
 	 * @author wave
 	 */
-	protected function ReturnGetParam($getStr) {	
-		parse_str($getStr,$get);
+	protected function ReturnGetParam($getStr,$aliasFlag) {	
 		$getUrl = '';
-		$flag = false;
-		if(isset($get[A])){
-			$getUrl = ROUTE_DS . $get[A] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-			$flag = true;
-		}
+		if($aliasFlag){
+			parse_str($getStr,$get);
+			$flag = false;
+			$getUrl = $this->joinUrlParamStr($get,A,$getUrl,$flag);
+			$getUrl = $this->joinUrlParamStr($get,C,$getUrl,$flag);
+			$getUrl = $this->joinUrlParamStr($get,G,$getUrl,$flag);
 
-		if(isset($get[C])){
-			$getUrl = ROUTE_DS . $get[C] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-			$flag = true;
-		}
-
-		if(isset($get[G]) ) {
-			$getUrl =  ROUTE_DS . $get[G] . (empty($getUrl) ? ROUTE_DS : $getUrl);
-			$flag = true;
-		}
-		
-		$this->issetParam((isset($get[G]) ? $get[G] : ''),$flag,G);
-		$this->issetParam((isset($get[C]) ? $get[C] : ''),$flag,C);
-		$this->issetParam((isset($get[A]) ? $get[A] : ''),$flag,A);
-		
-		if(empty($getUrl)){
-			$getUrl = $this->getDefualtUrl().ROUTE_DS;
+			$this->issetParam((isset($get[G]) ? $get[G] : ''),$flag,G);
+			$this->issetParam((isset($get[C]) ? $get[C] : ''),$flag,C);
+			$this->issetParam((isset($get[A]) ? $get[A] : ''),$flag,A);
+			
+			if(empty($getUrl)){
+				$getUrl = $this->getDefualtUrl().ROUTE_DS;
+			}
 		}
 		
 		return empty($getUrl) ? false : $getUrl;
 	}
 	
+	/**
+	 * 拼接GET参数为字符串
+	 * @param array $get 获取get参数
+	 * @param string $key 数组下标
+	 * @param string $getUrl 拼接url
+	 * @param bool $flag 标示是否拼接url
+	 * @return string
+	 * @author wave
+	 */
+	protected function joinUrlParamStr($get,$key,$getUrl,&$flag){
+		if(isset($get[$key])){
+			$getUrl = ROUTE_DS . $get[$key] . (empty($getUrl) ? ROUTE_DS : $getUrl);
+			$flag = true;
+		}
+		return $getUrl;
+	}
+
+
 	/**
 	 * 判断参数是否存在
 	 * @param sting $param 参数
