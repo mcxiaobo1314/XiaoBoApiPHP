@@ -209,36 +209,37 @@ class Route {
 	}
 
 
+
 	/**
 	 * 对函数进行绑定参数
+	 * @params $currentUrl 当前URL
 	 * @return Array
 	 * @author wave
 	 */
-	/**
-	 * 对函数进行绑定参数
-	 * @return Array
-	 * @author wave
-	 */
-	public function bindParam(){
+	public function bindParam($currentUrl = ''){
 		$bindParam = array();
-		$urlParam = $this->flag === false  ? $this->getUrlParam($this->flag) : $this->getUrlParamArr;
+		$urlParam = $this->isAliasUrlParam($currentUrl) ? $this->getUrlParam($this->flag) : $this->getUrlParamArr;
 		$bindParam = Ref::getParams();
 		$diffArr = $this->setDiffArr();
 		$flag = false;
 		if(empty($this->get)){
-			$this->flag === false && $urlParam = $this->expUrlParamArr($urlParam);
-			!empty($urlParam) && $urlParam = array_diff($urlParam,$diffArr);
-			$urlParam = $this->filterArr($urlParam);
-			$temp = array();
-			foreach($urlParam as $key=>$value){
-				$findkey = array_search($value, $urlParam);
-				if($key % 2 === 0 && isset($bindParam[$value]) && !empty($urlParam[$findkey+1])) {	
-					$bindParam[$value] = $urlParam[$findkey+1];
-					$flag = true;
-					$temp[$value] = $value;
+			$this->isAliasUrlParam($currentUrl) && $urlParam = $this->expUrlParamArr($urlParam);
+			if(!empty($urlParam)) {
+				$urlParam = array_diff($urlParam,$diffArr);
+				$urlParam = $this->filterArr($urlParam);
+				$temp = array();
+
+				foreach($urlParam as $key=>$value){
+					$findkey = array_search($value, $urlParam);
+					if($key % 2 === 0 && isset($bindParam[$value]) && !empty($urlParam[$findkey+1])) {	
+						$bindParam[$value] = $urlParam[$findkey+1];
+						$flag = true;
+						$temp[$value] = $value;
+					}
 				}
+				$bindParam = array_intersect_key($bindParam, $temp);
 			}
-			$bindParam = array_intersect_key($bindParam, $temp);
+			
 		}else{
 			parse_str($this->get,$this->get);
 			$this->get = array_diff($this->get,$diffArr);
@@ -254,6 +255,16 @@ class Route {
 		}
 
 		return ($flag === true) ? $bindParam : array();
+	}
+	
+	/**
+	 * 判断别名URL参数是否存在
+	 * @params $currentUrl 当前URL
+	 * @return bool
+	 * @author wave
+	 */
+	protected function isAliasUrlParam($currentUrl = ''){
+		return  (isset($this->aliasUrl['get'][$currentUrl]) && $this->aliasUrl['get'][$currentUrl]=== true);
 	}
 
 	/**
