@@ -369,7 +369,7 @@ class Route {
 			}
 			else if(isset($urlArr['query'])){
 				$this->get = $urlArr['query'];
-				$getParam = $this->ReturnGetParam($urlArr['query'],$flag);
+				$getParam = $this->ReturnGetParam($urlArr,$flag);
 			}
 	
 			$urlNum = 3; //动态
@@ -435,13 +435,14 @@ class Route {
 
 	/**
 	 * 返回GET参入参数
-	 * @param string $getStr 获取get参数
+	 * @param array $getArr 获取get参数
 	 * @param bool $aliasFlag 是否别名访问
 	 * @author wave
 	 */
-	protected function ReturnGetParam($getStr,$aliasFlag) {	
+	protected function ReturnGetParam($getArr,$aliasFlag) {	
 		$getUrl = '';
 		if($aliasFlag){
+			$getStr = $getArr['query'];
 			parse_str($getStr,$get);
 			$flag = false;
 			$getUrl = $this->joinUrlParamStr($get,A,$getUrl,$flag);
@@ -451,9 +452,14 @@ class Route {
 			$this->issetParam((isset($get[G]) ? $get[G] : ''),$flag,G);
 			$this->issetParam((isset($get[C]) ? $get[C] : ''),$flag,C);
 			$this->issetParam((isset($get[A]) ? $get[A] : ''),$flag,A);
-			
-			if(empty($getUrl)){
-				$getUrl = $this->getDefualtUrl().ROUTE_DS;
+			if($flag && $getUrl !== ''){
+				$diffArr = array(G=>$get[G],C=>$get[C],A=>$get[A]);
+				$get = array_diff_assoc($get,$diffArr);
+				$getUrl .= implode(ROUTE_DS,$get);
+			}
+
+			if($getUrl === ''){
+				$getUrl =$this->getDefualtUrl().ROUTE_DS;
 			}
 		}
 		
