@@ -19,7 +19,11 @@ function urlTo($params = array(),$urlRewrite = false){
 		$params = array_diff_assoc($params, $diff);
 	    $urlStr = '';
 	    foreach($params as $key => $value){
-	    	$urlStr .= ROUTE_DS.$key.ROUTE_DS.$value;
+			if(BINDURLPARAM){
+				$urlStr .= ROUTE_DS.$key.ROUTE_DS.$value;
+			}else {
+				$urlStr .= ROUTE_DS.$value;
+			}
 	    }
 		return ROUTE_DS.implode(ROUTE_DS, $diff).$urlStr;
 	}
