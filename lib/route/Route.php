@@ -602,7 +602,7 @@ class Route {
 	 */
 	protected function getFilterArr($arr){
 		if(!empty($arr)){
-			return array_filter($arr,'self::filterEmpty');
+			return array_filter($arr,'Route::filterEmpty');
 		}
 		return array();
 	}
