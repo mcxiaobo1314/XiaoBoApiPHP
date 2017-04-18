@@ -220,12 +220,12 @@ class Route {
 		$bindParam = array();
 		$urlParam = $this->isAliasUrlParam($currentUrl) ? $this->getUrlParam($this->flag) : $this->getUrlParamArr;
 		$bindParam = Ref::getParams();
-		$diffArr = $this->setDiffArr();
+		$diffArr = !empty($this->get) ? $this->setDiffArr(true) : $this->setDiffArr();
 		$flag = false;
 		if(empty($this->get)){
 			$this->isAliasUrlParam($currentUrl) && $urlParam = $this->expUrlParamArr($urlParam);
 			if(!empty($urlParam)) {
-				$urlParam = array_diff($urlParam,$diffArr);
+				//$urlParam = array_diff($urlParam,$diffArr);
 				$urlParam = $this->filterArr($urlParam);
 				$temp = array();
 
@@ -242,7 +242,7 @@ class Route {
 			
 		}else{
 			parse_str($this->get,$this->get);
-			$this->get = array_diff($this->get,$diffArr);
+			$this->get = array_diff_assoc($this->get,$diffArr);
 			foreach($bindParam as $value){
 				if(isset($this->get[$value]) && isset($bindParam[$value]) && !empty($this->get[$value])){
 					$bindParam[$value] = $this->get[$value];
@@ -250,7 +250,6 @@ class Route {
 				}else{
 					unset($bindParam[$value]);
 				}
-
 			}
 		}
 
@@ -269,12 +268,16 @@ class Route {
 
 	/**
 	 * 设置对比数组
+	 * @param bool $keyFlag 标识是否带key
 	 * @return array
 	 * @author wave
 	 */
-	protected function setDiffArr(){
+	protected function setDiffArr($keyFlag = false){
 		if($this->groupName && $this->className && $this->actionName){
-			return array($this->groupName,$this->className,$this->actionName);
+			if(!$keyFlag){
+				return array($this->groupName,$this->className,$this->actionName);
+			}
+			return array(G=>$this->groupName,C=>$this->className,A=>$this->actionName);
 		}
 		return array();
 	}
