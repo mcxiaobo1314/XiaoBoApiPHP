@@ -520,7 +520,7 @@ class Route {
 	 */
 	protected function filterArr($arr){
 		if ( !empty($arr) ) {
-			return	array_filter($arr) ? array_values(array_filter($arr)) : array();
+			return	array_filter($arr,'self::filterEmpty')  ? array_values(array_filter($arr,'self::filterEmpty')) : array();
 		}
 		return array();
 	}
@@ -542,6 +542,16 @@ class Route {
 		}
 		$flag = false;
 		return $string;
+	}
+	
+	/**
+	 * 过滤空字符回调方法
+	 * @param string $val 值
+	 * @return bool
+	 * @author wave
+	 */
+	protected static function filterEmpty($val){
+		return ($val !== '' &&  $val !== NULL);
 	}
 
 
