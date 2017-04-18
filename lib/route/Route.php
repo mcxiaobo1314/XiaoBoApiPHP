@@ -141,9 +141,8 @@ class Route {
 	 */
 	protected function isController() {
 		$defaultPath = $this->isPath();
-		$defaultFile = ($this->isPath() !== false && count($this->getUrlParamArr) >=3) ? 
-						$this->getUrlParamArr[1] : $this->getUrlParamArr[0];
-
+		$defaultFile = ($this->isPath() !== false && isset($this->getUrlParamArr[1])) ? 
+						$this->getUrlParamArr[1] : '';
 		$controllerPath =  $this->controllerPath . ROUTE_DS . 
 				$defaultPath . ROUTE_DS . 
 				CONTROLLER . ROUTE_DS . 
@@ -151,7 +150,7 @@ class Route {
 				CON_SUFFOIX;
 		$this->className = $defaultFile;
 		//判断是否是控制器文件
-		if( !file_exists($controllerPath)) {
+		if( !file_exists($controllerPath) ) {
 			return false;
 			
 		} 
@@ -168,7 +167,8 @@ class Route {
 	public function init() {
 		$this->coustructs();
 		$actionName = ($this->isPath() !== false && isset($this->getUrlParamArr[2])) ? 
-				$this->getUrlParamArr[2] : $this->getUrlParamArr[1];
+				$this->getUrlParamArr[2] : '';
+
 		$className = $this->isClass();
 		($this->isPath() !== false)  ?
 		array_splice($this->getUrlParamArr,0,3) : 
@@ -297,7 +297,7 @@ class Route {
 		$controllerPath = $this->isController();
 		$this->load($controllerPath);
 		$controllerClass = rtrim($this->className.CON_SUFFOIX,'.php') ;
-		if(!class_exists($controllerClass) ) {
+		if(!class_exists($controllerClass) || $this->className === '' ) {
 			throw new XiaoBoException($this->className.'控制器不存在',false);
 		} 
 		return $controllerClass;
@@ -513,6 +513,15 @@ class Route {
 				$diffArr = array(G=>$get[G],C=>$get[C],A=>$get[A]);
 				$get = array_diff_assoc($get,$diffArr);
 				$getUrl .= implode(ROUTE_DS,$get);
+			}
+
+			if(!$this->isUrlEmpty($getArr['path']) && $getUrl === ''){
+				$this->get = array();
+				if(strpos($getArr['path'], '?') !== false){
+					$getUrl = substr($getArr['path'], 0,strpos($getArr['path'], '?'));
+				}else {
+					$getUrl = $getArr['path'];
+				}
 			}
 
 			if($getUrl === ''){
