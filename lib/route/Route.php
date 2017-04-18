@@ -98,13 +98,7 @@ class Route {
 				$this->getUrlParamArr[G] = $groupName;
 				$this->getUrlParamArr[C] = $className;
 				$this->getUrlParamArr[A] = $actionName;
-				//if(!empty($this->get)){
-				//	$this->get = array_diff($this->get,$this->getUrlParamArr);
-				//	$this->getUrlParamArr = array_merge($this->get,$this->getUrlParamArr);
-				//	$params = array_merge($params,$this->getUrlParamArr);
-				//}
 				$this->getUrlParamArr = array_merge($this->getUrlParamArr,$params);
-
 				$this->flag = false;
 			}
 
@@ -344,7 +338,6 @@ class Route {
 	 */
 	public  function getUrlParam($flag = true) {
 		$getParam = false;
-		$rootPath = strtolower(ROUTE_DS.basename($this->getPath()));
 		if (Server::get('ORIG_PATH_INFO')) {
 			$url = Server::get('ORIG_PATH_INFO');
 			$urlNum =2;  //伪静态
@@ -354,17 +347,13 @@ class Route {
 		} else if (Server::get('REQUEST_URI')) {
 			$url =  Server::get('REQUEST_URI');
 			$url = $this->substr($url, '','index.php');
-			$url = $this->substr($url,'',$rootPath,"stripos",$subflag);
+			$url = $this->substr($url,'',$this->getRootPath(),"stripos",$subflag);
 			$url = $this->isAliasUrl($url);
 			$urlArr = parse_url($url);
 
-			if(isset($urlArr['path']) && 
-			   ($urlArr['path'] !== ROUTE_DS && 
-			    strtolower(rtrim($urlArr['path'],ROUTE_DS)) !== $rootPath) 
-				&& (rtrim($url,ROUTE_DS) === '/public' && $subflag) )
+			if(isset($urlArr['path']) && $this->isUrl($url,$subflag))
 			{
 				$this->get = array();
-				$getParam = false;
 				$url = $urlArr['path'];
 			}
 			else if(isset($urlArr['query'])){
@@ -381,10 +370,8 @@ class Route {
 			$url = $getParam;
 		}
 
-		if( (strtolower(rtrim($url,ROUTE_DS)) === $rootPath) || 
-			(rtrim($url,ROUTE_DS) === '/public' && $subflag) || 
-			($url === ROUTE_DS) ||
-			(empty($url) && $getParam === false && $urlNum ===3) ) 
+		$isUrl = ($getParam === false && $urlNum ===3);
+		if( $this->isUrl($url) || ($this->isUrlEmpty($url) && $isUrl) ) 
 		{
 			$this->get = array();
 			$url = $this->getDefualtUrl();
@@ -398,6 +385,76 @@ class Route {
 		return $url;
 	}
 
+	/**
+	 * 判断url
+	 * @param string $url 当前url
+	 * @param bool $subflag 判断是否有替换表示
+	 * @return bool
+	 * @author wave
+	 */
+	protected function isUrl($url,$subflag = ''){
+		if($subflag !== ''){
+			return ($this->isUrlRootPath($url) && 
+					($this->isUrlPublic($url) && $subflag) && 
+					$this->isUrlRouteDs($url) );	
+		}
+		return ($this->isUrlRootPath($url) ||
+					$this->isUrlPublic($url) ||
+					$this->isUrlRouteDs($url) );	
+		
+	}
+
+
+	/**
+	 * 获取网站跟路径
+	 * @return string
+	 * @author wave
+	 */
+	protected function getRootPath() {
+		return strtolower(ROUTE_DS.basename($this->getPath()));
+	}
+
+
+	/**
+	 * 判断是否当前url是否跟路径
+	 * @param string $url 当前url
+	 * @return bool
+	 * @author wave
+	 */
+	protected function isUrlRootPath($url) {
+		return strtolower(rtrim($url,ROUTE_DS)) === $this->getRootPath();
+	}
+
+	/**
+	 * 判断是否当前url是否public
+	 * @param string $url 当前url
+	 * @return bool
+	 * @author wave
+	 */
+	protected function isUrlPublic($url){
+		return strtolower(rtrim($url,ROUTE_DS)) === '/public';
+	}
+
+	/**
+	 * 判断是否当前url是否空
+	 * @param string $url 当前url
+	 * @return bool
+	 * @author wave
+	 */
+	protected function isUrlEmpty($url){
+		return ($url === '' || $url === NULL);
+	}
+
+
+	/**
+	 * 判断是否当前url是否斜杠
+	 * @param string $url 当前url
+	 * @return string
+	 * @author wave
+	 */
+	protected function isUrlRouteDs($url){
+		return $url === ROUTE_DS;
+	}
 
 	/**
 	 * 判断是否当前别名url访问,并删除动态参数
