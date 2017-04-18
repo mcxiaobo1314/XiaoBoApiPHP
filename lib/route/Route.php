@@ -181,7 +181,7 @@ class Route {
 		array_splice($this->getUrlParamArr,0,2); 
 		
 		$this->actionName = $actionName;
-		$currentUrl = $this->groupName.ROUTE_DS.$this->className.ROUTE_DS.$this->actionName;
+		$currentUrl = implode(ROUTE_DS,$this->setDiffArr());
 
 		if($this->isAliasUrlParam($currentUrl) && IS_AILAS && $this->default === false){
 			throw new XiaoBoException("已经定义了别名url,请使用别名url访问",false);
