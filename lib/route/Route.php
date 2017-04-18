@@ -231,7 +231,7 @@ class Route {
 
 				foreach($urlParam as $key=>$value){
 					$findkey = array_search($value, $urlParam);
-					if($key % 2 === 0 && isset($bindParam[$value]) && !empty($urlParam[$findkey+1])) {	
+					if( $key % 2 === 0 && isset($bindParam[$value]) && isset($urlParam[$findkey+1]) ) {	
 						$bindParam[$value] = $urlParam[$findkey+1];
 						$flag = true;
 						$temp[$value] = $value;
