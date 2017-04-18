@@ -12,20 +12,20 @@
  */
 function urlTo($params = array(),$urlRewrite = false){
 	if($urlRewrite){
-		$diff  = array();
-		if(isset($params[G]) && isset($params[C]) && isset($params[A]) ){
-			$diff =  array(G=>$params[G],C=>$params[C],A=>$params[A]);
-		}	   
-		$params = array_diff_assoc($params, $diff);
+	   $diff  = array();
+	   if(isset($params[G]) && isset($params[C]) && isset($params[A]) ){
+		$diff =  array(G=>$params[G],C=>$params[C],A=>$params[A]);
+	    }	   
+	    $params = array_diff_assoc($params, $diff);
 	    $urlStr = '';
 	    foreach($params as $key => $value){
-			if(BINDURLPARAM){
-				$urlStr .= ROUTE_DS.$key.ROUTE_DS.$value;
-			}else {
-				$urlStr .= ROUTE_DS.$value;
-			}
+		if(BINDURLPARAM){
+			$urlStr .= ROUTE_DS.$key.ROUTE_DS.$value;
+		}else {
+			$urlStr .= ROUTE_DS.$value;
+		}
 	    }
-		return ROUTE_DS.implode(ROUTE_DS, $diff).$urlStr;
+	    return ROUTE_DS.implode(ROUTE_DS, $diff).$urlStr;
 	}
 	return '?'.http_build_query($params);
 }
