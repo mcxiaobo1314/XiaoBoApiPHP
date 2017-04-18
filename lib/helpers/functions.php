@@ -14,9 +14,9 @@ function urlTo($params = array(),$urlRewrite = false){
 	if($urlRewrite){
 		$diff  = array();
 		if(isset($params[G]) && isset($params[C]) && isset($params[A]) ){
-			$diff =  array($params[G],$params[C],$params[A]);
+			$diff =  array(G=>$params[G],C=>$params[C],A=>$params[A]);
 		}	   
-		$params = array_diff($params, $diff);
+		$params = array_diff_assoc($params, $diff);
 	    $urlStr = '';
 	    foreach($params as $key => $value){
 	    	$urlStr .= ROUTE_DS.$key.ROUTE_DS.$value;
