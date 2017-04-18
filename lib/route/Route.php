@@ -351,7 +351,7 @@ class Route {
 			$url = $this->isAliasUrl($url);
 			$urlArr = parse_url($url);
 
-			if(isset($urlArr['path']) && $this->isUrl($url,$subflag))
+			if(isset($urlArr['path']) && $this->isUrl($urlArr['path'],$subflag))
 			{
 				$this->get = array();
 				$url = $urlArr['path'];
