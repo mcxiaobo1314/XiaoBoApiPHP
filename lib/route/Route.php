@@ -519,12 +519,23 @@ class Route {
 	 * @author wave
 	 */
 	protected function filterArr($arr){
-		if ( !empty($arr) ) {
-			return	array_filter($arr,'self::filterEmpty')  ? array_values(array_filter($arr,'self::filterEmpty')) : array();
+	    return  $this->getFilterArr($arr)  ? array_values($this->getFilterArr($arr)) : array();
+	}
+	
+	/**
+	 * 获取过滤空的数组
+	 * @param Array $arr 要过滤的空数组
+	 * @return Array 
+	 * @author wave
+	 */
+	protected function getFilterArr($arr){
+		if(!empty($arr)){
+			return array_filter($arr,'self::filterEmpty');
 		}
 		return array();
 	}
-
+	
+	
 	/**
 	 * 替换第一次出现的字符串
 	 * @param string $string 要替换的字符串
