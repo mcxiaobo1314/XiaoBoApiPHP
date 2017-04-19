@@ -67,6 +67,7 @@ class XiaoBoException extends Exception {
 				".$this->showErrorPhp($trace['file'],$trace['line'])."
 				</dt>";
 		}else {
+			Server::headers('HTTP/1.0 404 not found');
 			$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您:【该页面不存在或者被删除了】</h2></dd>";
 		}
 		$html .= "<dt style='text-align:right; width:100% height:30px; line-height:30px;'>QQ群：114252528</dt>";
