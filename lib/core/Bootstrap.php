@@ -13,7 +13,6 @@ class Bootstrap {
 	 */
 	static public $autoLoadPath = array(
 		//'thinkphp'=>"/thinkphp/" //自动加载例子
-
 	);
 
 
