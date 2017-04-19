@@ -114,14 +114,14 @@ class XmlParse {
 			$custom = !empty(self::$customPath) ? array_diff($custom, self::$customPath) : $custom;
 			foreach ($custom as $key => $value) {
 				if($this->xml->custom->$value->isload == 1){
-					self::$customPath[] = $value;
+					self::$customPath[$value] = $value;
 					$value = (array)$this->xml->custom->$value->path;
 					$this->load($this->getPath().$value[0]);
 				}
 			}
 		}else if(is_string($custom) && !isset(self::$customPath[$custom])) {
 			if($this->xml->custom->$custom->isload == 1){
-					self::$customPath[] = $custom;
+					self::$customPath[$custom] = $custom;
 					$value = (array)$this->xml->custom->$custom->path;
 					$this->load($this->getPath().$value[0]);
 			}
