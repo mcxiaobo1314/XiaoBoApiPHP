@@ -52,5 +52,15 @@ class Server {
 	static public function isAjax(){
 		return strtolower(self::get('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest';
 	}
+	
+	/**
+	 * 设置header信息
+	 * @param string @contents  头部内容
+	 * @return 
+	 * @author wave
+	 */
+	static public function headers($contents){
+		return header($contents);
+	}
 
 }
