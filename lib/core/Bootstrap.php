@@ -3,7 +3,6 @@
  * 启动初始化加载文件
  * @author wave
  */
-$path = dirname(__FILE__);
 
 class Bootstrap {
 
