@@ -22,8 +22,24 @@ class AutoLoads {
 	public static function autoload($class_name) {
 		if($class_name != 'AutoLoad') {
 			self::strposAutoload($class_name,str_replace('\\', '/', dirname(__FILE__)).'/');
+			self::setPathAutoLoad($class_name);
 		}
 	}
+
+	/**
+	 * 设置自动加载目录
+	 * @param string $class_name  文件名
+	 * @author wave
+	 */
+	public static function setPathAutoLoad($class_name){
+		if(class_exists('Bootstrap') && !empty(Bootstrap::$autoLoadPath)) {
+			foreach (Bootstrap::$autoLoadPath as $value) {
+				self::strposAutoload($class_name,$value);
+			}		
+		}
+	}
+
+
 	
 	/**
 	 * 截取文件名并判断加载文件是否存在
@@ -38,7 +54,6 @@ class AutoLoads {
 		if(file_exists($path.$class_name.'.php')) {
 			require $path.$class_name.$extension;
 		}
-		//throw new XiaoBoException('引入文件失败');
 	}
 
 }
