@@ -86,6 +86,7 @@ class XiaoBoException extends Exception {
 	private function showErrorPhp($file,$line){
 		$connArr = $this->read($file);
 		$sum = count($connArr);
+				
 		$data = "";
 		if($line - 8 < 0){
 			$start = 0;
@@ -101,10 +102,11 @@ class XiaoBoException extends Exception {
 		}
 		for($i = $start; $i<=$end; $i++){
 			if($i === $line){
-				$data .= "<li style='list-style:none;background:#FF8888;'>第".$i."行:".htmlspecialchars($connArr[$i])."</li>";
+				$data .= "<li style='list-style:none;background:#FF8888;'>第".$i."行:".$connArr[$i]."</li>";
 			}else {
-				$data .= "<li style='list-style:none;color:#227700;'>第".$i."行:".htmlspecialchars($connArr[$i])."</li>";
+				$data .= "<li style='list-style:none;color:#227700;'>第".$i."行:".$connArr[$i]."</li>";
 			}
+			
 		}
 		return $data;
 	}
@@ -120,10 +122,12 @@ class XiaoBoException extends Exception {
 	 */
 	private function read($path,$m ='r',$size=1024) {
 		$valArr = array();
+		$i = 1;
 		if(file_exists($path)) {
 			$fp = fopen($path,$m);
 			while(!feof($fp)) {
-				$valArr[] = fgets($fp);
+				$valArr[$i] = htmlspecialchars(fgets($fp,1024));
+				$i++;
 			}
 			fclose($fp);
 			return $valArr;
