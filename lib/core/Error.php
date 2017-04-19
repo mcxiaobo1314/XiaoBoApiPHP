@@ -76,8 +76,9 @@ class XiaoBoError {
 	 */
 	public static function log($message = "",$file = "error.log"){
 		$serverTime = Server::get("REQUEST_TIME");
-		if(ERROR_PATH){
-			$path = ERROR_PATH . $file;
+		$path = ERROR_PATH;
+		if(is_writable($path) && file_exists($path)){
+			$path .= $file;
 			$error = "server time:[".$serverTime ."]-url Pamas:[".Server::get('REQUEST_URI')."]-message:".$message;
 			return file_put_contents($path,$error."\r\n",FILE_APPEND);
 		}
