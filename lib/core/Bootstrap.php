@@ -3,13 +3,18 @@
  * 启动初始化加载文件
  * @author wave
  */
+$path = dirname(__FILE__);
+
 class Bootstrap {
 
 	/**
-	 * 设置自动加载文件路径(写绝对路径)
+	 * 设置自动加载文件路径(要写相对路径) 自动加载，类名和文件名必须保持一致，否则加载失败
 	 * @author wave
 	 */
-	static public $autoLoadPath = array();
+	static public $autoLoadPath = array(
+		//'thinkphp'=>"/thinkphp/" //自动加载例子
+
+	);
 
 
 	/**
