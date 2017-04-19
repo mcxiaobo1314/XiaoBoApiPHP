@@ -59,7 +59,7 @@ class XiaoBoException extends Exception {
 		if(DEBUG){
 			$html .= "<dd style='text-align:center;'><h2>XiaoBoApiPHP框架提醒您:【{$messages}】</h2></dd>";
 			isset($trace['file']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>文件路径:{$trace['file']}</dt>";
-			isset($trace['line']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>第:{$trace['line']}行</dt>";
+			isset($trace['line']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>第{$trace['line']}行</dt>";
 			isset($trace['file']) && isset($trace['class']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>类名:{$trace['class']}</dt>";
 			isset($trace['file']) && isset($trace['function']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>方法名:{$trace['function']}</dt>";
 			isset($trace['line']) &&  isset($trace['file']) && $html .= "<dt style='text-indent:30px; width:10% height:30px; line-height:30px; '>错误代码区:</dt>";
@@ -100,7 +100,11 @@ class XiaoBoException extends Exception {
 			$end = $line + ($sum - $line);
 		}
 		for($i = $start; $i<=$end; $i++){
-			$data .= "<li style='list-style:none;color:#227700;'>第".$i."行:".htmlspecialchars($connArr[$i])."</li>";
+			if($i === $line){
+				$data .= "<li style='list-style:none;background:#FF8888;'>第".$i."行:".htmlspecialchars($connArr[$i])."</li>";
+			}else {
+				$data .= "<li style='list-style:none;color:#227700;'>第".$i."行:".htmlspecialchars($connArr[$i])."</li>";
+			}
 		}
 		return $data;
 	}
