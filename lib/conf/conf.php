@@ -4,6 +4,8 @@
  * @author wave
  */
 
+define('ROUTE_DS','/'); 
+ 
 define("DEBUG", true); //true开启debug false关闭debug
 
 define("IS_AILAS",true); //true设置了别名url就不能用伪静态和动态访问,只能用别名url访问
@@ -24,14 +26,16 @@ define('CACHE','cache'); //缓存的目录
 
 define('MOD_SUFFOIX','Model.php'); //模型的后缀名字
 
+define('ERROR_PATH', dirname(__FILE__). '/../../'.APP_ROOT_PATH.ROUTE_DS); //错误日志路径
+
 define('SESSION_PATH', ''); //设置session文件目录，绝对路径
 
 define('SESSION_SUFFIX','xb_'); //session文件的前缀
 
 define('SESSION_LIFETIME','3600'); //session生存时间  单位秒
 
-define('ROUTE_DS','/'); 
-
 define('C','c'); //控制器
+
 define('G','g'); //目录
+
 define('A','a'); //方法
