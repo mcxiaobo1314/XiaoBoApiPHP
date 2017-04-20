@@ -51,7 +51,7 @@ class AutoLoads {
 	public static function strposAutoload($class_name,$path,$extension = '.php') {
 		$class_name = ($class_name == "XmlParse") ? "Xml" : $class_name;
 		$class_name = ($class_name == 'XiaoBoError') ? 'Error' : $class_name;
-		if(file_exists($path.$class_name.'.php')) {
+		if(file_exists($path.$class_name.$extension)) {
 			require $path.$class_name.$extension;
 		}
 	}
