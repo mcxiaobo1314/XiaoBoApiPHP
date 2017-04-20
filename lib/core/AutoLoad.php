@@ -34,7 +34,7 @@ class AutoLoads {
 	public static function setPathAutoLoad($class_name){
 		if(class_exists('Bootstrap') && !empty(Bootstrap::$autoLoadPath)) {
 			foreach (Bootstrap::$autoLoadPath as $value) {
-				self::strposAutoload($class_name,dirname(dirname(__FILE__)).$value);
+				self::strposAutoload($class_name,$value);
 			}		
 		}
 	}
