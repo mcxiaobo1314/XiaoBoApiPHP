@@ -37,12 +37,12 @@ class Bootstrap {
 	/**
 	 * 设置自动加载文件
 	 * @param string $path 路径
-	 * return bool
+	 * @return bool
 	 * @author wave
 	 */
 	static public function setLoadPath($path){
 		if(is_array(self::$autoLoadPath)){
-			array_push(self::$autoLoadPath,str_replace("\\",'/',$path));
+			return array_push(self::$autoLoadPath,str_replace("\\",'/',$path));
 		}
 	}
 }
