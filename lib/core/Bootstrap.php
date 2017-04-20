@@ -7,12 +7,10 @@
 class Bootstrap {
 
 	/**
-	 * 设置自动加载文件路径(要写相对路径) 自动加载，类名和文件名必须保持一致，否则加载失败
+	 * 设置自动加载文件路径
 	 * @author wave
 	 */
-	static public $autoLoadPath = array(
-		//'thinkphp'=>"/thinkphp/" //自动加载例子
-	);
+	static public $autoLoadPath = array();
 
 
 	/**
@@ -33,6 +31,18 @@ class Bootstrap {
 				//获取路由参数
 				RouteApi::getRoute();
 				break;
+		}
+	}
+	
+	/**
+	 * 设置自动加载文件
+	 * @param string $path 路径
+	 * return bool
+	 * @author wave
+	 */
+	static public function setLoadPath($path){
+		if(is_array(self::$autoLoadPath)){
+			array_push(self::$autoLoadPath,str_replace("\\",'/',$path));
 		}
 	}
 }
