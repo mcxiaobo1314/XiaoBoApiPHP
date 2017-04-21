@@ -69,16 +69,17 @@ class Server {
 	 * @author wave
 	 */
 	static public function isPost(){
-		return self::get('REQUEST_METHOD') == 'post';
+		return strtolower(self::get('REQUEST_METHOD')) == 'post';
 	}
 
+	
 	/**
 	 * 判断是否Get请求
 	 * @return bool
 	 * @author wave
 	 */
 	static public function isGet(){
-		return self::get('REQUEST_METHOD') == 'get';
+		return strtolower(self::get('REQUEST_METHOD')) == 'get';
 	}
 	
 	/**
@@ -87,7 +88,7 @@ class Server {
 	 * @author wave
 	 */
 	static public function isHead(){
-		return self::get('REQUEST_METHOD') == 'head';
+		return strtolower(self::get('REQUEST_METHOD')) == 'head';
 	}
 
 	/**
@@ -96,6 +97,6 @@ class Server {
 	 * @author wave
 	 */
 	static public function isPut(){
-		return self::get('REQUEST_METHOD') == 'put';
+		return strtolower(self::get('REQUEST_METHOD')) == 'put';
 	}	
 }
