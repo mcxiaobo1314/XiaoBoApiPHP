@@ -89,7 +89,63 @@ class RouteApi {
  		}
  	}
 
+	/**
+	 * 设置POST请求Url
+	 * @param string $g 分组名
+	 * @param string $c 控制器名
+	 * @param string $a 方法名
+	 */
+	static public function setPost($g = '',$c = '',$a = ''){
+		$getUrl = self::getUrl();
+		$setUrl = $g.ROUTE_DS.$c.ROUTE_DS.$a;
+		if(strpos($getUrl,$setUrl) !== false && !Server::isPost()){
+			throw new XiaoBoException("非常请求URL:".$getUrl);
+		}
+	}
+	
+	
+	/**
+	 * 设置get请求Url
+	 * @param string $g 分组名
+	 * @param string $c 控制器名
+	 * @param string $a 方法名
+	 */
+	static public function setGet($g = '',$c = '',$a = ''){
+		$getUrl = self::getUrl();
+		$setUrl = $g.ROUTE_DS.$c.ROUTE_DS.$a;
+		if(strpos($getUrl,$setUrl) !== false && !Server::isGet()){
+			throw new XiaoBoException("非常请求URL:".$getUrl);
+		}
+	}
 
+	/**
+	 * 设置put请求Url
+	 * @param string $g 分组名
+	 * @param string $c 控制器名
+	 * @param string $a 方法名
+	 */
+	static public function setPut($g = '',$c = '',$a = ''){
+		$getUrl = self::getUrl();
+		$setUrl = $g.ROUTE_DS.$c.ROUTE_DS.$a;
+		if(strpos($getUrl,$setUrl) !== false && !Server::isPut()){
+			throw new XiaoBoException("非常请求URL:".$getUrl);
+		}
+	}
+	
+	/**
+	 * 设置head请求Url
+	 * @param string $g 分组名
+	 * @param string $c 控制器名
+	 * @param string $a 方法名
+	 */
+	static public function setHead($g = '',$c = '',$a = ''){
+		$getUrl = self::getUrl();
+		$setUrl = $g.ROUTE_DS.$c.ROUTE_DS.$a;
+		if(strpos($getUrl,$setUrl) !== false && !Server::isHead()){
+			throw new XiaoBoException("非常请求URL:".$getUrl);
+		}
+	}
+	
  	/**
  	 * 获取当前url参数
  	 * @return string
