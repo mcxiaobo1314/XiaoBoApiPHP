@@ -79,7 +79,7 @@ class XiaoBoError {
 		$path = ERROR_PATH;
 		$path .= $file;
 		if(is_writable($path) && file_exists($path)){
-			$error = "server time:[".$serverTime ."]-url Pamas:[".Server::get('REQUEST_URI')."]-message:".$message;
+			$error = "server time:[". date('Y/m/d H:i:s',$serverTime) ."]-url Pamas:[".Server::get('REQUEST_URI')."]-message:".$message;
 			return file_put_contents($path,$error."\r\n",FILE_APPEND);
 		}
 	}
