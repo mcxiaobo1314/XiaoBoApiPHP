@@ -1,1 +1,1 @@
-<title>小波组件化框架</title><meta charset="utf-8"/><link rel="shortcut icon"herf="favcion.ico"><div style="width:100%;height:20%; margin:0 auto; margin-top:15%; background:#00FFAA; color:red; padding-top:10%;font-size:24px; text-align:center;"><?php echo $this->_value["a"] ; ?></div>
+<title>小波组件化框架</title><meta charset="utf-8"/><div style="width:100%;height:20%; margin:0 auto; margin-top:15%; background:#00FFAA; color:red; padding-top:10%;font-size:24px; text-align:center;"><?php echo $this->_value["a"] ; ?></div>
