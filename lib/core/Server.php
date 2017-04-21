@@ -63,4 +63,39 @@ class Server {
 		return header($contents);
 	}
 
+	/**
+	 * 判断是否post请求
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isPost(){
+		return self::get('REQUEST_METHOD') == 'post';
+	}
+
+	/**
+	 * 判断是否Get请求
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isGet(){
+		return self::get('REQUEST_METHOD') == 'get';
+	}
+	
+	/**
+	 * 判断是否head请求
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isHead(){
+		return self::get('REQUEST_METHOD') == 'head';
+	}
+
+	/**
+	 * 判断是否put请求
+	 * @return bool
+	 * @author wave
+	 */
+	static public function isPut(){
+		return self::get('REQUEST_METHOD') == 'put';
+	}	
 }
