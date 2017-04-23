@@ -4,8 +4,8 @@ class testController  extends Controller{
 	public $session;
 
 	public function __construct(){
-		//$this->setCustom('session');//加载session
-		//$this->session = $this->getSession();
+		$this->setCustom('session');//加载session
+		$this->session = $this->getSession();
 		parent::__construct();
 		//$this->getUrl();  //获取当前反问url参数
 		//$this->getGroup(); //获取当前访问分组
