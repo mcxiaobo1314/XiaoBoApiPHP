@@ -100,7 +100,6 @@ class FileSessionHandler {
 			}else {
 				$str = json_encode($dataAll);
 			}
-			
 		}
 		return file_put_contents($sessionPath, $str);	
 	}
