@@ -89,18 +89,20 @@ class FileSessionHandler {
 	 */
 	public function write($id = '',$data = ''){
 		$dataAll = array();
+		$sessionPath = $this->sessionPath.ROUTE_DS.$this->sessId;
+		$str = '';
 		if($data !=''  && $id != ''){
 			$dataAll = $this->read();
-			$sessionPath = $this->sessionPath.ROUTE_DS.$this->sessId;
+			
 			$dataAll[$id] = $data;
 			if(function_exists($this->encrypt)){
 				$str = call_user_func($this->encrypt, json_encode($dataAll));
 			}else {
 				$str = json_encode($dataAll);
 			}
-			return file_put_contents($sessionPath, $str);
+			
 		}
-		return '';		
+		return file_put_contents($sessionPath, $str);	
 	}
 
 	/**
