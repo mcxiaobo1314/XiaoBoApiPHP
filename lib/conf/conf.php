@@ -26,7 +26,7 @@ define('CACHE','cache'); //缓存的目录
 
 define('MOD_SUFFOIX','Model.php'); //模型的后缀名字
 
-define('ERROR_PATH', dirname(__FILE__). '/../../'.APP_ROOT_PATH.ROUTE_DS); //错误日志路径
+define('ERROR_PATH', dirname(__FILE__). '/../../'.STORAGE.ROUTE_DS.LOG.ROUTE_DS); //错误日志路径
 
 define('SESSION_PATH', ''); //设置session文件目录，绝对路径
 

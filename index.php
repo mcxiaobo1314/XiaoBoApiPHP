@@ -15,6 +15,8 @@ if (version_compare("5.3", PHP_VERSION, ">=")) {
 
 define('APP_ROOT_PATH', 'app'); //网站app代码目录
 define('LIB_PATH','lib'); //核心目录文件名
+define('STORAGE', 'storage');  //web存储文件
+define('LOG', 'log'); //日志目录
 
 date_default_timezone_set('PRC');
 
