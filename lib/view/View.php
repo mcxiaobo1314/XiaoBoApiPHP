@@ -81,12 +81,15 @@ class View {
 	 */
 	public function __construct($param = array()) {
 		$this->getUrlParamArr = $param;
+
 		//编译路径
-		$this->pathArr['cache'] = $this->getUrlParamArr['controllerPath'].ROUTE_DS.$this->getUrlParamArr['group'].
-							ROUTE_DS.CACHE.ROUTE_DS.$this->getUrlParamArr['class'].ROUTE_DS;
+		$this->pathArr['cache'] = $this->getUrlParamArr['controllerPath'].ROUTE_DS.
+							'../'.STORAGE.ROUTE_DS.CACHE .ROUTE_DS .$this->getUrlParamArr['group'].
+							ROUTE_DS.$this->getUrlParamArr['class'].ROUTE_DS;
 		//文件路径
 		$this->pathArr['view'] = $this->getUrlParamArr['controllerPath'].ROUTE_DS.$this->getUrlParamArr['group'].
 								ROUTE_DS.VIEW.ROUTE_DS. $this->getUrlParamArr['class'] .ROUTE_DS;
+
 	}
 
 

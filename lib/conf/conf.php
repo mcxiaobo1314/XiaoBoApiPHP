@@ -5,7 +5,7 @@
  */
 
 define('ROUTE_DS','/'); 
- 
+
 define("DEBUG", true); //true开启debug false关闭debug
 
 define("IS_AILAS",true); //true设置了别名url就不能用伪静态和动态访问,只能用别名url访问

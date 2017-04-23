@@ -22,7 +22,7 @@ class FileSessionHandler {
 	 * 保存session文件路径
 	 * @author wave
 	 */
-	public $cache = 'cache/session';
+	public $cache = 'session';
 
 	/**
 	 * 默认文件保存路径
@@ -66,7 +66,8 @@ class FileSessionHandler {
 	public function __construct(){
 		$this->Route = Container::get('Route');
 		$this->sessionPath = SESSION_PATH != '' ? SESSION_PATH : 
-				$this->Route->controllerPath.ROUTE_DS.$this->Route->groupName.ROUTE_DS.$this->cache;
+				$this->Route->controllerPath.ROUTE_DS.'..'.ROUTE_DS.STORAGE.ROUTE_DS.
+				$this->cache;
 
 	}
 
