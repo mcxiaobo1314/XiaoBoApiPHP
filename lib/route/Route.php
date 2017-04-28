@@ -197,8 +197,10 @@ class Route {
 			));
 			//初始化反射类方法
 			Ref::methodInstace($className,$actionName);
-			(BINDURLPARAM === true) && $this->getUrlParamArr = $this->bindParam();
-			return Ref::invokeArgs($this->getUrlParamArr);	
+			if($this->isPublic($actionName)){
+				(BINDURLPARAM === true) && $this->getUrlParamArr = $this->bindParam();
+				return Ref::invokeArgs($this->getUrlParamArr);		
+			}
 		}
 	}
 
@@ -248,6 +250,18 @@ class Route {
 		}
 
 		return ($flag === true) ? $bindParam : array();
+	}
+	
+	/**
+	 * 判断类的方法是否公有方法
+	 * @return boolen
+	 * @author wave
+	 */
+	protected function isPublic($actionName){
+		if( !Ref::isPublic()){
+			throw new XiaoBoException($actionName.'该方法不是公有方法',false);
+		}
+		return true;
 	}
 	
 	/**
