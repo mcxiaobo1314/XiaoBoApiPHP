@@ -20,6 +20,12 @@ class testController  extends Controller{
 	public function aaa() {
 		$this->view->assign('a','欢迎使用XiaoBoPHPApi组建化框架');
 		$this->view->display();
+		//生成缩略图
+		//$this->library('thumb');
+		//$this->thumb->dstImage = $this->getPath().ROUTE_DS.'storage'.ROUTE_DS.'bd_logo1.png';
+		//$this->thumb->srcImage = $this->getPath().ROUTE_DS.'storage'.ROUTE_DS.'aaaa.png';
+		//$this->thumb->build();
+		
 		//$this->session->write('a','1111');
 		// echo $this->session->read('a');
 		//var_dump($this);
