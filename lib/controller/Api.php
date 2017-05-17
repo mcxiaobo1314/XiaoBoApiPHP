@@ -42,6 +42,16 @@ class Controller  {
 	}
 
 	/**
+	 * 设置属性
+	 * @param string $key 键
+	 * @param string $value 值
+	 * @author wave
+	 */
+	public function __set($key,$value){
+		$this->$key = $value;
+	}
+
+	/**
 	 * 设置是否加载自定义组件
 	 * @param string $name 自定义组件名称
 	 * @param bool $bool 是否加载组建 true加载 false不加载
@@ -108,6 +118,18 @@ class Controller  {
 	 */
 	public function import($file = '',$path = '',$first = false){
 		return LoadModel::import($file,$this->getPath().$path,$first);
+	}
+
+	/**
+	 * 加载类库
+	 * @param string $name 类库名
+	 * @param string $ext 扩展名
+	 * @author wave
+	 */
+	public function library($name,$ext = '.php'){
+		if(load($this->getPath().'lib'.ROUTE_DS.'library'.ROUTE_DS.$name.$ext)){
+			$this->$name = new $name();
+		}	 
 	}
 
 	/**
@@ -180,7 +202,9 @@ class Controller  {
  	 * @author wave
  	 */
  	public function getPath(){
- 		return getcwd().ROUTE_DS;
+		$XmlParse = Container::get('XmlParse');
+		$appPath = $XmlParse->getPath(dirname(dirname(__FILE__)));
+		return $appPath;
  	}
 
 
