@@ -61,13 +61,13 @@ class thumb {
 	 * 保存缩略图的图片宽度
 	 * @author wave
 	 */
-	public $srcW = 50;
+	public $srcW = 80;
 
 	/**
 	 * 保存缩略图的图片高度
 	 * @author wave
 	 */
-	public $srcH = 50;
+	public $srcH = 80;
 
 	/**
 	 * 图片类型值
@@ -105,6 +105,7 @@ class thumb {
 		$this->checkImg();
 		$this->getSize();
 		$this->checkImgType();
+		$this->setRatio();
 		$blackImg = $this->createBlackImg();
 		$this->copyImg($blackImg);
 		if($this->outImg($blackImg)){
